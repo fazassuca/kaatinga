@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ka’atinga · galeria sonora do Nordeste</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap">
+<style>
+:root{--bg:#f4efe6;--fg:#16130f;--mute:#6b645a;--line:rgba(0,0,0,.18)}
+@media (prefers-color-scheme:dark){:root{--bg:#121110;--fg:#f2ece0;--mute:#a39b8d;--line:rgba(255,255,255,.22)}}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;overflow:hidden}
+.stage{display:grid;grid-template-columns:1fr 1fr;height:100%}
+.art{position:relative;overflow:hidden;background:var(--c1)}
+.art .img{position:absolute;inset:0;background:linear-gradient(160deg,var(--c1),var(--c2));background-size:cover;background-position:center}
+.art .photo{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .8s}
+.art .photo.on{opacity:1}
+.art .initial{position:absolute;left:-2%;bottom:-8%;font-weight:800;font-size:min(62vw,95vh);line-height:.8;color:rgba(255,255,255,.14);letter-spacing:-.06em;user-select:none}
+.txt{display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:clamp(24px,5vw,72px);min-height:0;overflow:auto}
+.top{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.body{max-width:34rem;transition:opacity .45s,transform .45s}
+.body.out{opacity:0;transform:translateY(8px)}
+.faixa{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:14px}
+h1{font-weight:800;font-size:clamp(32px,4.6vw,60px);line-height:1.04;letter-spacing:-.03em;margin-bottom:10px}
+.meta{font-size:14px;color:var(--mute);margin-bottom:26px}
+p{font-size:clamp(15px,1.25vw,18px);line-height:1.7}
+.ctrl{display:flex;align-items:center;gap:22px}
+.btn{all:unset;cursor:pointer;width:52px;height:52px;border:1.5px solid var(--fg);border-radius:50%;display:grid;place-items:center;transition:background .2s,color .2s}
+.btn:hover,.btn:focus-visible{background:var(--fg);color:var(--bg)}
+.btn svg{width:20px;height:20px;fill:currentColor}
+.bar{flex:1;height:2px;background:var(--line);position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--fg)}
+.sp{margin-top:18px;min-height:80px}
+.sp iframe{border-radius:12px}
+.top{flex-wrap:wrap;gap:8px 12px;align-items:center}
+.langs{display:flex;gap:2px}
+.langs button{all:unset;cursor:pointer;padding:4px 6px;font:600 11px 'Manrope',system-ui,sans-serif;letter-spacing:.14em;color:var(--mute);border-bottom:1.5px solid transparent}
+.langs button.on,.langs button:hover,.langs button:focus-visible{color:var(--fg);border-bottom-color:var(--fg)}
+.lb .langs{margin:0 0 26px -6px}
+.art video.photo{object-fit:cover;width:100%;height:100%}
+.ctx{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.ctx h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-weight:600;margin-bottom:10px}
+.ctx p{font-size:clamp(14px,1.1vw,16px)}
+.links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:20px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.links a{color:var(--fg);text-decoration:none;border-bottom:1.5px solid var(--fg);padding-bottom:2px}
+.lb{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;overflow:auto;background:color-mix(in srgb,var(--bg) 93%,transparent);backdrop-filter:blur(12px)}
+.lb[hidden]{display:none}
+.lb .card{max-width:34rem}
+.lb h2{font-weight:800;font-size:clamp(38px,6vw,64px);letter-spacing:-.03em;line-height:1;margin-bottom:22px}
+.lb p+p{margin-top:14px;color:var(--mute)}
+.lb .acts{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.pill{display:inline-block;cursor:pointer;padding:14px 26px;border:1.5px solid var(--fg);border-radius:999px;font:600 14px 'Manrope',system-ui,sans-serif;letter-spacing:.04em;color:var(--fg);background:none;text-decoration:none}
+.pill.fill{background:var(--fg);color:var(--bg)}
+@media (max-width:760px){.stage{grid-template-columns:1fr;grid-template-rows:40% 60%}.art .initial{font-size:60vw}}
+</style>
+</head>
+<body>
+<main class="stage">
+  <section class="art" id="art"><div class="img"></div><div class="initial" id="ini"></div></section>
+  <section class="txt">
+    <div class="top"><span>ka’atinga</span><span class="langs" id="langs"></span><span id="count"></span></div>
+    <div class="body" id="body">
+      <div class="faixa" id="faixa"></div>
+      <h1 id="nome"></h1>
+      <div class="meta" id="meta"></div>
+      <p id="texto"></p>
+      <div class="ctx" id="ctxw"><h2 id="ctxh">Sobre a canção</h2><p id="ctx"></p></div>
+      <div class="links" id="links"></div>
+    </div>
+    <div>
+      <div class="ctrl">
+        <button class="btn" id="pp" aria-label="Tocar"></button>
+        <div class="bar"><i id="prog"></i></div>
+        <button class="btn" id="next" aria-label="Próxima"><svg viewBox="0 0 24 24"><path d="M6 5l9 7-9 7V5zm11 0h2v14h-2V5z"/></svg></button>
+      </div>
+      <div class="sp"><div id="embed"></div></div>
+    </div>
+  </section>
+</main>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbt">
+  <div class="card">
+    <div class="langs" id="lblangs"></div>
+    <h2 id="lbt">ka’atinga</h2>
+    <p id="lbp1">Uma galeria sonora com música do Nordeste do Brasil, reunida a partir de uma pesquisa. A cada faixa, uma imagem, um texto e uma pista para ir mais fundo.</p>
+    <p id="lbp2">Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.</p>
+    <div class="acts">
+      <a class="pill" id="lbspot" href="https://accounts.spotify.com/login" target="_blank" rel="noopener">Entrar no Spotify</a>
+      <button class="pill fill" id="entrar">Entrar na galeria</button>
+    </div>
+  </div>
+</div>
+<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+<script>
+/* ===== CONFIGURAÇÃO ===== */
+var IMAGEM = "album";   // "album" = capa do disco · "artist" = foto do artista
+
+/* Uma linha por faixa: [título, artistas, álbum, id da faixa, id do artista principal]
+   O texto é buscado em TEXTOS pelo nome do 1º artista. Para somar as faixas 1–50, cole novas linhas no início. */
+var FAIXAS = [
+["Forró Esferográfico","Cabruêra","Cabruêra","1Ru1ykttfX70eMrpeJferj","2I6NcAZDOhHl3B50ykrSsi"],
+["Cangaço","Cabruêra","Cabruêra","6o7a05pKZlOkLBccnBy0Q2","2I6NcAZDOhHl3B50ykrSsi"],
+["Sete Cantigas para Voar (Ao Vivo)","Vital Farias, Geraldo Azevedo, Xangai","Cantoria 1","0I9rGlLX8VoNvyKyE2eg0U","7wifzFKnqmnnXtrDBve0RB"],
+["Ponteio Acutilado","Antônio Nóbrega","Lunário Perpétuo","1wfrY4sGd3HsCMzShqLqM4","5ozJh2M3PZ5NWwOWp2oe42"],
+["O Marco Marciano","Lenine","Lenine In Cité","1RIS3hmffsLa8mqWn9y8ik","4YLBdrR3DVSMncm785NH6C"],
+["Aí D’eu Saudade (Ao Vivo)","Xangai","Cantoria 1","1foMlWQORc9Ayw9t5CACls","1fCdub35SOEgPYVfSrYTI6"],
+["Bagacera","Cabruêra","Cabruêra","1zmPPOPuswBcuE2ikpC9CY","2I6NcAZDOhHl3B50ykrSsi"],
+["Canção da Despedida","Geraldo Azevedo","A Luz do Solo","2SXNZOwbT0JjBF5EYoygYi","65TbyndeGrDlFd4IkZNfbN"],
+["Boa Hora","Alessandra Leão","Dois Cordões","1eVvHc6JCa7ML433i3LN0Z","37m97yyap5ftH0sx3IHqno"],
+["Nordeste Oculto","Cabruêra","Nordeste Oculto","4e3gqKaNCli04IBlgFmZDC","2I6NcAZDOhHl3B50ykrSsi"],
+["Marujo Antigo","Cabruêra","Nordeste Oculto","0ehLrjVEYTFyPx4oeFE1zN","2I6NcAZDOhHl3B50ykrSsi"],
+["Passarada","Cabruêra","Visagem","16QJm3iiWeZLtttaWiprPG","2I6NcAZDOhHl3B50ykrSsi"],
+["Doce de Coco","Cabruêra","Visagem","7xJODYrJ8YhCQlYk5EyWVg","2I6NcAZDOhHl3B50ykrSsi"],
+["Chakra Terrestre","Cabruêra","Nordeste Oculto","23WPgclRmlVgnnYGqvaI0N","2I6NcAZDOhHl3B50ykrSsi"],
+["Maré","Comadre Florzinha","Comadre Florzinha","6wIdjIf4Eg43xWzm6zivNk","7jAfLX4HabQYnPHXcL6ZPy"],
+["Sêmen","Mestre Ambrósio","Fuá na Casa de Cabral","5ehAZDD0XeoBURb79rFrPB","0wKRws4cmydv070MEENn0k"],
+["Quem Vai Quem Vem","Cátia de França","Vinte Palavras ao Redor do Sol","5Jkl4ADkfDH5mHgx3sM0m1","0Pn49e9KBqcekfXpSAGgAM"],
+["Desafio do Auto da Catingueira (Ao Vivo)","Elomar, Xangai","Cantoria 1","6IHeE8C2uzklODzGJ5vJt1","22u7Wgb2zIKO46gOYWCs7v"],
+["Ai que Saudade de Ocê (Ao Vivo)","Elomar, Vital Farias, Geraldo Azevedo, Xangai","Cantoria 1","67XoKPEVRAsq1RsyhludMM","22u7Wgb2zIKO46gOYWCs7v"],
+["Cantiga do Estradar (Ao Vivo)","Elomar","Cantoria 1","7rtYlDDrH8P0riyxS5c6Vb","22u7Wgb2zIKO46gOYWCs7v"],
+["O Violeiro (Ao Vivo)","Xangai, Joquinho Molenbaum","Cantoria 1","0cfCyN56hhNc9fb76mTJDf","1fCdub35SOEgPYVfSrYTI6"],
+["Saga da Amazônia (Ao Vivo)","Vital Farias","Cantoria 1","3onRYleuf1rkOMQ1DpuefG","7wifzFKnqmnnXtrDBve0RB"],
+["Matança (Ao Vivo)","Geraldo Azevedo, Xangai","Cantoria 1","3V792UXdldiAIBTJBf12ii","65TbyndeGrDlFd4IkZNfbN"],
+["Cantiga de Amigo (Ao Vivo)","Elomar, Vital Farias, Geraldo Azevedo, Xangai","Cantoria 1","186pzNandqupLbQZiBT1Ix","22u7Wgb2zIKO46gOYWCs7v"],
+["Era Casa Era Jardim / Veja Margarida","Elomar, Geraldo Azevedo, Vital Farias, Xangai","Cantoria 2","4qYWix6yLZMHR0HjwNN8Gc","22u7Wgb2zIKO46gOYWCs7v"],
+["Sabor Colorido / Moça Bonita","Elomar, Geraldo Azevedo, Vital Farias, Xangai","Cantoria 2","2ctBnKIGC5KoWUg8reeCTL","22u7Wgb2zIKO46gOYWCs7v"],
+["Saga de Severinin","Elomar, Geraldo Azevedo, Vital Farias, Xangai","Cantoria 2","5B6UUR823HRUGDegQwo3C0","22u7Wgb2zIKO46gOYWCs7v"],
+["Jurema","Renata Rosa","Encantações","5AH4URhuNZDXLYDW0ijh6L","30qZQIUjlWSlqBK3F0xP2v"],
+["Brilhantina","Renata Rosa","Zunido da Mata","3nWUNceWtkuTtV3A6g3YRH","30qZQIUjlWSlqBK3F0xP2v"],
+["Martelo a Desafio","Louro Branco, Valdir Teles","Série: Repentistas, CD 1","2xEPX0ouSgFhKXSOfPYELf","2C9E6mupqbcGKmewlRYsjD"],
+["Nordeste Independente Versão II (Mote Decassílabo)","Oliveira de Panelas, Ivanildo Vila Nova","Repentistas Nordestinos","1l1vjCNXa46Z6Nj6ShXNKw","1cb8cyCmzzHGjXtElA9EJP"],
+["Viola Nordestina","Heraldo Do Monte","Viola Nordestina","5uyhPWxyHOgJ6SFnnKwzaT","3Q9QmH1OZrHMExblfQ2g11"],
+["Sereno de Amor","Socorro Lira, Cirandeiras de Caiana dos Crioulos","No Terreiro da Casa de Mãe Joana","2IUW8yUx94PnnbzPQZAMNY","0ih5t6uMTt9342EPShEma0"],
+["A Pessoa É para o Que Nasce","Ceguinhas De Campina Grande","A Pessoa é Para o Que Nasce","2Xt1EQ8zNlIsSZQWwRh80D","2IlsgBggQlnqGQ7KSmnESR"],
+["Atirei No Mar","Ceguinhas De Campina Grande","A Pessoa é Para o Que Nasce","5miKurGySazBvaIX62aMye","2IlsgBggQlnqGQ7KSmnESR"],
+["Noite Enluarada No. 1","Ceguinhas De Campina Grande","A Pessoa é Para o Que Nasce","1HHUGEVjVqt5yCZC3Gzbxk","2IlsgBggQlnqGQ7KSmnESR"],
+["Abre a Janela No. 1","Ceguinhas De Campina Grande","A Pessoa é Para o Que Nasce","1yc68WQgIgUtSDfSzmW2We","2IlsgBggQlnqGQ7KSmnESR"],
+["Sinto No Meu Peito Esta Dor No. 1","Ceguinhas De Campina Grande","A Pessoa é Para o Que Nasce","1cjATibsPHlmjTncebFEzA","2IlsgBggQlnqGQ7KSmnESR"],
+["Amor Amor Amor","Mestre Luiz Paixão, Renata Rosa","Amor Amor Amor","2nu6eW4AyJizWBmDqkK6Fp","6F1zmqvTryWHFwiVsjfnvl"],
+["Beradêro","Chico César","Aos Vivos","3dWg0yyKefb3raCxktidlN","3vlUveVfzPXzhiPGjHHxOH"],
+["Xiquexique","José Miguel Wisnik, Tom Zé","Parabelo","5akZURoD4WDkdh6ElAcwJX","5FVYrkTlyUHUXegj892Zni"],
+["Fim de Festa / Polca Fogueteira / Lascando o Cano / Pagode Russo / Fogueira de São João","Luiz Gonzaga","Quadrilhas E Marchinhas Juninas","7HTo4eAHMq8cjhwcsQaM4C","2ZofT7n9AlTKf7KDCoHGgD"],
+["O Xote das Meninas","Luiz Gonzaga","Luiz Gonzaga Canta Seus Sucessos Com Zé Dantas","0V7iPl67ctA3MioAzO2ae5","2ZofT7n9AlTKf7KDCoHGgD"],
+["Vem Morena","Luiz Gonzaga","Olha Pro Céu","2SZWtoroRuSM60jzsXqVc9","2ZofT7n9AlTKf7KDCoHGgD"],
+["Asa Branca","Luiz Gonzaga","O Nordeste Na Voz De Luiz Gonzaga","4HH7tAjimHWnlLJZDFYQQ1","2ZofT7n9AlTKf7KDCoHGgD"],
+["Sebastiana","Jackson do Pandeiro","Jackson Do Pandeiro Com Conjunto E Côro","57kZde2BL80MCQgumYUS5f","2b9ikX6H2LQRvSRks5E8vo"],
+["Cantiga do Sapo","Jackson do Pandeiro","Jackson do Pandeiro","7N0fMRuhL6Hpf5LdGUsda9","2b9ikX6H2LQRvSRks5E8vo"],
+["Assum Preto","Luiz Gonzaga","Asa Branca","1BMVLfQaeSsJagK9dHVHV0","2ZofT7n9AlTKf7KDCoHGgD"],
+["Estrela Maga Dos Ciganos","Heraldo Do Monte","Viola Nordestina","27kyj9hpfJXw49JKmT8YMt","3Q9QmH1OZrHMExblfQ2g11"],
+["Toada De Gado / A Morte Do Vaqueiro","Quinteto Violado","A Missa Do Vaqueiro","1dkouqqh5PEepxDRXpoEvJ","7j9RR5J2F5v6m8EboGD8hX"],
+["Acauã / Briga De Faca / Corisco","Quinteto Violado","Antologia Do Baião","6gjAmKkIQOnXXaIWIe1xg9","7j9RR5J2F5v6m8EboGD8hX"],
+["O Sertão e a Cidade","Moacir Laurentino, Sebastião da Silva","Os Grandes Repentistas do Nordeste: Cantoria de Viola, Vol. 11","00v8bzfSReQNPbJz60oBpd","0KO0z4anZswO4UPit4abBe"],
+["Paraíba & Pernambuco","Andorinha, Sebastião Marinho","Os Grandes Repentistas do Nordeste: Cantoria de Viola, Vol. 08","7wayz4a7ffBwG05httClRN","6E1bHjDYrsAcBzNUHC49Jj"],
+["Relembrando Meu Pai / Festa de Novena","Nicolas Krassik, Cordestinos","Nicolas Krassik e Cordestinos","5wyA6DTX4Urp7c4Cw9RfyZ","5zOGLzD7lcvvmOAZ8zGxC3"],
+["O Amor Daqui de Casa","Nicolas Krassik, Cordestinos","Nicolas Krassik e Cordestinos","6adI3jKx58dqed4vhUJdQZ","5zOGLzD7lcvvmOAZ8zGxC3"],
+["Baiano-Rojão Nº1","Caçapa","Elefantes na Rua Nova","48hNVBqUlTAPu6bDXvyGtB","3us3aTWDU3n49VmNyGGHy1"],
+["Improviso","Quinteto Armorial","Sete Flechas","3wVO217tRr3V0snOgU34Mp","75wilejqUnDckN02LdU5Ie"],
+["Martelo Agalopado","Quinteto Armorial","Sete Flechas","0JRz3ql244iRek1JJmc733","75wilejqUnDckN02LdU5Ie"],
+["Serra do Pavão","União dos Artistas da Terra da Mãe de Deus","Reisado e Guerreiro, Vol. 01","4srTZWSWETXs5TQGgXYe45","5kxelUv9tHNMvCWKvdMJ2S"],
+["Aboio","Marinês","1967","2UVgmpwAmIecxDTdPZM2UU","6YYPy8J6ygAmiWuiIQnBs3"],
+["Samba da Santa","Mestre Luiz Paixão","Forró de Rabeca","6Qgfb8qNmXPcXa60tKPwuO","6F1zmqvTryWHFwiVsjfnvl"],
+["Galope Razante","Amelinha","Frevo Mulher","5betti6YituuLr0QPYNnRk","5hzHutt6DLPzctqvnS6Fdv"],
+["Angicos","Comadre Florzinha","Comadre Florzinha","4qJt16V6xXwHbG41zIg0Vx","7jAfLX4HabQYnPHXcL6ZPy"],
+["Pifada da Loca","Zabé da Loca, Maciel Salú","Bom Todo","64hIF7AtHxSsGf54ki6mzu","4a1Yc4AS8TwZq1A14JFR1I"],
+["Flores do Cerrado","Alceu Valença","A Luneta do Tempo","2R69KNt15A3CCAAcV1hy6G","559vxOLTzlAv0zB77JMcdG"],
+["Forró Do Dominguinhos","Quinteto Violado","Berra Boi","2VVGx0FzSiSaj29dIxlErs","7j9RR5J2F5v6m8EboGD8hX"],
+["Oricuri (Segredo do Sertanejo)","João do Vale, Clara Nunes","João do Vale","0WXKHKnnpRw8iDro8XG6PG","3TE6ZGjhmTVpLZrn9hvfBX"],
+["Pé de Calçada","Mestre Ambrósio","Mestre Ambrósio","2KpKPRvXaAabBDxjbxDue7","0wKRws4cmydv070MEENn0k"],
+["Forró de Dois Amigos","Edmilson do Pífano","Soprando no Canudinho","2OwR4k3uaubexrYSfz4dpi","3dmZ2VhNBCrR2qeCBmVcIN"],
+["O Marco Marciano","Lenine","O Dia em que Faremos Contato","1oPH6zvVXqoUZGLKJdOS8s","4YLBdrR3DVSMncm785NH6C"],
+["Asa Branca (Ao Vivo)","Sivuca, Rosinha de Valença","Sivuca e Rosinha de Valença","31uwjKEzfQ8h9IHXARtuLn","11L2rdluUfcxyWcX2feoCm"],
+["O Casamento da Raposa com o Rouxinol","Alceu Valença","Clássicos Anos 70","1pzkvNOyLhxBnB2lNRVLQl","559vxOLTzlAv0zB77JMcdG"],
+["Coração Bobo","Alceu Valença","Coração Bobo","48jIJfLzU9z2pg1iWzatCP","559vxOLTzlAv0zB77JMcdG"],
+["Arrasta Pé Alagoano","Carlos Malta","Carlos Malta e Pife Muderno","3x0jMtRX81wxs0p6ZZb9ux","5gxBb5QQrdwYzKMtP3KlyM"],
+["Açum Preto / Asa Branca","Carlos Malta","Carlos Malta e Pife Muderno","0yXC4QavzL2tzQeQ5GGLfw","5gxBb5QQrdwYzKMtP3KlyM"],
+["Lamento Sertanejo","Orquestra Filarmônica de Violas, Fabio Presgrave","Encontro das Águas","38mamthWhdtUd1KxB8QL9O","5ounciaiiBmvCQCGz5AIXP"],
+["Na Asa do Vento","João do Vale","João do Vale","5gkcsXxVlXKSIJ3rSOH8io","3TE6ZGjhmTVpLZrn9hvfBX"],
+["Petrolina, Juazeiro","Banda de Pífanos de Caruaru","Tudo Isso É São João","7KrFsnTglV3tzvGqGCd9qw","588ipCg4LUo5lBp8kAv1Xr"],
+["Matança","Xangai","Qué Qui Tu Tem Canário","6YnDG1XE5RvomBuC0jvcml","1fCdub35SOEgPYVfSrYTI6"],
+["Astronauta","Os Nonatos","","1l35fhxjWXsjmknWdsB3tw","7vtM3rPmMIVLewega85WaC"]
+];
+
+var TEXTOS = {
+"Quinteto Violado":"Formado em Recife no início dos anos 1970, o Quinteto Violado mistura baião, xote, cantoria e música instrumental em arranjos que dão destaque à viola, aos sopros e à percussão. Foi um dos grupos que levaram a música popular do sertão aos palcos com rigor de orquestra e alma de feira.",
+"Quinteto Armorial":"Criado em Recife em 1970, ligado ao Movimento Armorial de Ariano Suassuna, o Quinteto Armorial buscava uma música erudita feita com raízes populares. Rabeca, viola sertaneja, flauta e percussão dão ao seu som um ar de cantoria transformada em música de câmara.",
+"Moacir Laurentino":"Dupla de violeiros repentistas. Na cantoria de viola, dois poetas se alternam em versos rimados, acompanhados pela viola, e criam na hora sobre os temas que surgem. Esta faixa integra a série Os Grandes Repentistas do Nordeste, que registra essa tradição do improviso.",
+"Andorinha":"Dupla de violeiros repentistas. A cantoria de viola é a arte de improvisar versos em disputa amistosa, com métrica e rima rigorosas. O título da faixa aponta para dois estados com forte tradição de repente: Paraíba e Pernambuco.",
+"Nicolas Krassik":"Violinista nascido na França e radicado no Brasil, Nicolas Krassik encontrou nos ritmos nordestinos, como o forró e o baião, um território para o violino e a rabeca. Com os Cordestinos, leva a música do Nordeste ao universo instrumental.",
+"União dos Artistas da Terra da Mãe de Deus":"Reisado e guerreiro são folguedos populares do Nordeste que reúnem música, dança, personagens e cortejo. Os grupos se apresentam em festas de fim de ano e de santos, mantendo viva uma tradição passada de geração em geração.",
+"Marinês":"Marinês, a Rainha do Xaxado, nasceu em Pernambuco e ficou conhecida ao lado da banda Marinês e Sua Gente. Com zabumba, triângulo e sanfona, foi uma das grandes vozes do forró e abriu caminho para outras mulheres nesse universo. O aboio, que dá nome à faixa, é o canto longo e sem palavras com que o vaqueiro conduz o gado.",
+"Mestre Luiz Paixão":"Mestre da rabeca. Parente rústico do violino, a rabeca é uma das vozes centrais do forró pé de serra e dos folguedos populares do Nordeste, e seus mestres guardam um saber transmitido de ouvido.",
+"Amelinha":"Cantora cearense, Amelinha trouxe o frevo, o forró e outros ritmos nordestinos para a MPB, com voz potente e muita energia no palco.",
+"Zabé da Loca":"Zabé da Loca (1924–2014), pifeira da Paraíba, ficou conhecida por tocar o pífano com um jeito próprio, aprendido desde menina. O apelido vem do tempo em que viveu numa loca, uma gruta no sertão. Aqui toca ao lado de Maciel Salú, rabequeiro pernambucano que une a tradição ao som contemporâneo.",
+"Alceu Valença":"Nascido em São Bento do Una, Pernambuco, em 1946, Alceu Valença mistura frevo, forró, cantoria e rock numa obra que olha para a cultura popular do Nordeste com liberdade e teatralidade.",
+"João do Vale":"João do Vale (1934–1996), compositor maranhense de Pedreiras, é autor de clássicos como “Carcará” e “Pisa na Fulô”. Suas canções retratam o sertanejo, a seca e a vida simples com humor e dor.",
+"Mestre Ambrósio":"Banda surgida em Recife nos anos 1990, no ambiente do manguebeat. O Mestre Ambrósio misturou rabeca, pífano e percussões da tradição popular com a energia do rock.",
+"Lenine":"Pernambucano de Recife, Lenine une MPB, rock, eletrônica e ritmos nordestinos em canções de produção cuidadosa, mostrando como a música do Nordeste dialoga com o mundo contemporâneo.",
+"Sivuca":"Sivuca (1930–2006), paraibano de Itabaiana, foi sanfoneiro, violonista e arranjador de formação ampla. Tocou baião, jazz e música clássica com a mesma desenvoltura. Nesta gravação toca ao lado da violonista Rosinha de Valença.",
+"Carlos Malta":"Flautista e saxofonista, Carlos Malta levou o pífano, instrumento das bandas populares do Nordeste, para o universo instrumental. Com o grupo Pife Muderno, reinventa a tradição dos pífanos com arranjos modernos.",
+"Banda de Pífanos de Caruaru":"Grupo de Caruaru, Pernambuco, referência na tradição das bandas de pífano, formadas por flautas, zabumba e caixa, que animam festas, novenas e procissões do interior.",
+"Xangai":"Cantor, compositor e violeiro baiano, Xangai dedica sua obra à música e à poesia do sertão."
+};
+
+/* MÍDIA: ponha os arquivos na pasta "midia" ao lado deste HTML e liste aqui (fotos .jpg/.png/.webp ou vídeos .mp4/.webm).
+   MIDIA = por artista (mesmo nome usado em TEXTOS), aparece depois da capa/foto do Spotify.
+   MIDIA_GERAL = fotos e vídeos de artistas do Nordeste que se alternam em qualquer faixa. */
+var MIDIA = {
+  /* "Quinteto Violado":["midia/quinteto-violado-1.jpg","midia/quinteto-violado-show.mp4"] */
+};
+var MIDIA_GERAL = [
+  /* "midia/geral-01.jpg","midia/geral-02.mp4" */
+];
+
+/* Contexto de cada canção (chave = título exato em FAIXAS). Texto autoral; pistas para aprofundar. */
+var CONTEXTO = {
+"Toada De Gado / A Morte Do Vaqueiro":"O vaqueiro é uma das figuras centrais do sertão: um ofício duro, de campo aberto, que moldou jeitos de vestir, de cantar e de celebrar. As toadas e os cantos de luto lembram que essa vida tem beleza e risco, e que a comunidade a reverencia.",
+"Acauã / Briga De Faca / Corisco":"O canto da acauã, ave tida como presságio de seca, e a memória do cangaço, com figuras como Corisco, reúnem imagens de um sertão de violência, crença e escassez. A arte as retoma para entender de onde o povo vem, sem transformá-las em folclore parado no tempo.",
+"O Sertão e a Cidade":"Pelo título, a faixa toca num tema que atravessa o Nordeste: a relação entre o campo e a cidade, entre quem partiu em busca de trabalho e quem ficou. A migração marcou famílias inteiras e continua moldando o país.",
+"Paraíba & Pernambuco":"A cantoria de viola vive de memória e de improviso, passada de geração em geração e mantida em festivais, feiras e encontros. Ao nomear dois estados vizinhos, a faixa lembra que essa poesia nasce de um território compartilhado.",
+"Relembrando Meu Pai / Festa de Novena":"O título junta memória familiar e fé popular. As novenas, comuns no interior do Nordeste, reúnem reza, música e comunidade, e são uma das formas de a tradição passar de pais para filhos.",
+"Improviso":"O improviso é a base de boa parte da música nordestina, da cantoria ao repente. Criar na hora exige domínio de métrica, rima e repertório: um conhecimento que não está nos livros, e sim na prática e na escuta.",
+"Martelo Agalopado":"O martelo agalopado é uma das formas poéticas da cantoria, de ritmo galopante e rimas rigorosas. Conhecê-lo é entrar numa tradição de poetas muitas vezes sem escolaridade formal, mas de domínio refinado da palavra.",
+"Aboio":"O aboio é um canto sem palavras fixas, que conduz o gado e atravessa a distância do pasto. Ouvi-lo hoje é lembrar de um modo de vida ligado ao campo, à criação extensiva e ao conhecimento do clima.",
+"Pifada da Loca":"O pífano é uma flauta de taquara, feita à mão, tradicional nas bandas populares do interior. Mestres como Zabé foram reconhecidos já em idade avançada, o que lembra quanto saber da cultura popular ainda circula fora dos holofotes.",
+"Asa Branca (Ao Vivo)":"Composta por Luiz Gonzaga e Humberto Teixeira em 1947, “Asa Branca” retrata a seca que expulsa o sertanejo da terra e a esperança de voltar quando a chuva chegar. Virou um hino da migração nordestina e ainda fala de água, terra e permanência.",
+"Açum Preto / Asa Branca":"Duas canções de Luiz Gonzaga e Humberto Teixeira reinterpretadas por Carlos Malta e o Pife Muderno. “Asa Branca”, de 1947, é o retrato da seca que expulsa o sertanejo e da esperança de voltar com a chuva, uma história de migração que segue atual.",
+"Lamento Sertanejo":"Parceria de Dominguinhos e Gilberto Gil, a canção retrata o recolhimento e a solidão de um sertanejo. Toca na identidade de quem carrega o sertão consigo, e no modo como o interior, tantas vezes visto de fora, fala de si.",
+"Matança":"Canção de protesto de Jatobá que denuncia a derrubada de árvores. É um dos retratos mais conhecidos da questão ambiental no sertão: a caatinga, bioma exclusivamente brasileiro, sofre com desmatamento e risco de desertificação.",
+"Petrolina, Juazeiro":"Petrolina (PE) e Juazeiro (BA) são cidades irmãs, uma de cada lado do rio São Francisco, unidas pela vida às margens do Velho Chico. A irrigação transformou a região num polo de fruticultura, mas o rio, essencial no semiárido, pede cuidado constante."
+};
+
+/* --- Novos artistas (faixas 2–27) --- */
+TEXTOS["Cabruêra"]="Banda paraibana criada em 1998, em Campina Grande, por alunos da UFPB. Mistura coco, ciranda, maracatu e outros ritmos regionais com toques de eletrônica e hip-hop, e já levou o som do Nordeste a várias turnês pela Europa. O álbum Nordeste Oculto (2012) nasceu de uma colaboração com o sitarista e filósofo Alberto Marsicano.";
+TEXTOS["Vital Farias"]="Cantor e compositor paraibano, nascido em Taperoá, Vital Farias é autor de “Saga da Amazônia”. Nos discos Cantoria 1 e 2 reúne-se a Elomar, Geraldo Azevedo e Xangai, num encontro entre poetas da música nordestina.";
+TEXTOS["Geraldo Azevedo"]="Nascido em Petrolina, Pernambuco, em 1945, Geraldo Azevedo é cantor, compositor e violonista, um dos nomes centrais da canção brasileira desde os anos 1970, com as raízes nordestinas sempre presentes.";
+TEXTOS["Antônio Nóbrega"]="Violinista, dançarino e ator pernambucano, Antônio Nóbrega integrou o Quinteto Armorial e depois criou em São Paulo o Instituto Brincante, dedicado às culturas populares brasileiras. Seu trabalho une música, dança e teatro a partir das tradições do Nordeste.";
+TEXTOS["Cátia de França"]="Cantora e compositora paraibana. Seu álbum Vinte Palavras ao Redor do Sol, de 1979, é hoje um disco de culto da música brasileira.";
+
+CONTEXTO["Cangaço"]="Pelo título, a faixa retoma o cangaço, fenômeno dos bandos armados do sertão que durou até o início dos anos 1940. Entre o mito e a história, é um tema que a arte revisita para falar de violência, miséria e poder no interior do Nordeste.";
+CONTEXTO["Nordeste Oculto"]="A faixa dá nome ao álbum de 2012 que a banda fez com o sitarista Alberto Marsicano, lançado junto com um livro de fotografias, o Nordeste Desvelado. O projeto olha para a religiosidade e a cultura popular da região, o Nordeste menos visível, fora dos clichês.";
+CONTEXTO["Saga da Amazônia (Ao Vivo)"]="Canção de protesto que denuncia a devastação da floresta amazônica. Mostra como a música nordestina também olha para o país inteiro, e como as questões ambientais ligam o sertão à floresta.";
+CONTEXTO["Desafio do Auto da Catingueira (Ao Vivo)"]="O Auto da Catingueira, de Elomar, remete a Inácio da Catingueira, cantador paraibano que nasceu escravizado e virou lenda do repente. A história lembra que a cantoria também foi espaço de afirmação de pessoas negras num país escravista.";
+CONTEXTO["Matança (Ao Vivo)"]=CONTEXTO["Matança"];
+
+/* --- Novos artistas (faixas 28–50) --- */
+TEXTOS["Elomar"]="Elomar Figueira Mello, compositor, violonista e poeta baiano, criou um universo próprio em que o sertão ganha ares de cantiga medieval e de ópera rústica, com versos de linguagem arcaica e violão refinado. Esta faixa vem de Cantoria 2, encontro de quatro nomes da música nordestina.";
+TEXTOS["Renata Rosa"]="Cantora e rabequeira que pesquisou de perto a música de tradição oral do Nordeste, em especial a da Zona da Mata pernambucana, aprendendo com mestres da rabeca e dos folguedos populares.";
+TEXTOS["Louro Branco"]="Dupla de repentistas. No desafio, os cantadores se enfrentam em versos improvisados, respondendo um ao outro em métrica e rima diante do público.";
+TEXTOS["Oliveira de Panelas"]="Dupla de repentistas formada por Oliveira de Panelas e Ivanildo Vila Nova, nomes conhecidos da cantoria nordestina, que transformam o improviso em poesia de palco e de feira.";
+TEXTOS["Heraldo Do Monte"]="Violonista, guitarrista e violeiro pernambucano, Heraldo do Monte integrou o Quarteto Novo, que na segunda metade dos anos 1960 uniu a música instrumental brasileira aos ritmos do Nordeste. O álbum Viola Nordestina coloca o instrumento no centro.";
+TEXTOS["Socorro Lira"]="Cantora paraibana, Socorro Lira divide a faixa com as Cirandeiras de Caiana dos Crioulos, grupo de mulheres da comunidade quilombola de Caiana dos Crioulos, em Alagoa Grande, na Paraíba, que mantém viva a ciranda.";
+TEXTOS["Ceguinhas De Campina Grande"]="Grupo de mulheres cegas de Campina Grande, na Paraíba, que cantava ao som de pandeiro e ganzá e fez da música seu ofício. A história delas virou o documentário A Pessoa É para o Que Nasce, título que dá nome a este disco.";
+TEXTOS["Chico César"]="Cantor, compositor e poeta nascido em Catolé do Rocha, na Paraíba, em 1964, Chico César mistura a tradição nordestina com o pop, o samba e ritmos africanos, em letras que olham o cotidiano e a identidade brasileira com leveza.";
+TEXTOS["José Miguel Wisnik"]="Compositor, pianista e ensaísta, Wisnik assinou com o baiano Tom Zé a trilha de Parabelo, espetáculo do Grupo Corpo, em que a música popular e a invenção experimental se encontram.";
+TEXTOS["Luiz Gonzaga"]="Luiz Gonzaga (1912–1989), nascido em Exu, no sertão de Pernambuco, é o Rei do Baião. Levou a sanfona, o triângulo e a zabumba para o país inteiro e deu ao Nordeste uma voz que o Brasil passou a reconhecer.";
+TEXTOS["Jackson Do Pandeiro"]="Jackson do Pandeiro (1919–1982), paraibano de Alagoa Grande, ficou famoso pelo senso rítmico fora do comum e pela dicção veloz, misturando coco, baião, xaxado e samba.";
+
+CONTEXTO["Jurema"]="Pelo título, a faixa remete à jurema, planta do sertão que dá nome a uma tradição religiosa de origem indígena, ligada ao catimbó e a cantos de encantaria. É um universo espiritual que sobreviveu a séculos de preconceito.";
+CONTEXTO["Martelo a Desafio"]="O desafio é o momento mais aguardado da cantoria: dois cantadores trocam versos, cada um respondendo ao outro na mesma métrica e rima. É esporte, arte e conversa ao mesmo tempo.";
+CONTEXTO["Nordeste Independente Versão II (Mote Decassílabo)"]="Imaginar um Nordeste independente é um tema clássico do repente e da canção, e convida a pensar em autonomia, desigualdade regional e orgulho cultural. O mote decassílabo é o verso-tema sobre o qual os cantadores constroem as estrofes.";
+CONTEXTO["A Pessoa É para o Que Nasce"]="O título é um ditado popular sobre destino e ofício. Na história do grupo, ele fala também de trabalho, deficiência e dignidade, num país em que artistas populares nem sempre tiveram acesso a direitos e reconhecimento.";
+CONTEXTO["Xiquexique"]="O xiquexique é um cacto da caatinga que guarda água e sustenta bichos e gente nos tempos de seca. O nome evoca a resistência de uma vegetação que sabe viver com pouco, e a riqueza de um bioma muitas vezes visto só pela escassez.";
+CONTEXTO["Fim de Festa / Polca Fogueteira / Lascando o Cano / Pagode Russo / Fogueira de São João"]="As festas juninas são a grande celebração popular do Nordeste: fogueira, quadrilha, comida de milho, sanfona e forró. Mais que folclore, movimentam a economia, o turismo e os laços de comunidade.";
+CONTEXTO["O Xote das Meninas"]="Parceria de Luiz Gonzaga e Zé Dantas, a canção acompanha o despertar da adolescência de uma menina, com humor e delicadeza. Mostra como o forró levou ao rádio a vida do interior, inclusive seus afetos.";
+CONTEXTO["Assum Preto"]="Composta por Luiz Gonzaga e Humberto Teixeira, a canção toma como imagem o assum-preto, pássaro que, numa prática cruel do interior, era cegado para cantar mais. É uma metáfora potente do canto que nasce da dor e da falta de liberdade.";
+CONTEXTO["Asa Branca"]=CONTEXTO["Asa Branca (Ao Vivo)"];
+
+/* ===== IDIOMAS ===== */
+var IDIOMAS={pt:"PT",en:"EN",es:"ES",fr:"FR",de:"DE",it:"IT"};
+var UI={
+pt:{album:"Álbum",faixaDo:"Faixa do álbum",letra:"Ver a letra",spotify:"Artista no Spotify",mais:"Saiba mais",sobre:"Sobre a canção",tocar:"Tocar",pausar:"Pausar",prox:"Próxima",
+ lb1:"Uma galeria sonora com música do Nordeste do Brasil, reunida a partir de uma pesquisa. A cada faixa, uma imagem, um texto e uma pista para ir mais fundo.",
+ lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria"},
+en:{album:"Album",faixaDo:"Track from the album",letra:"See the lyrics",spotify:"Artist on Spotify",mais:"Learn more",sobre:"About the song",tocar:"Play",pausar:"Pause",prox:"Next",
+ lb1:"A sound gallery of music from Northeast Brazil, gathered from a research project. For each track, an image, a text and a clue to go deeper.",
+ lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery"},
+es:{album:"Álbum",faixaDo:"Pista del álbum",letra:"Ver la letra",spotify:"Artista en Spotify",mais:"Saber más",sobre:"Sobre la canción",tocar:"Reproducir",pausar:"Pausar",prox:"Siguiente",
+ lb1:"Una galería sonora con música del Nordeste de Brasil, reunida a partir de una investigación. En cada pista, una imagen, un texto y un indicio para profundizar.",
+ lb2:"Para escuchar las canciones completas, inicia sesión en tu cuenta de Spotify. Sin iniciar sesión, solo oirás fragmentos de 30 segundos. Si acabas de entrar, recarga esta página.",spot:"Iniciar sesión en Spotify",gal:"Entrar en la galería"},
+fr:{album:"Album",faixaDo:"Titre de l’album",letra:"Voir les paroles",spotify:"Artiste sur Spotify",mais:"En savoir plus",sobre:"À propos de la chanson",tocar:"Lecture",pausar:"Pause",prox:"Suivant",
+ lb1:"Une galerie sonore de musique du Nord-Est du Brésil, réunie à partir d’une recherche. Pour chaque titre, une image, un texte et une piste pour aller plus loin.",
+ lb2:"Pour écouter les titres en entier, connectez-vous à votre compte Spotify. Sans connexion, vous n’entendez que des extraits de 30 secondes. Si vous venez de vous connecter, rechargez cette page.",spot:"Se connecter à Spotify",gal:"Entrer dans la galerie"},
+de:{album:"Album",faixaDo:"Titel vom Album",letra:"Liedtext ansehen",spotify:"Künstler auf Spotify",mais:"Mehr erfahren",sobre:"Über das Lied",tocar:"Abspielen",pausar:"Pause",prox:"Weiter",
+ lb1:"Eine Klanggalerie mit Musik aus dem Nordosten Brasiliens, entstanden aus einer Recherche. Zu jedem Titel gibt es ein Bild, einen Text und einen Hinweis zum Vertiefen.",
+ lb2:"Um die ganzen Titel zu hören, melde dich bei deinem Spotify-Konto an. Ohne Anmeldung hörst du nur 30-Sekunden-Ausschnitte. Wenn du dich gerade angemeldet hast, lade diese Seite neu.",spot:"Bei Spotify anmelden",gal:"Galerie betreten"},
+it:{album:"Album",faixaDo:"Brano dell’album",letra:"Vedi il testo",spotify:"Artista su Spotify",mais:"Scopri di più",sobre:"Sulla canzone",tocar:"Riproduci",pausar:"Pausa",prox:"Avanti",
+ lb1:"Una galleria sonora con musica del Nordest del Brasile, nata da una ricerca. Per ogni brano, un’immagine, un testo e uno spunto per approfondire.",
+ lb2:"Per ascoltare i brani interi, accedi al tuo account Spotify. Senza accesso senti solo anteprime di 30 secondi. Se hai appena fatto l’accesso, ricarica questa pagina.",spot:"Accedi a Spotify",gal:"Entra nella galleria"}
+};
+/* Textos longos traduzidos. Idiomas sem tradução aqui usam o inglês e, na falta dele, o português. */
+var TEXTOS_I18N={en:{
+"Quinteto Violado":"Formed in Recife in the early 1970s, Quinteto Violado blends baião, xote, cantoria and instrumental music in arrangements that spotlight the viola, wind instruments and percussion. It was one of the groups that took the popular music of the sertão to the stage with the rigor of an orchestra and the soul of a street market.",
+"Quinteto Armorial":"Created in Recife in 1970 and tied to Ariano Suassuna’s Armorial Movement, Quinteto Armorial sought an art music built on popular roots. Rabeca, sertão viola, flute and percussion give its sound the air of cantoria turned into chamber music.",
+"Moacir Laurentino":"A duo of improvising viola singers. In cantoria de viola, two poets trade rhymed verses to the sound of the viola, inventing on the spot around the themes that arise. This track is part of the series Os Grandes Repentistas do Nordeste, which documents this tradition of improvisation.",
+"Andorinha":"A duo of improvising viola singers. Cantoria de viola is the art of improvising verses in a friendly contest, with strict meter and rhyme. The track’s title points to two neighboring states with a strong tradition of repente: Paraíba and Pernambuco.",
+"Nicolas Krassik":"A violinist born in France and based in Brazil, Nicolas Krassik found in Northeastern rhythms such as forró and baião a territory for the violin and the rabeca. With the Cordestinos, he brings the music of the Northeast into the world of instrumental music.",
+"União dos Artistas da Terra da Mãe de Deus":"Reisado and guerreiro are popular Northeastern festivals that bring together music, dance, characters and procession. The groups perform at year-end and saints’ day celebrations, keeping alive a tradition handed down from generation to generation.",
+"Marinês":"Marinês, the Queen of Xaxado, was born in Pernambuco and became known alongside her band, Marinês e Sua Gente. With zabumba, triangle and accordion, she was one of the great voices of forró and opened the way for other women in that world. The aboio, which gives the track its name, is the long, wordless chant a cowboy uses to lead the cattle.",
+"Mestre Luiz Paixão":"A master of the rabeca. A rustic relative of the violin, the rabeca is one of the central voices of pé-de-serra forró and of the popular festivals of the Northeast, and its masters carry knowledge passed on by ear.",
+"Amelinha":"A singer from Ceará, Amelinha brought frevo, forró and other Northeastern rhythms into Brazilian popular music, with a powerful voice and plenty of stage energy.",
+"Zabé da Loca":"Zabé da Loca (1924–2014), a pífano player from Paraíba, became known for playing with a style all her own, learned since girlhood. The nickname comes from the years she lived in a loca, a cave in the sertão. Here she plays alongside Maciel Salú, a rabeca player from Pernambuco who joins tradition with a contemporary sound.",
+"Alceu Valença":"Born in São Bento do Una, Pernambuco, in 1946, Alceu Valença mixes frevo, forró, cantoria and rock in a body of work that looks at Northeastern popular culture with freedom and theatricality.",
+"João do Vale":"João do Vale (1934–1996), a composer from Pedreiras, Maranhão, wrote classics such as “Carcará” and “Pisa na Fulô.” His songs portray the sertanejo, the drought and simple life with humor and pain.",
+"Mestre Ambrósio":"A band that emerged in Recife in the 1990s, in the manguebeat scene. Mestre Ambrósio mixed rabeca, pífano and percussion from popular tradition with the energy of rock.",
+"Lenine":"From Recife, Pernambuco, Lenine joins MPB, rock, electronics and Northeastern rhythms in carefully produced songs, showing how the music of the Northeast talks with the contemporary world.",
+"Sivuca":"Sivuca (1930–2006), from Itabaiana, Paraíba, was an accordionist, guitarist and arranger of wide training. He played baião, jazz and classical music with equal ease. On this recording he plays alongside guitarist Rosinha de Valença.",
+"Carlos Malta":"A flutist and saxophonist, Carlos Malta took the pífano, an instrument of the Northeast’s popular bands, into the world of instrumental music. With the group Pife Muderno, he reinvents the pífano tradition with modern arrangements.",
+"Banda de Pífanos de Caruaru":"A group from Caruaru, Pernambuco, and a reference in the pífano band tradition, made up of flutes, zabumba and snare drum, which liven up festivals, novenas and processions in the interior.",
+"Xangai":"A singer, songwriter and viola player from Bahia, Xangai devotes his work to the music and poetry of the sertão.",
+"Elomar":"Elomar Figueira Mello, a composer, guitarist and poet from Bahia, created a universe of his own in which the sertão takes on the air of a medieval ballad and a rustic opera, with verses in archaic language and refined guitar. This track comes from Cantoria 2, a meeting of four names in Northeastern music.",
+"Renata Rosa":"A singer and rabeca player who studied the oral-tradition music of the Northeast up close, especially that of Pernambuco’s Zona da Mata, learning from masters of the rabeca and the popular festivals.",
+"Louro Branco":"A duo of repentistas. In the desafio, the singers face off in improvised verses, answering each other in meter and rhyme before an audience.",
+"Oliveira de Panelas":"A repentista duo made up of Oliveira de Panelas and Ivanildo Vila Nova, well-known names in Northeastern cantoria, who turn improvisation into poetry for the stage and the street market.",
+"Heraldo Do Monte":"A guitarist and viola player from Pernambuco, Heraldo do Monte was part of Quarteto Novo, which in the late 1960s joined Brazilian instrumental music with the rhythms of the Northeast. The album Viola Nordestina puts the instrument at the center.",
+"Socorro Lira":"A singer from Paraíba, Socorro Lira shares the track with the Cirandeiras de Caiana dos Crioulos, a group of women from the quilombola community of Caiana dos Crioulos, in Alagoa Grande, Paraíba, who keep the ciranda alive.",
+"Ceguinhas De Campina Grande":"A group of blind women from Campina Grande, Paraíba, who sang to pandeiro and ganzá and made music their trade. Their story became the documentary A Pessoa É para o Que Nasce, which gives this album its name.",
+"Chico César":"A singer, songwriter and poet born in Catolé do Rocha, Paraíba, in 1964, Chico César blends Northeastern tradition with pop, samba and African rhythms, in lyrics that look at everyday life and Brazilian identity with lightness.",
+"José Miguel Wisnik":"A composer, pianist and essayist, Wisnik wrote, with Tom Zé from Bahia, the score for Parabelo, a Grupo Corpo production, where popular music and experimental invention meet.",
+"Luiz Gonzaga":"Luiz Gonzaga (1912–1989), born in Exu, in the sertão of Pernambuco, is the King of Baião. He took the accordion, triangle and zabumba across the whole country and gave the Northeast a voice Brazil came to recognize.",
+"Jackson Do Pandeiro":"Jackson do Pandeiro (1919–1982), from Alagoa Grande, Paraíba, became famous for his extraordinary sense of rhythm and rapid-fire delivery, blending coco, baião, xaxado and samba.",
+"Cabruêra":"A band from Paraíba formed in 1998 in Campina Grande by students of UFPB. It mixes coco, ciranda, maracatu and other regional rhythms with touches of electronics and hip-hop, and has taken the sound of the Northeast on several tours of Europe. The album Nordeste Oculto (2012) grew out of a collaboration with sitar player and philosopher Alberto Marsicano.",
+"Vital Farias":"A singer and songwriter from Taperoá, Paraíba, Vital Farias wrote “Saga da Amazônia.” On the albums Cantoria 1 and 2 he joins Elomar, Geraldo Azevedo and Xangai, in a meeting among poets of Northeastern music.",
+"Geraldo Azevedo":"Born in Petrolina, Pernambuco, in 1945, Geraldo Azevedo is a singer, songwriter and guitarist, one of the central names in Brazilian song since the 1970s, with Northeastern roots always present.",
+"Antônio Nóbrega":"A violinist, dancer and actor from Pernambuco, Antônio Nóbrega was a member of Quinteto Armorial and later founded the Instituto Brincante in São Paulo, devoted to Brazilian popular cultures. His work joins music, dance and theater drawing on the traditions of the Northeast.",
+"Cátia de França":"A singer and songwriter from Paraíba. Her 1979 album Vinte Palavras ao Redor do Sol is today a cult record of Brazilian music."
+}};
+var CONTEXTO_I18N={en:{
+"Toada De Gado / A Morte Do Vaqueiro":"The vaqueiro (cowboy) is one of the central figures of the sertão: a hard trade in open country that shaped ways of dressing, singing and celebrating. The cattle songs and songs of mourning remind us that this life has beauty and risk, and that the community reveres it.",
+"Acauã / Briga De Faca / Corisco":"The call of the acauã, a bird taken as an omen of drought, and the memory of the cangaço, with figures like Corisco, bring together images of a sertão of violence, belief and scarcity. Art revisits them to understand where the people come from, without turning them into folklore frozen in time.",
+"O Sertão e a Cidade":"As the title suggests, the track touches on a theme that runs through the Northeast: the relationship between countryside and city, between those who left in search of work and those who stayed. Migration marked entire families and still shapes the country.",
+"Paraíba & Pernambuco":"Cantoria de viola lives on memory and improvisation, passed down through generations and kept alive in festivals, markets and gatherings. By naming two neighboring states, the track reminds us that this poetry is born of a shared territory.",
+"Relembrando Meu Pai / Festa de Novena":"The title joins family memory and popular faith. Novenas, common in the interior of the Northeast, bring together prayer, music and community, and are one of the ways tradition passes from parents to children.",
+"Improviso":"Improvisation is the foundation of much Northeastern music, from cantoria to repente. Creating on the spot takes command of meter, rhyme and repertoire: knowledge that is not in books but in practice and listening.",
+"Martelo Agalopado":"The martelo agalopado is one of the poetic forms of cantoria, with a galloping rhythm and strict rhymes. Getting to know it means entering a tradition of poets often without formal schooling but with a refined mastery of words.",
+"Aboio":"The aboio is a chant without fixed words that leads the cattle and carries across the distance of the pasture. Hearing it today recalls a way of life tied to the countryside, extensive cattle raising and knowledge of the weather.",
+"Pifada da Loca":"The pífano is a bamboo flute, handmade, traditional in the popular bands of the interior. Masters like Zabé were recognized only late in life, a reminder of how much popular-culture knowledge still circulates outside the spotlight.",
+"Asa Branca (Ao Vivo)":"Written by Luiz Gonzaga and Humberto Teixeira in 1947, “Asa Branca” portrays the drought that drives the sertanejo from the land and the hope of returning when the rain comes. It became an anthem of Northeastern migration and still speaks of water, land and staying.",
+"Açum Preto / Asa Branca":"Two songs by Luiz Gonzaga and Humberto Teixeira reinterpreted by Carlos Malta and Pife Muderno. “Asa Branca,” from 1947, portrays the drought that drives the sertanejo away and the hope of returning with the rain, a story of migration that remains current.",
+"Lamento Sertanejo":"A collaboration between Dominguinhos and Gilberto Gil, the song portrays the withdrawn, solitary side of a sertanejo. It touches on the identity of those who carry the sertão with them, and on how the interior, so often seen from outside, speaks for itself.",
+"Matança":"A protest song by Jatobá that denounces the felling of trees. It is one of the best-known portraits of the environmental issue in the sertão: the caatinga, a biome found only in Brazil, suffers from deforestation and the risk of desertification.",
+"Petrolina, Juazeiro":"Petrolina (PE) and Juazeiro (BA) are sister cities, one on each bank of the São Francisco River, joined by life along the Velho Chico. Irrigation turned the region into a fruit-growing hub, but the river, essential in the semi-arid, needs constant care.",
+"Jurema":"As the title suggests, the track points to jurema, a plant of the sertão that gives its name to a religious tradition of Indigenous origin, linked to catimbó and to songs of encantaria. It is a spiritual world that has survived centuries of prejudice.",
+"Martelo a Desafio":"The desafio is the most anticipated moment of a cantoria: two singers trade verses, each answering the other in the same meter and rhyme. It is sport, art and conversation all at once.",
+"Nordeste Independente Versão II (Mote Decassílabo)":"Imagining an independent Northeast is a classic theme of repente and song, and invites us to think about autonomy, regional inequality and cultural pride. The decasyllabic mote is the theme-verse on which the singers build their stanzas.",
+"A Pessoa É para o Que Nasce":"The title is a popular saying about destiny and trade. In the group’s story it also speaks of work, disability and dignity, in a country where popular artists did not always have access to rights and recognition.",
+"Xiquexique":"The xiquexique is a cactus of the caatinga that stores water and sustains animals and people in times of drought. The name evokes the resilience of vegetation that knows how to live on little, and the richness of a biome often seen only through scarcity.",
+"Fim de Festa / Polca Fogueteira / Lascando o Cano / Pagode Russo / Fogueira de São João":"The festas juninas are the great popular celebration of the Northeast: bonfire, quadrilha dance, corn-based food, accordion and forró. More than folklore, they drive the economy, tourism and community bonds.",
+"O Xote das Meninas":"A collaboration between Luiz Gonzaga and Zé Dantas, the song follows a girl’s awakening into adolescence, with humor and tenderness. It shows how forró brought life in the interior, including its affections, to the radio.",
+"Assum Preto":"Written by Luiz Gonzaga and Humberto Teixeira, the song takes as its image the assum-preto, a bird that, in a cruel practice of the interior, was blinded so that it would sing more. It is a powerful metaphor for song born of pain and lack of freedom.",
+"Cangaço":"As the title suggests, the track revisits the cangaço, the phenomenon of armed bands in the sertão that lasted until the early 1940s. Between myth and history, it is a theme art returns to in order to speak of violence, poverty and power in the interior of the Northeast.",
+"Nordeste Oculto":"The track gives its name to the 2012 album the band made with sitar player Alberto Marsicano, released with a photography book, Nordeste Desvelado. The project looks at the religiosity and popular culture of the region, the less visible Northeast, beyond the clichés.",
+"Saga da Amazônia (Ao Vivo)":"A protest song that denounces the devastation of the Amazon rainforest. It shows that Northeastern music also looks at the whole country, and how environmental issues connect the sertão to the forest.",
+"Desafio do Auto da Catingueira (Ao Vivo)":"Elomar’s Auto da Catingueira refers to Inácio da Catingueira, a singer from Paraíba who was born enslaved and became a legend of repente. The story reminds us that cantoria was also a space of affirmation for Black people in a slaveholding country."
+}};
+CONTEXTO_I18N.en["Asa Branca"]=CONTEXTO_I18N.en["Asa Branca (Ao Vivo)"];
+CONTEXTO_I18N.en["Matança (Ao Vivo)"]=CONTEXTO_I18N.en["Matança"];
+
+var LANG="en";
+(function(){var l;try{l=localStorage.getItem("kl")}catch(e){}
+  if(!IDIOMAS[l])l=(navigator.language||"en").slice(0,2).toLowerCase();
+  LANG=IDIOMAS[l]?l:"en"})();
+function T(k){return (UI[LANG]&&UI[LANG][k])||UI.en[k]}
+function tx(base,i18n,k){return (LANG!=="pt"&&((i18n[LANG]&&i18n[LANG][k])||(i18n.en&&i18n.en[k])))||base[k]||""}
+function desenhaLangs(){
+  ["langs","lblangs"].forEach(function(id){
+    var c=$(id);c.innerHTML="";
+    Object.keys(IDIOMAS).forEach(function(k){
+      var b=document.createElement("button");b.textContent=IDIOMAS[k];b.setAttribute("aria-label",k);
+      if(k===LANG)b.className="on";
+      b.onclick=function(){LANG=k;try{localStorage.setItem("kl",k)}catch(e){}aplica()};
+      c.appendChild(b);
+    });
+  });
+}
+function aplica(){
+  document.documentElement.lang=LANG;
+  $("lbp1").textContent=T("lb1");$("lbp2").textContent=T("lb2");
+  $("lbspot").textContent=T("spot");$("entrar").textContent=T("gal");$("ctxh").textContent=T("sobre");
+  $("next").setAttribute("aria-label",T("prox"));
+  desenhaLangs();icone();mostra(i,false,true);
+}
+
+/* ===== LÓGICA ===== */
+var i=0,ctrl=null,paused=true,avancou=false,cache={};
+var $=function(id){return document.getElementById(id)};
+var PAUSE='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>',
+    PLAY='<svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>';
+
+function cores(s){var h=0;for(var k=0;k<s.length;k++)h=(h*31+s.charCodeAt(k))%360;
+  return ["hsl("+h+" 45% 38%)","hsl("+((h+30)%360)+" 50% 14%)"]}
+
+function imagem(n){
+  var f=FAIXAS[n],url="https://open.spotify.com/"+(IMAGEM==="artist"?"artist/"+f[4]:"track/"+f[3]);
+  if(!cache[url])cache[url]=fetch("https://open.spotify.com/oembed?url="+encodeURIComponent(url))
+    .then(function(r){return r.json()}).then(function(j){return j.thumbnail_url}).catch(function(){return null});
+  return cache[url];
+}
+var rotT=null;
+function ehVideo(s){return /\.(mp4|webm|mov)$/i.test(s)}
+function geral(n){var g=[],L=MIDIA_GERAL.length;for(var k=0;k<Math.min(3,L);k++)g.push(MIDIA_GERAL[(n*3+k)%L]);return g}
+function mostraMidia(src,fim){
+  var a=$("art"),el,antigos=a.querySelectorAll(".photo");
+  function pronto(dur){
+    a.appendChild(el);void el.offsetWidth;el.classList.add("on");
+    for(var k=0;k<antigos.length;k++)(function(o){o.classList.remove("on");setTimeout(function(){o.remove()},900)})(antigos[k]);
+    fim(dur);
+  }
+  if(ehVideo(src)){
+    el=document.createElement("video");el.className="photo";el.muted=true;el.loop=true;el.playsInline=true;el.src=src;
+    el.onloadeddata=function(){el.play();pronto(Math.min(14000,(el.duration||10)*1000))};
+    el.onerror=function(){fim(1500)};
+  }else{
+    var im=new Image();el=document.createElement("div");el.className="photo";
+    im.onload=function(){el.style.backgroundImage='url("'+src+'")';pronto(7000)};
+    im.onerror=function(){fim(1500)};im.src=src;
+  }
+}
+/* Sequência: capa/foto do Spotify → mídia do artista → mídia geral → volta ao início */
+function pintaFoto(n){
+  clearTimeout(rotT);
+  var chave=FAIXAS[n][1].split(", ")[0],lista=(MIDIA[chave]||[]).concat(geral(n)),s=0;
+  imagem(n+1<FAIXAS.length?n+1:0);
+  function passa(){
+    if(n!==i)return;
+    var fonte=s===0?imagem(n):Promise.resolve(lista[s-1]);
+    fonte.then(function(src){
+      if(n!==i)return;
+      function avanca(d){s=(s+1)%(lista.length+1);if(lista.length)rotT=setTimeout(passa,d)}
+      if(!src)return avanca(200);
+      mostraMidia(src,avanca);
+    });
+  }
+  passa();
+}
+function mostra(n,fade,sem){
+  var f=FAIXAS[n],b=$("body"),chave=f[1].split(", ")[0];
+  b.classList.add("out");
+  setTimeout(function(){
+    $("nome").textContent=f[1];$("faixa").textContent=f[0];
+    $("meta").textContent=f[2]?T("album")+": "+f[2]:"";
+    $("texto").textContent=tx(TEXTOS,TEXTOS_I18N,chave)||(f[2]?T("faixaDo")+" “"+f[2]+"”.":"");
+    var ct=tx(CONTEXTO,CONTEXTO_I18N,f[0]);$("ctxw").style.display=ct?"":"none";$("ctx").textContent=ct||"";
+    var q=encodeURIComponent(f[0].split(" / ")[0]+" "+chave),A=' target="_blank" rel="noopener"';
+    $("links").innerHTML='<a href="https://www.letras.mus.br/?q='+q+'"'+A+'>'+T("letra")+'</a>'+
+      '<a href="https://open.spotify.com/artist/'+f[4]+'"'+A+'>'+T("spotify")+'</a>'+
+      '<a href="https://'+LANG+'.wikipedia.org/w/index.php?search='+encodeURIComponent(chave)+'"'+A+'>'+T("mais")+'</a>';
+    $("count").textContent=("0"+(n+1)).slice(-2)+" / "+("0"+FAIXAS.length).slice(-2);
+    var c=cores(chave),a=$("art");a.style.setProperty("--c1",c[0]);a.style.setProperty("--c2",c[1]);
+    $("ini").textContent=chave.charAt(0);
+    b.classList.remove("out");
+  },fade?350:0);
+  document.title=f[1]+" · ka’atinga";
+  if(!sem)pintaFoto(n);
+}
+function vai(n,tocar){
+  i=(n+FAIXAS.length)%FAIXAS.length;avancou=false;$("prog").style.width="0";mostra(i,true);
+  if(ctrl){ctrl.loadUri("spotify:track:"+FAIXAS[i][3]);if(tocar)ctrl.play()}
+}
+function icone(){$("pp").innerHTML=paused?PLAY:PAUSE;$("pp").setAttribute("aria-label",T(paused?"tocar":"pausar"))}
+
+window.onSpotifyIframeApiReady=function(API){
+  ctrl=API.createController($("embed"),{uri:"spotify:track:"+FAIXAS[i][3],width:"100%",height:80},function(c){
+    c.addListener("playback_update",function(e){
+      var d=e.data;paused=d.isPaused;icone();
+      if(d.duration){
+        $("prog").style.width=Math.min(100,d.position/d.duration*100)+"%";
+        if(!avancou&&d.position>=d.duration-400){avancou=true;vai(i+1,true)}
+      }
+    });
+  });
+};
+
+$("pp").onclick=function(){if(ctrl)ctrl.togglePlay()};
+$("next").onclick=function(){vai(i+1,true)};
+document.addEventListener("keydown",function(e){
+  if(!$("lb").hidden){if(e.code==="Escape")fecha();return}
+  if(e.code==="Space"){e.preventDefault();$("pp").click()}
+  if(e.code==="ArrowRight")vai(i+1,true);
+  if(e.code==="ArrowLeft")vai(i-1,true);
+});
+function fecha(){
+  $("lb").hidden=true;
+  try{sessionStorage.setItem("kz","1")}catch(e){}
+  if(ctrl)ctrl.play();
+}
+$("entrar").onclick=fecha;
+try{if(sessionStorage.getItem("kz"))$("lb").hidden=true}catch(e){}
+aplica();pintaFoto(0);
+</script>
+</body>
+</html>
