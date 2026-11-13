@@ -38,6 +38,35 @@ p{font-size:clamp(15px,1.25vw,18px);line-height:1.7}
 .langs button{all:unset;cursor:pointer;padding:4px 6px;font:600 11px 'Manrope',system-ui,sans-serif;letter-spacing:.14em;color:var(--mute);border-bottom:1.5px solid transparent}
 .langs button.on,.langs button:hover,.langs button:focus-visible{color:var(--fg);border-bottom-color:var(--fg)}
 .lb .langs{margin:0 0 26px -6px}
+:root[data-tema="dia"]{--bg:#f4efe6;--fg:#16130f;--mute:#6b645a;--line:rgba(0,0,0,.18)}
+:root[data-tema="noite"]{--bg:#121110;--fg:#f2ece0;--mute:#a39b8d;--line:rgba(255,255,255,.22)}
+:root[data-contraste="alto"][data-tema="dia"]{--bg:#fff;--fg:#000;--mute:#000;--line:#000}
+:root[data-contraste="alto"][data-tema="noite"]{--bg:#000;--fg:#fff;--mute:#fff;--line:#fff}
+:root[data-contraste="alto"] .btn,:root[data-contraste="alto"] .pill{border-width:3px}
+:root[data-contraste="alto"] .bar,:root[data-contraste="alto"] .bar i{height:4px}
+:root[data-leitura="facil"] body{font-family:Verdana,Tahoma,'Segoe UI',sans-serif}
+:root[data-leitura="facil"] p,:root[data-leitura="facil"] .meta{line-height:1.95;letter-spacing:.03em;word-spacing:.1em}
+.body{zoom:var(--escala,1)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.cred{position:absolute;z-index:2;left:0;right:0;bottom:0;font-size:11px;color:#fff;letter-spacing:.04em}
+.cred:not(:empty){padding:30px 16px 10px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.art .photo.on{animation:kb 16s ease-out forwards}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.09)}}
+:root[data-movimento="reduzido"] .photo,:root[data-movimento="reduzido"] .body{transition:none;animation:none!important}
+.trecho{margin:22px 0 0;padding-left:18px;border-left:2px solid var(--fg)}
+.trecho span{display:block;font-style:italic;font-size:clamp(16px,1.4vw,20px);line-height:1.6}
+.trecho cite{display:block;margin-top:8px;font-style:normal;font-size:12px;letter-spacing:.08em;color:var(--mute)}
+.a11y{position:fixed;z-index:30;top:calc(14px + env(safe-area-inset-top,0px));left:14px}
+.a11y>button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--fg);background:var(--bg);color:var(--fg);cursor:pointer;font:800 15px 'Manrope',system-ui,sans-serif}
+.a11y .pn{margin-top:10px;width:min(300px,calc(100vw - 28px));padding:18px;border:1.5px solid var(--fg);border-radius:14px;background:var(--bg);color:var(--fg)}
+.a11y .pn[hidden]{display:none}
+.a11y fieldset{border:0;padding:0;margin:0 0 14px}
+.a11y fieldset:last-child{margin:0}
+.a11y legend{padding:0;margin-bottom:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{cursor:pointer;padding:7px 12px;border:1.5px solid var(--fg);border-radius:999px;background:none;color:var(--fg);font:600 13px 'Manrope',system-ui,sans-serif}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
 .art video.photo{object-fit:cover;width:100%;height:100%}
 .ctx{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
 .ctx h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-weight:600;margin-bottom:10px}
@@ -56,8 +85,17 @@ p{font-size:clamp(15px,1.25vw,18px);line-height:1.7}
 </style>
 </head>
 <body>
+<div class="a11y">
+  <button id="a11yb" aria-expanded="false" aria-controls="a11yp">Aa</button>
+  <div class="pn" id="a11yp" role="group" hidden>
+    <fieldset><legend id="lgTema"></legend><div class="seg"><button data-t="tema" data-v="auto"></button><button data-t="tema" data-v="dia"></button><button data-t="tema" data-v="noite"></button></div></fieldset>
+    <fieldset><legend id="lgTexto"></legend><div class="seg"><button data-t="texto" data-v="0"></button><button data-t="texto" data-v="1"></button><button data-t="texto" data-v="2"></button></div></fieldset>
+    <fieldset><legend id="lgMais"></legend><div class="seg"><button data-t="contraste"></button><button data-t="movimento"></button><button data-t="leitura"></button></div></fieldset>
+  </div>
+</div>
+<div class="sr" id="live" aria-live="polite"></div>
 <main class="stage">
-  <section class="art" id="art"><div class="img"></div><div class="initial" id="ini"></div></section>
+  <section class="art" id="art"><div class="img"></div><div class="initial" id="ini"></div><div class="cred" id="cred"></div></section>
   <section class="txt">
     <div class="top"><span>ka’atinga</span><span class="langs" id="langs"></span><span id="count"></span></div>
     <div class="body" id="body">
@@ -65,6 +103,7 @@ p{font-size:clamp(15px,1.25vw,18px);line-height:1.7}
       <h1 id="nome"></h1>
       <div class="meta" id="meta"></div>
       <p id="texto"></p>
+      <blockquote class="trecho" id="trecho" style="display:none"><span id="trechot"></span><cite id="trechoc"></cite></blockquote>
       <div class="ctx" id="ctxw"><h2 id="ctxh">Sobre a canção</h2><p id="ctx"></p></div>
       <div class="links" id="links"></div>
     </div>
@@ -91,7 +130,6 @@ p{font-size:clamp(15px,1.25vw,18px);line-height:1.7}
     </div>
   </div>
 </div>
-<script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
 <script>
 /* ===== CONFIGURAÇÃO ===== */
 var IMAGEM = "album";   // "album" = capa do disco · "artist" = foto do artista
@@ -212,6 +250,11 @@ var MIDIA_GERAL = [
   /* "midia/geral-01.jpg","midia/geral-02.mp4" */
 ];
 
+/* TRECHOS DE LETRA (opcional): título exato da faixa → trecho curto, no idioma original.
+   Aparece como citação no meio do texto, com a fonte. Faixas sem trecho mostram o link "Ver a letra".
+   Formato:  "Título da faixa":"o trecho que você escolher",  */
+var TRECHOS={};
+
 /* Contexto de cada canção (chave = título exato em FAIXAS). Texto autoral; pistas para aprofundar. */
 var CONTEXTO = {
 "Toada De Gado / A Morte Do Vaqueiro":"O vaqueiro é uma das figuras centrais do sertão: um ofício duro, de campo aberto, que moldou jeitos de vestir, de cantar e de celebrar. As toadas e os cantos de luto lembram que essa vida tem beleza e risco, e que a comunidade a reverencia.",
@@ -267,26 +310,14 @@ CONTEXTO["Assum Preto"]="Composta por Luiz Gonzaga e Humberto Teixeira, a canç�
 CONTEXTO["Asa Branca"]=CONTEXTO["Asa Branca (Ao Vivo)"];
 
 /* ===== IDIOMAS ===== */
-var IDIOMAS={pt:"PT",en:"EN",es:"ES",fr:"FR",de:"DE",it:"IT"};
+var IDIOMAS={pt:"PT",en:"EN"};
 var UI={
 pt:{album:"Álbum",faixaDo:"Faixa do álbum",letra:"Ver a letra",spotify:"Artista no Spotify",mais:"Saiba mais",sobre:"Sobre a canção",tocar:"Tocar",pausar:"Pausar",prox:"Próxima",
  lb1:"Uma galeria sonora com música do Nordeste do Brasil, reunida a partir de uma pesquisa. A cada faixa, uma imagem, um texto e uma pista para ir mais fundo.",
- lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria"},
+ lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria",acess:"Acessibilidade",tema:"Tema",auto:"Automático",dia:"Dia",noite:"Noite",texto:"Tamanho do texto",contraste:"Alto contraste",movimento:"Menos movimento",leitura:"Leitura facilitada",mais2:"Mais opções",img:"Imagem"},
 en:{album:"Album",faixaDo:"Track from the album",letra:"See the lyrics",spotify:"Artist on Spotify",mais:"Learn more",sobre:"About the song",tocar:"Play",pausar:"Pause",prox:"Next",
  lb1:"A sound gallery of music from Northeast Brazil, gathered from a research project. For each track, an image, a text and a clue to go deeper.",
- lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery"},
-es:{album:"Álbum",faixaDo:"Pista del álbum",letra:"Ver la letra",spotify:"Artista en Spotify",mais:"Saber más",sobre:"Sobre la canción",tocar:"Reproducir",pausar:"Pausar",prox:"Siguiente",
- lb1:"Una galería sonora con música del Nordeste de Brasil, reunida a partir de una investigación. En cada pista, una imagen, un texto y un indicio para profundizar.",
- lb2:"Para escuchar las canciones completas, inicia sesión en tu cuenta de Spotify. Sin iniciar sesión, solo oirás fragmentos de 30 segundos. Si acabas de entrar, recarga esta página.",spot:"Iniciar sesión en Spotify",gal:"Entrar en la galería"},
-fr:{album:"Album",faixaDo:"Titre de l’album",letra:"Voir les paroles",spotify:"Artiste sur Spotify",mais:"En savoir plus",sobre:"À propos de la chanson",tocar:"Lecture",pausar:"Pause",prox:"Suivant",
- lb1:"Une galerie sonore de musique du Nord-Est du Brésil, réunie à partir d’une recherche. Pour chaque titre, une image, un texte et une piste pour aller plus loin.",
- lb2:"Pour écouter les titres en entier, connectez-vous à votre compte Spotify. Sans connexion, vous n’entendez que des extraits de 30 secondes. Si vous venez de vous connecter, rechargez cette page.",spot:"Se connecter à Spotify",gal:"Entrer dans la galerie"},
-de:{album:"Album",faixaDo:"Titel vom Album",letra:"Liedtext ansehen",spotify:"Künstler auf Spotify",mais:"Mehr erfahren",sobre:"Über das Lied",tocar:"Abspielen",pausar:"Pause",prox:"Weiter",
- lb1:"Eine Klanggalerie mit Musik aus dem Nordosten Brasiliens, entstanden aus einer Recherche. Zu jedem Titel gibt es ein Bild, einen Text und einen Hinweis zum Vertiefen.",
- lb2:"Um die ganzen Titel zu hören, melde dich bei deinem Spotify-Konto an. Ohne Anmeldung hörst du nur 30-Sekunden-Ausschnitte. Wenn du dich gerade angemeldet hast, lade diese Seite neu.",spot:"Bei Spotify anmelden",gal:"Galerie betreten"},
-it:{album:"Album",faixaDo:"Brano dell’album",letra:"Vedi il testo",spotify:"Artista su Spotify",mais:"Scopri di più",sobre:"Sulla canzone",tocar:"Riproduci",pausar:"Pausa",prox:"Avanti",
- lb1:"Una galleria sonora con musica del Nordest del Brasile, nata da una ricerca. Per ogni brano, un’immagine, un testo e uno spunto per approfondire.",
- lb2:"Per ascoltare i brani interi, accedi al tuo account Spotify. Senza accesso senti solo anteprime di 30 secondi. Se hai appena fatto l’accesso, ricarica questa pagina.",spot:"Accedi a Spotify",gal:"Entra nella galleria"}
+ lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery",acess:"Accessibility",tema:"Theme",auto:"Auto",dia:"Day",noite:"Night",texto:"Text size",contraste:"High contrast",movimento:"Reduce motion",leitura:"Easy reading",mais2:"More options",img:"Image"}
 };
 /* Textos longos traduzidos. Idiomas sem tradução aqui usam o inglês e, na falta dele, o português. */
 var TEXTOS_I18N={en:{
@@ -378,11 +409,11 @@ function aplica(){
   $("lbp1").textContent=T("lb1");$("lbp2").textContent=T("lb2");
   $("lbspot").textContent=T("spot");$("entrar").textContent=T("gal");$("ctxh").textContent=T("sobre");
   $("next").setAttribute("aria-label",T("prox"));
-  desenhaLangs();icone();mostra(i,false,true);
+  desenhaLangs();pinta();icone();mostra(i,false,true);
 }
 
 /* ===== LÓGICA ===== */
-var i=0,ctrl=null,paused=true,avancou=false,cache={};
+var i=0,ctrl=null,paused=true,avancou=false,quer=false,cache={};
 var $=function(id){return document.getElementById(id)};
 var PAUSE='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>',
     PLAY='<svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>';
@@ -396,13 +427,35 @@ function imagem(n){
     .then(function(r){return r.json()}).then(function(j){return j.thumbnail_url}).catch(function(){return null});
   return cache[url];
 }
-var rotT=null;
+/* Fonte automática de fotos: Wikimedia Commons (licenças livres, com crédito). Desligue com false.
+   SEM_COMMONS: nomes que podem trazer fotos erradas (palavras comuns); para esses só vale a sua pasta "midia". */
+var FONTE_COMMONS=true,SEM_COMMONS=["Andorinha","Xangai","Caçapa","Louro Branco","Oliveira de Panelas","Os Nonatos"];
+var rotT=null,comCache={};
+function nz(s){return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
 function ehVideo(s){return /\.(mp4|webm|mov)$/i.test(s)}
+function norm(x){return typeof x==="string"?{src:x,cred:""}:{src:x[0],cred:x[1]||""}}
 function geral(n){var g=[],L=MIDIA_GERAL.length;for(var k=0;k<Math.min(3,L);k++)g.push(MIDIA_GERAL[(n*3+k)%L]);return g}
-function mostraMidia(src,fim){
-  var a=$("art"),el,antigos=a.querySelectorAll(".photo");
+function commons(nome){
+  if(!FONTE_COMMONS||SEM_COMMONS.indexOf(nome)>-1)return Promise.resolve([]);
+  if(comCache[nome])return comCache[nome];
+  var u="https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=15&gsrsearch="+
+    encodeURIComponent('"'+nome+'"')+"&prop=imageinfo&iiprop=url|mime|extmetadata&iiurlwidth=1400";
+  return comCache[nome]=fetch(u).then(function(r){return r.json()}).then(function(j){
+    var ps=j.query?Object.keys(j.query.pages).map(function(k){return j.query.pages[k]}):[],out=[];
+    ps.forEach(function(p){
+      var ii=p.imageinfo&&p.imageinfo[0];
+      if(!ii||out.length>=5||!/^image\/(jpeg|png|webp)$/.test(ii.mime)||nz(p.title).indexOf(nz(nome))<0)return;
+      var m=ii.extmetadata||{},aut=new DOMParser().parseFromString((m.Artist&&m.Artist.value)||"","text/html").body.textContent.trim().slice(0,60),
+          lic=(m.LicenseShortName&&m.LicenseShortName.value)||"";
+      out.push({src:ii.thumburl||ii.url,cred:[aut,lic,"Wikimedia Commons"].filter(Boolean).join(" · ")});
+    });
+    return out;
+  }).catch(function(){return []});
+}
+function mostraMidia(it,fim){
+  var src=it.src,a=$("art"),el,antigos=a.querySelectorAll(".photo");
   function pronto(dur){
-    a.appendChild(el);void el.offsetWidth;el.classList.add("on");
+    a.appendChild(el);void el.offsetWidth;el.classList.add("on");$("cred").textContent=it.cred||"";
     for(var k=0;k<antigos.length;k++)(function(o){o.classList.remove("on");setTimeout(function(){o.remove()},900)})(antigos[k]);
     fim(dur);
   }
@@ -416,21 +469,29 @@ function mostraMidia(src,fim){
     im.onerror=function(){fim(1500)};im.src=src;
   }
 }
-/* Sequência: capa/foto do Spotify → mídia do artista → mídia geral → volta ao início */
+/* Sequência (só avança enquanto a música toca): capa/foto do Spotify → mídia do artista → Commons → mídia geral */
 function pintaFoto(n){
   clearTimeout(rotT);
-  var chave=FAIXAS[n][1].split(", ")[0],lista=(MIDIA[chave]||[]).concat(geral(n)),s=0;
+  var chave=FAIXAS[n][1].split(", ")[0],local=(MIDIA[chave]||[]).map(norm),ger=geral(n).map(norm),com=[],s=0,parado=false;
   imagem(n+1<FAIXAS.length?n+1:0);
+  function todos(){return local.concat(com,ger)}
+  function espera(){if(paused)rotT=setTimeout(espera,600);else passa()}
   function passa(){
     if(n!==i)return;
-    var fonte=s===0?imagem(n):Promise.resolve(lista[s-1]);
-    fonte.then(function(src){
+    var t=todos(),fonte=s===0?imagem(n).then(function(u){return u&&{src:u,cred:""}}):Promise.resolve(t[s-1]);
+    fonte.then(function(it){
       if(n!==i)return;
-      function avanca(d){s=(s+1)%(lista.length+1);if(lista.length)rotT=setTimeout(passa,d)}
-      if(!src)return avanca(200);
-      mostraMidia(src,avanca);
+      var tot=todos().length;
+      function avanca(d){s=(s+1)%(tot+1);if(tot)rotT=setTimeout(espera,d);else parado=true}
+      if(!it)return avanca(200);
+      mostraMidia(it,avanca);
     });
   }
+  commons(chave).then(function(r){
+    if(n!==i||!r.length)return;
+    com=r;
+    if(parado){parado=false;s=1;rotT=setTimeout(espera,5000)}
+  });
   passa();
 }
 function mostra(n,fade,sem){
@@ -440,9 +501,10 @@ function mostra(n,fade,sem){
     $("nome").textContent=f[1];$("faixa").textContent=f[0];
     $("meta").textContent=f[2]?T("album")+": "+f[2]:"";
     $("texto").textContent=tx(TEXTOS,TEXTOS_I18N,chave)||(f[2]?T("faixaDo")+" “"+f[2]+"”.":"");
+    var tr=TRECHOS[f[0]];$("trecho").style.display=tr?"":"none";if(tr){$("trechot").textContent="“"+tr+"”";$("trechoc").textContent="— "+chave+", “"+f[0]+"”"}
     var ct=tx(CONTEXTO,CONTEXTO_I18N,f[0]);$("ctxw").style.display=ct?"":"none";$("ctx").textContent=ct||"";
     var q=encodeURIComponent(f[0].split(" / ")[0]+" "+chave),A=' target="_blank" rel="noopener"';
-    $("links").innerHTML='<a href="https://www.letras.mus.br/?q='+q+'"'+A+'>'+T("letra")+'</a>'+
+    $("links").innerHTML=(tr?"":'<a href="https://www.letras.mus.br/?q='+q+'"'+A+'>'+T("letra")+'</a>')+
       '<a href="https://open.spotify.com/artist/'+f[4]+'"'+A+'>'+T("spotify")+'</a>'+
       '<a href="https://'+LANG+'.wikipedia.org/w/index.php?search='+encodeURIComponent(chave)+'"'+A+'>'+T("mais")+'</a>';
     $("count").textContent=("0"+(n+1)).slice(-2)+" / "+("0"+FAIXAS.length).slice(-2);
@@ -451,16 +513,24 @@ function mostra(n,fade,sem){
     b.classList.remove("out");
   },fade?350:0);
   document.title=f[1]+" · ka’atinga";
+  $("art").setAttribute("aria-label",T("img")+": "+f[1]);
+  if(!sem)$("live").textContent=f[1]+" — "+f[0];
   if(!sem)pintaFoto(n);
 }
 function vai(n,tocar){
   i=(n+FAIXAS.length)%FAIXAS.length;avancou=false;$("prog").style.width="0";mostra(i,true);
-  if(ctrl){ctrl.loadUri("spotify:track:"+FAIXAS[i][3]);if(tocar)ctrl.play()}
+  if(ctrl){
+    ctrl.loadUri("spotify:track:"+FAIXAS[i][3]);
+    if(tocar){quer=true;setTimeout(function(){if(quer){quer=false;ctrl.play()}},800)}
+  }else if(tocar)quer=true;
 }
 function icone(){$("pp").innerHTML=paused?PLAY:PAUSE;$("pp").setAttribute("aria-label",T(paused?"tocar":"pausar"))}
 
 window.onSpotifyIframeApiReady=function(API){
-  ctrl=API.createController($("embed"),{uri:"spotify:track:"+FAIXAS[i][3],width:"100%",height:80},function(c){
+  API.createController($("embed"),{uri:"spotify:track:"+FAIXAS[i][3],width:"100%",height:80},function(c){
+    ctrl=c;
+    if(quer){quer=false;setTimeout(function(){c.play()},400)}
+    c.addListener("ready",function(){if(quer){quer=false;c.play()}});
     c.addListener("playback_update",function(e){
       var d=e.data;paused=d.isPaused;icone();
       if(d.duration){
@@ -471,22 +541,64 @@ window.onSpotifyIframeApiReady=function(API){
   });
 };
 
-$("pp").onclick=function(){if(ctrl)ctrl.togglePlay()};
+$("pp").onclick=function(){if(ctrl)ctrl.togglePlay();else quer=true};
 $("next").onclick=function(){vai(i+1,true)};
 document.addEventListener("keydown",function(e){
+  if(e.code==="Escape"&&!$("a11yp").hidden){$("a11yb").click();$("a11yb").focus();return}
   if(!$("lb").hidden){if(e.code==="Escape")fecha();return}
-  if(e.code==="Space"){e.preventDefault();$("pp").click()}
+  if(e.code==="Space"&&!/^(BUTTON|A|INPUT|SELECT)$/.test(e.target.tagName)){e.preventDefault();$("pp").click()}
   if(e.code==="ArrowRight")vai(i+1,true);
   if(e.code==="ArrowLeft")vai(i-1,true);
 });
+/* ===== ACESSIBILIDADE E TEMA ===== */
+var PREF={tema:"auto",texto:0,contraste:false,movimento:false,leitura:false},ESC=[1,1.15,1.3];
+function salvaPref(){try{localStorage.setItem("kp",JSON.stringify(PREF))}catch(e){}}
+function carregaPref(){
+  try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)PREF.movimento=true}catch(e){}
+  try{var sv=JSON.parse(localStorage.getItem("kp")||"{}");for(var k in sv)if(k in PREF)PREF[k]=sv[k]}catch(e){}
+}
+function pinta(){
+  var bs=document.querySelectorAll("#a11yp button");
+  for(var k=0;k<bs.length;k++){
+    var b=bs[k],t=b.dataset.t,v=b.dataset.v,on;
+    if(t==="tema"){on=PREF.tema===v;b.textContent=T(v)}
+    else if(t==="texto"){on=PREF.texto===+v;b.textContent=["A","A+","A++"][+v]}
+    else{on=!!PREF[t];b.textContent=T(t)}
+    b.setAttribute("aria-pressed",on);
+  }
+  $("lgTema").textContent=T("tema");$("lgTexto").textContent=T("texto");$("lgMais").textContent=T("mais2");
+  $("a11yb").setAttribute("aria-label",T("acess"));
+}
+function aplicaPref(){
+  var r=document.documentElement,noite=false;
+  try{noite=matchMedia("(prefers-color-scheme: dark)").matches}catch(e){}
+  r.dataset.tema=PREF.tema==="auto"?(noite?"noite":"dia"):PREF.tema;
+  r.style.setProperty("--escala",ESC[PREF.texto]);
+  r.dataset.contraste=PREF.contraste?"alto":"normal";
+  r.dataset.movimento=PREF.movimento?"reduzido":"normal";
+  r.dataset.leitura=PREF.leitura?"facil":"normal";
+  pinta();
+}
+$("a11yb").onclick=function(){var h=$("a11yp").hidden;$("a11yp").hidden=!h;this.setAttribute("aria-expanded",h)};
+$("a11yp").onclick=function(e){
+  var b=e.target.closest&&e.target.closest("button");if(!b)return;
+  var t=b.dataset.t,v=b.dataset.v;
+  if(t==="tema")PREF.tema=v;else if(t==="texto")PREF.texto=+v;else PREF[t]=!PREF[t];
+  salvaPref();aplicaPref();
+};
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",aplicaPref)}catch(e){}
+
 function fecha(){
   $("lb").hidden=true;
   try{sessionStorage.setItem("kz","1")}catch(e){}
-  if(ctrl)ctrl.play();
+  if(ctrl){ctrl.play()}else quer=true;
 }
 $("entrar").onclick=fecha;
 try{if(sessionStorage.getItem("kz"))$("lb").hidden=true}catch(e){}
-aplica();pintaFoto(0);
+carregaPref();aplicaPref();aplica();pintaFoto(0);
+if(!$("lb").hidden)$("entrar").focus();
+/* Carrega a API do Spotify só agora, com o callback já definido (evita a corrida que impedia o controle do player). */
+var sc=document.createElement("script");sc.src="https://open.spotify.com/embed/iframe-api/v1";sc.async=true;document.head.appendChild(sc);
 </script>
 </body>
 </html>
