@@ -250,6 +250,13 @@ var MIDIA_GERAL = [
   /* "midia/geral-01.jpg","midia/geral-02.mp4" */
 ];
 
+/* BANCO DE IMAGENS (Are.na): seu acervo de fotos, GIFs e vídeos .mp4, guardado em are.na e sorteado pelo site.
+   canal: o final do endereço do seu canal PÚBLICO (are.na/seu-nome/ESTE-TRECHO).
+   porArtista (opcional): canais só de um artista, ex.: {"Luiz Gonzaga":"luiz-gonzaga"}. Além disso, blocos do canal geral
+   que citam o nome do artista no título ou na descrição aparecem primeiro nele. O título do bloco vira o crédito na tela.
+   quantidade: quantas mídias sorteadas do canal geral entram a cada faixa. */
+var ARENA={canal:"",porArtista:{},quantidade:8};
+
 /* TRECHOS DE LETRA (opcional): título exato da faixa → trecho curto, no idioma original.
    Aparece como citação no meio do texto, com a fonte. Faixas sem trecho mostram o link "Ver a letra".
    Formato:  "Título da faixa":"o trecho que você escolher",  */
@@ -429,7 +436,7 @@ function imagem(n){
 }
 /* Fonte automática de fotos: Wikimedia Commons (licenças livres, com crédito). Desligue com false.
    SEM_COMMONS: nomes que podem trazer fotos erradas (palavras comuns); para esses só vale a sua pasta "midia". */
-var FONTE_COMMONS=true,SEM_COMMONS=["Andorinha","Xangai","Caçapa","Louro Branco","Oliveira de Panelas","Os Nonatos"];
+var FONTE_COMMONS=!ARENA.canal,SEM_COMMONS=["Andorinha","Xangai","Caçapa","Louro Branco","Oliveira de Panelas","Os Nonatos"];
 var rotT=null,comCache={};
 function nz(s){return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
 function ehVideo(s){return /\.(mp4|webm|mov)$/i.test(s)}
@@ -455,26 +462,69 @@ function commons(nome){
 function mostraMidia(it,fim){
   var src=it.src,a=$("art"),el,antigos=a.querySelectorAll(".photo");
   function pronto(dur){
-    a.appendChild(el);void el.offsetWidth;el.classList.add("on");$("cred").textContent=it.cred||"";
+    el.style.transformOrigin=ORIG[Math.floor(Math.random()*ORIG.length)];a.appendChild(el);void el.offsetWidth;el.classList.add("on");$("cred").textContent=it.cred||"";
     for(var k=0;k<antigos.length;k++)(function(o){o.classList.remove("on");setTimeout(function(){o.remove()},900)})(antigos[k]);
     fim(dur);
   }
-  if(ehVideo(src)){
+  if(it.video||ehVideo(src)){
     el=document.createElement("video");el.className="photo";el.muted=true;el.loop=true;el.playsInline=true;el.src=src;
     el.onloadeddata=function(){el.play();pronto(Math.min(14000,(el.duration||10)*1000))};
     el.onerror=function(){fim(1500)};
   }else{
     var im=new Image();el=document.createElement("div");el.className="photo";
-    im.onload=function(){el.style.backgroundImage='url("'+src+'")';pronto(7000)};
+    im.onload=function(){el.style.backgroundImage='url("'+src+'")';pronto(6000+Math.random()*3000)};
     im.onerror=function(){fim(1500)};im.src=src;
   }
 }
-/* Sequência (só avança enquanto a música toca): capa/foto do Spotify → mídia do artista → Commons → mídia geral */
+var ORIG=["15% 20%","85% 25%","25% 85%","80% 80%","50% 50%"],arenaCache={},usados={};
+function embaralha(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1)),t=a[k];a[k]=a[j];a[j]=t}return a}
+function urlDe(v){return typeof v==="string"?v:(v&&(v.src||v.src_1x||v.url))||""}
+function blocoParaItem(b){
+  var t=(b.type||b["class"]||"").toLowerCase(),ti=b.title||"",de=b.description,src="",video=false,
+      dtxt=typeof de==="string"?de:(de&&(de.plain||de.markdown))||"";
+  if(t==="image"){
+    var im=b.image||{},gif=/gif/.test(im.content_type||"");
+    src=gif?urlDe(im.src||im.original):(urlDe(im.large)||urlDe(im.display)||urlDe(im.src)||urlDe(im.original));
+  }else if(t==="attachment"){
+    var at=b.attachment||{};
+    if(/^video\//.test(at.content_type||"")){src=at.url;video=true}else if(/^image\//.test(at.content_type||""))src=at.url;
+  }
+  return src?{src:src,cred:ti,video:video,txt:nz(ti+" "+dtxt)}:null;
+}
+function carregaCanal(slug){
+  if(arenaCache[slug])return arenaCache[slug];
+  function pagina(v,pg,acc){
+    var base="https://api.are.na/"+v+"/channels/"+encodeURIComponent(slug)+"/contents?per=100&page="+pg;
+    return fetch(base).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+      var arr=j.data||j.contents||[];
+      arr.forEach(function(b){var it=blocoParaItem(b);if(it)acc.push(it)});
+      var mais=j.meta?j.meta.next_page:arr.length>=100;
+      return mais&&pg<5?pagina(v,pg+1,acc):acc;
+    });
+  }
+  return arenaCache[slug]=pagina("v3",1,[]).catch(function(){return pagina("v2",1,[])}).catch(function(){return []});
+}
+function sorteia(pool,n){
+  var a=embaralha(pool);
+  a.sort(function(x,y){return (usados[x.src]||0)-(usados[y.src]||0)});
+  a=a.slice(0,n);a.forEach(function(x){usados[x.src]=(usados[x.src]||0)+1});
+  return a;
+}
+function arena(chave){
+  if(!ARENA.canal&&!ARENA.porArtista[chave])return Promise.resolve([]);
+  var pA=ARENA.porArtista[chave]?carregaCanal(ARENA.porArtista[chave]):Promise.resolve([]),
+      pG=ARENA.canal?carregaCanal(ARENA.canal):Promise.resolve([]);
+  return Promise.all([pA,pG]).then(function(r){
+    var nome=nz(chave),dele=r[1].filter(function(x){return x.txt.indexOf(nome)>-1}),resto=r[1].filter(function(x){return x.txt.indexOf(nome)<0});
+    return r[0].concat(embaralha(dele),sorteia(resto,ARENA.quantidade));
+  });
+}
+/* Sequência (só avança enquanto a música toca): capa → mídia do artista (sua pasta + Are.na) → Commons → sorteio geral */
 function pintaFoto(n){
   clearTimeout(rotT);
-  var chave=FAIXAS[n][1].split(", ")[0],local=(MIDIA[chave]||[]).map(norm),ger=geral(n).map(norm),com=[],s=0,parado=false;
+  var chave=FAIXAS[n][1].split(", ")[0],local=(MIDIA[chave]||[]).map(norm),ger=geral(n).map(norm),extra=[],com=[],s=0,parado=false;
   imagem(n+1<FAIXAS.length?n+1:0);
-  function todos(){return local.concat(com,ger)}
+  function todos(){return local.concat(extra,com,ger)}
   function espera(){if(paused)rotT=setTimeout(espera,600);else passa()}
   function passa(){
     if(n!==i)return;
@@ -487,11 +537,9 @@ function pintaFoto(n){
       mostraMidia(it,avanca);
     });
   }
-  commons(chave).then(function(r){
-    if(n!==i||!r.length)return;
-    com=r;
-    if(parado){parado=false;s=1;rotT=setTimeout(espera,5000)}
-  });
+  function chegou(){if(n===i&&parado&&todos().length){parado=false;s=1;rotT=setTimeout(espera,5000)}}
+  arena(chave).then(function(r){extra=r;chegou()});
+  commons(chave).then(function(r){com=r;chegou()});
   passa();
 }
 function mostra(n,fade,sem){
