@@ -132,7 +132,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 </div>
 <script>
 /* ===== CONFIGURAÇÃO ===== */
-var IMAGEM = "album";   // "album" = capa do disco · "artist" = foto do artista
 
 /* Uma linha por faixa: [título, artistas, álbum, id da faixa, id do artista principal]
    O texto é buscado em TEXTOS pelo nome do 1º artista. Para somar as faixas 1–50, cole novas linhas no início. */
@@ -428,12 +427,6 @@ var PAUSE='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>'
 function cores(s){var h=0;for(var k=0;k<s.length;k++)h=(h*31+s.charCodeAt(k))%360;
   return ["hsl("+h+" 45% 38%)","hsl("+((h+30)%360)+" 50% 14%)"]}
 
-function imagem(n){
-  var f=FAIXAS[n],url="https://open.spotify.com/"+(IMAGEM==="artist"?"artist/"+f[4]:"track/"+f[3]);
-  if(!cache[url])cache[url]=fetch("https://open.spotify.com/oembed?url="+encodeURIComponent(url))
-    .then(function(r){return r.json()}).then(function(j){return j.thumbnail_url}).catch(function(){return null});
-  return cache[url];
-}
 /* Fonte automática de fotos: Wikimedia Commons (licenças livres, com crédito). Desligue com false.
    SEM_COMMONS: nomes que podem trazer fotos erradas (palavras comuns); para esses só vale a sua pasta "midia". */
 var FONTE_COMMONS=!ARENA.canal,SEM_COMMONS=["Andorinha","Xangai","Caçapa","Louro Branco","Oliveira de Panelas","Os Nonatos"];
@@ -520,25 +513,19 @@ function arena(chave){
     return r[0].concat(embaralha(dele),sorteia(resto,ARENA.quantidade));
   });
 }
-/* Sequência (só avança enquanto a música toca): capa → mídia do artista (sua pasta + Are.na) → Commons → sorteio geral */
+/* Sequência (só avança enquanto a música toca): mídia do artista (sua pasta + Are.na) → Commons → sorteio geral */
 function pintaFoto(n){
   clearTimeout(rotT);
   var chave=FAIXAS[n][1].split(", ")[0],local=(MIDIA[chave]||[]).map(norm),ger=geral(n).map(norm),extra=[],com=[],s=0,parado=false;
-  imagem(n+1<FAIXAS.length?n+1:0);
   function todos(){return local.concat(extra,com,ger)}
   function espera(){if(paused)rotT=setTimeout(espera,600);else passa()}
   function passa(){
     if(n!==i)return;
-    var t=todos(),fonte=s===0?imagem(n).then(function(u){return u&&{src:u,cred:""}}):Promise.resolve(t[s-1]);
-    fonte.then(function(it){
-      if(n!==i)return;
-      var tot=todos().length;
-      function avanca(d){s=(s+1)%(tot+1);if(tot)rotT=setTimeout(espera,d);else parado=true}
-      if(!it)return avanca(200);
-      mostraMidia(it,avanca);
-    });
+    var t=todos();
+    if(!t.length){parado=true;return}
+    mostraMidia(t[s%t.length],function(d){s++;rotT=setTimeout(espera,d)});
   }
-  function chegou(){if(n===i&&parado&&todos().length){parado=false;s=1;rotT=setTimeout(espera,5000)}}
+  function chegou(){if(n===i&&parado&&todos().length){parado=false;passa()}}
   arena(chave).then(function(r){extra=r;chegou()});
   commons(chave).then(function(r){com=r;chegou()});
   passa();
