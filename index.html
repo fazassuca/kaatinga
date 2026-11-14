@@ -255,7 +255,7 @@ var MIDIA_GERAL = [
    porArtista (opcional): canais só de um artista, ex.: {"Luiz Gonzaga":"luiz-gonzaga"}. Além disso, blocos do canal geral
    que citam o nome do artista no título ou na descrição aparecem primeiro nele. O título do bloco vira o crédito na tela.
    quantidade: quantas mídias sorteadas do canal geral entram a cada faixa. */
-var ARENA={canal:"https://www.are.na/joao-faissal/kaatinga",porArtista:{},quantidade:8};
+var ARENA={canal:"kaatinga",porArtista:{},quantidade:8};
 
 /* TRECHOS DE LETRA (opcional): título exato da faixa → trecho curto, no idioma original.
    Aparece como citação no meio do texto, com a fonte. Faixas sem trecho mostram o link "Ver a letra".
@@ -492,6 +492,7 @@ function blocoParaItem(b){
   return src?{src:src,cred:ti,video:video,txt:nz(ti+" "+dtxt)}:null;
 }
 function carregaCanal(slug){
+  slug=String(slug).replace(/[?#].*$/,"").replace(/\/+$/,"").split("/").pop();
   if(arenaCache[slug])return arenaCache[slug];
   function pagina(v,pg,acc){
     var base="https://api.are.na/"+v+"/channels/"+encodeURIComponent(slug)+"/contents?per=100&page="+pg;
