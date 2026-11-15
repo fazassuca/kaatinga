@@ -3,11 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ka’atinga · galeria sonora do Nordeste</title>
+<title>Galeria Sonora do Nordeste · ka’atinga</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#84652e">
+<meta name="description" content="Uma galeria sonora com música e imagens do Nordeste do Brasil.">
+<meta property="og:title" content="Galeria Sonora do Nordeste">
+<meta property="og:description" content="Uma galeria sonora com música e imagens do Nordeste do Brasil.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Galeria Sonora do Nordeste">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://fazassuca.github.io/kaatinga/">
+<meta property="og:image" content="https://fazassuca.github.io/kaatinga/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sol de raios afilados em coral sobre fundo oliva, ao lado do título Galeria Sonora do Nordeste">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fazassuca.github.io/kaatinga/og-image.png">
+<link rel="canonical" href="https://fazassuca.github.io/kaatinga/">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Galeria Sonora">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap">
 <style>
-:root{--bg:#f4efe6;--fg:#16130f;--mute:#6b645a;--line:rgba(0,0,0,.18)}
-@media (prefers-color-scheme:dark){:root{--bg:#121110;--fg:#f2ece0;--mute:#a39b8d;--line:rgba(255,255,255,.22)}}
+:root{--bg:#f07f7b;--fg:#2a1e0b;--mute:#3b2a10;--line:rgba(42,30,11,.38);--art:#84652e}
+@media (prefers-color-scheme:dark){:root{--bg:#231a0b;--fg:#f07f7b;--mute:#dba596;--line:rgba(240,127,123,.38);--art:#5e4821}}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%}
 body{background:var(--bg);color:var(--fg);font-family:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;overflow:hidden}
@@ -38,8 +61,8 @@ p{font-size:clamp(15px,1.25vw,18px);line-height:1.7}
 .langs button{all:unset;cursor:pointer;padding:4px 6px;font:600 11px 'Manrope',system-ui,sans-serif;letter-spacing:.14em;color:var(--mute);border-bottom:1.5px solid transparent}
 .langs button.on,.langs button:hover,.langs button:focus-visible{color:var(--fg);border-bottom-color:var(--fg)}
 .lb .langs{margin:0 0 26px -6px}
-:root[data-tema="dia"]{--bg:#f4efe6;--fg:#16130f;--mute:#6b645a;--line:rgba(0,0,0,.18)}
-:root[data-tema="noite"]{--bg:#121110;--fg:#f2ece0;--mute:#a39b8d;--line:rgba(255,255,255,.22)}
+:root[data-tema="dia"]{--bg:#f07f7b;--fg:#2a1e0b;--mute:#3b2a10;--line:rgba(42,30,11,.38);--art:#84652e}
+:root[data-tema="noite"]{--bg:#231a0b;--fg:#f07f7b;--mute:#dba596;--line:rgba(240,127,123,.38);--art:#5e4821}
 :root[data-contraste="alto"][data-tema="dia"]{--bg:#fff;--fg:#000;--mute:#000;--line:#000}
 :root[data-contraste="alto"][data-tema="noite"]{--bg:#000;--fg:#fff;--mute:#fff;--line:#fff}
 :root[data-contraste="alto"] .btn,:root[data-contraste="alto"] .pill{border-width:3px}
@@ -67,6 +90,61 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 .seg{display:flex;gap:6px;flex-wrap:wrap}
 .seg button{cursor:pointer;padding:7px 12px;border:1.5px solid var(--fg);border-radius:999px;background:none;color:var(--fg);font:600 13px 'Manrope',system-ui,sans-serif}
 .seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.btn[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.btn.sm{width:44px;height:44px}
+.ctrl{gap:14px}
+.a11y{display:flex;flex-wrap:wrap;gap:8px;max-width:calc(100vw - 28px);transition:opacity .6s}
+.a11y .pn{flex-basis:100%;margin-top:2px}
+.lb{display:flex;overflow:auto}
+.lb .card{margin:auto;max-width:38rem}
+.lb h2{font-size:clamp(30px,5vw,52px)}
+.lb h3{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin:26px 0 8px;font-weight:600}
+.lb ul{padding-left:1.1em}
+.lb li{margin:8px 0;line-height:1.6;font-size:clamp(15px,1.25vw,17px);color:var(--mute)}
+.lb a{color:var(--fg)}
+.lb .lead{font-size:clamp(17px,1.6vw,20px);line-height:1.6}
+.lb .acts{position:sticky;bottom:-24px;background:var(--bg);padding:14px 0 30px;margin-top:22px}
+body.tv .stage{display:block}
+body.tv .art{position:fixed;inset:0;z-index:1}
+body.tv .txt{position:fixed;left:0;right:0;bottom:0;z-index:5;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;padding:36px clamp(16px,4vw,48px) calc(16px + env(safe-area-inset-bottom,0px));overflow:visible;background:linear-gradient(transparent,rgba(0,0,0,.78));--bg:#000;--fg:#fff;--mute:rgba(255,255,255,.78);--line:rgba(255,255,255,.35);color:#fff;transition:opacity .6s}
+body.tv .top,body.tv #texto,body.tv .ctx,body.tv .trecho,body.tv .links,body.tv .meta,body.tv .initial,body.tv #sobreb{display:none}
+body.tv .body{zoom:1;max-width:none;flex:1 1 220px;min-width:0}
+body.tv h1{font-size:clamp(18px,2.4vw,30px);margin:0}
+body.tv .faixa{margin:0 0 4px;font-size:11px}
+body.tv .dock{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+body.tv .ctrl{gap:12px}
+body.tv .bar{flex:none;width:clamp(70px,12vw,180px)}
+body.tv .sp{margin:0;min-height:0;width:min(300px,100%)}
+body.tv .cred{top:14px;right:14px;left:auto;bottom:auto;max-width:55%;text-align:right}
+body.tv .cred:not(:empty){padding:6px 10px;border-radius:8px;background:rgba(0,0,0,.55)}
+body.tv.quieto .txt{opacity:.18}
+body.tv.quieto .a11y{opacity:0;pointer-events:none}
+body.tv.quieto{cursor:none}
+/* ===== Linguagem visual: oliva + coral, sol de raios afilados, tipografia larga, grão de papel ===== */
+:root{--coral:#f07f7b}
+.art{background:var(--art)}
+.art .img{display:none}
+.art .photo{inset:clamp(10px,2vw,22px);border-radius:3px}
+body.tv .art .photo{inset:0;border-radius:0}
+.sol{position:absolute;inset:0;width:100%;height:100%;color:var(--coral);animation:giro 240s linear infinite}
+@keyframes giro{to{transform:rotate(360deg)}}
+:root[data-movimento="reduzido"] .sol{animation:none}
+.marca{display:inline-flex;align-items:center;gap:10px}
+.marca img{display:block;border-radius:5px}
+.tt{font-weight:800;letter-spacing:-.03em;line-height:1.04;font-size:clamp(32px,4.6vw,60px)}
+.tt.longo{font-size:clamp(22px,3vw,40px)}
+body::after{content:"";position:fixed;inset:0;z-index:25;pointer-events:none;opacity:.2;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -.55'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+:root[data-contraste="alto"] body::after{display:none}
+.x{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:31;width:44px;height:44px;padding:0;border-radius:50%;border:1.5px solid var(--fg);background:var(--bg);color:var(--fg);cursor:pointer;display:grid;place-items:center}
+.x:hover{background:var(--fg);color:var(--bg)}
+.x[hidden],.lbbar[hidden]{display:none}
+.lbbar{position:fixed;top:0;left:0;right:0;z-index:29;height:calc(72px + env(safe-area-inset-top,0px));background:var(--bg);border-bottom:1px solid var(--line)}
+.lb{padding-top:88px}
+.lb .deep{padding:10px 14px;border:1.5px solid var(--fg);border-radius:12px;margin-bottom:18px;font-weight:600}
+.lb .share{display:flex;flex-wrap:wrap;gap:10px}
+.lb .share .pill{padding:10px 18px;font-size:13px}
+.lb .mute{color:var(--mute);margin:0 0 12px}
+#shmsg{min-height:1.4em;margin-top:10px;color:var(--mute)}
 .art video.photo{object-fit:cover;width:100%;height:100%}
 .ctx{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
 .ctx h2{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-weight:600;margin-bottom:10px}
@@ -87,6 +165,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 <body>
 <div class="a11y">
   <button id="a11yb" aria-expanded="false" aria-controls="a11yp">Aa</button>
+  <button id="sobreb">?</button>
   <div class="pn" id="a11yp" role="group" hidden>
     <fieldset><legend id="lgTema"></legend><div class="seg"><button data-t="tema" data-v="auto"></button><button data-t="tema" data-v="dia"></button><button data-t="tema" data-v="noite"></button></div></fieldset>
     <fieldset><legend id="lgTexto"></legend><div class="seg"><button data-t="texto" data-v="0"></button><button data-t="texto" data-v="1"></button><button data-t="texto" data-v="2"></button></div></fieldset>
@@ -95,37 +174,47 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--fg);outline-offset:
 </div>
 <div class="sr" id="live" aria-live="polite"></div>
 <main class="stage">
-  <section class="art" id="art"><div class="img"></div><div class="initial" id="ini"></div><div class="cred" id="cred"></div></section>
+  <section class="art" id="art"><div class="img"></div><svg class="sol" id="sol" viewBox="-500 -500 1000 1000" aria-hidden="true" focusable="false"></svg><div class="cred" id="cred"></div></section>
   <section class="txt">
-    <div class="top"><span>ka’atinga</span><span class="langs" id="langs"></span><span id="count"></span></div>
+    <div class="top"><span class="marca"><img src="icon.svg" alt="" width="22" height="22">Galeria Sonora do Nordeste</span><span class="langs" id="langs"></span><span id="count"></span></div>
     <div class="body" id="body">
       <div class="faixa" id="faixa"></div>
-      <h1 id="nome"></h1>
+      <h1 id="nome" class="tt"></h1>
       <div class="meta" id="meta"></div>
       <p id="texto"></p>
       <blockquote class="trecho" id="trecho" style="display:none"><span id="trechot"></span><cite id="trechoc"></cite></blockquote>
       <div class="ctx" id="ctxw"><h2 id="ctxh">Sobre a canção</h2><p id="ctx"></p></div>
       <div class="links" id="links"></div>
     </div>
-    <div>
+    <div class="dock">
       <div class="ctrl">
         <button class="btn" id="pp" aria-label="Tocar"></button>
         <div class="bar"><i id="prog"></i></div>
         <button class="btn" id="next" aria-label="Próxima"><svg viewBox="0 0 24 24"><path d="M6 5l9 7-9 7V5zm11 0h2v14h-2V5z"/></svg></button>
+        <button class="btn sm" id="ord" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg></button>
+        <button class="btn sm" id="fs" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
       </div>
       <div class="sp"><div id="embed"></div></div>
     </div>
   </section>
 </main>
 
+<div class="lbbar" id="lbbar"></div>
+<button class="x" id="lbx" type="button"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg></button>
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbt">
   <div class="card">
     <div class="langs" id="lblangs"></div>
-    <h2 id="lbt">ka’atinga</h2>
-    <p id="lbp1">Uma galeria sonora com música do Nordeste do Brasil, reunida a partir de uma pesquisa. A cada faixa, uma imagem, um texto e uma pista para ir mais fundo.</p>
-    <p id="lbp2">Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.</p>
+    <h2 id="lbt">Galeria Sonora do Nordeste</h2>
+    <p class="deep" id="lbdeep" hidden></p>
+    <div id="lbtxt"></div>
+    <h3 id="shh"></h3>
+    <p class="mute" id="shtrack"></p>
+    <div class="share"><button class="pill" id="shsite" type="button"></button><button class="pill" id="shfaixa" type="button"></button><a class="pill" id="shspot" target="_blank" rel="noopener" href="https://open.spotify.com"></a></div>
+    <p id="shmsg" role="status" aria-live="polite"></p>
+    <p id="instmsg" hidden></p>
     <div class="acts">
       <a class="pill" id="lbspot" href="https://accounts.spotify.com/login" target="_blank" rel="noopener">Entrar no Spotify</a>
+      <button class="pill" id="inst" type="button"></button>
       <button class="pill fill" id="entrar">Entrar na galeria</button>
     </div>
   </div>
@@ -320,10 +409,42 @@ var IDIOMAS={pt:"PT",en:"EN"};
 var UI={
 pt:{album:"Álbum",faixaDo:"Faixa do álbum",letra:"Ver a letra",spotify:"Artista no Spotify",mais:"Saiba mais",sobre:"Sobre a canção",tocar:"Tocar",pausar:"Pausar",prox:"Próxima",
  lb1:"Uma galeria sonora com música do Nordeste do Brasil, reunida a partir de uma pesquisa. A cada faixa, uma imagem, um texto e uma pista para ir mais fundo.",
- lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria",acess:"Acessibilidade",tema:"Tema",auto:"Automático",dia:"Dia",noite:"Noite",texto:"Tamanho do texto",contraste:"Alto contraste",movimento:"Menos movimento",leitura:"Leitura facilitada",mais2:"Mais opções",img:"Imagem"},
+ lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria",acess:"Acessibilidade",tema:"Tema",auto:"Automático",dia:"Dia",noite:"Noite",texto:"Tamanho do texto",contraste:"Alto contraste",movimento:"Menos movimento",leitura:"Leitura facilitada",mais2:"Mais opções",img:"Imagem",alea:"Ordem aleatória",tela:"Tela cheia",sair:"Sair da tela cheia",inst:"Adicionar à tela inicial",sobre2:"Sobre o projeto",fechar:"Fechar",voltar:"Voltar à galeria",compart:"Compartilhar",agora:"Tocando agora",shsite:"Compartilhar o site",shfaixa:"Compartilhar esta música",shspot:"Abrir no Spotify",copiado:"Link copiado!",abriu:"Faixa compartilhada com você:",shtxtsite:"Galeria Sonora do Nordeste: música e imagem do Nordeste do Brasil.",instios:"No iPhone ou iPad: toque em Compartilhar (o quadrado com seta) e escolha “Adicionar à Tela de Início”.",instand:"No navegador: abra o menu (⋮ ou o ícone de instalar) e escolha “Instalar app” ou “Adicionar à tela inicial”.",lbhtml:`<p class="lead">Este projeto nasce de um experimento: associar som e imagem numa experiência sensorial do que é crescer, viver, amadurecer e conviver nos nove estados do Nordeste do Brasil.</p>
+<p>A Galeria Sonora do Nordeste está em constante crescimento, trazendo novos sons e imagens. De um lado, uma playlist imersiva e diversa em tantas manifestações musicais; ao lado, uma galeria de imagens (fotos, designs, ilustrações, vídeos e mais) que conecta a experiência do que foi, do que é e do que sempre se transformará: o Nordeste do Brasil.</p>
+<p>É uma região que sofre com preconceitos, boicotes, eugenismos e desconstruções vindas de outras regiões do país, historicamente colocada abaixo por sua grande miscigenação de raças e culturas. Uma referência para pensar isso é o livro <em>Só sei que foi assim</em>, de Octávio Santiago.</p>
+<p>Este projeto é sobre pluralidade, sensorialidade e memória.</p>
+<h3>A playlist</h3>
+<p>A playlist <em>ka’atinga</em> reúne {n} faixas, do baião e do forró à cantoria de viola, dos pífanos e rabecas ao manguebeat e à canção contemporânea, de mestres da tradição oral a artistas de hoje. Junto de cada faixa, você encontra textos sobre o artista e, sempre que possível, sobre a canção.</p>
+<h3>Como funciona</h3>
+<ul>
+<li>Toque o play. Para ouvir as faixas inteiras, entre no Spotify; sem login, são trechos de 30 segundos. Se acabou de entrar, recarregue a página.</li>
+<li>Use Próxima e o botão de ordem para alternar entre a ordem da playlist e a ordem aleatória.</li>
+<li>As imagens passam sozinhas, sem se repetir, enquanto a música toca.</li>
+<li>A tela cheia deixa só as imagens, com as informações mínimas embaixo, para ficar de fundo em casa ou numa festa.</li>
+<li>O botão Aa muda o tema (dia ou noite), o tamanho do texto e outros recursos de acessibilidade.</li>
+<li>No celular, adicione o site à tela inicial e use como um app.</li>
+</ul>
+<h3>Imagens e créditos</h3>
+<p>As imagens citam seus respectivos autores. Se você não quiser que sua imagem seja associada ao projeto, entre em contato pelo Instagram <a href="https://instagram.com/galeriasonoranordeste" target="_blank" rel="noopener">@galeriasonoranordeste</a>.</p>`},
 en:{album:"Album",faixaDo:"Track from the album",letra:"See the lyrics",spotify:"Artist on Spotify",mais:"Learn more",sobre:"About the song",tocar:"Play",pausar:"Pause",prox:"Next",
  lb1:"A sound gallery of music from Northeast Brazil, gathered from a research project. For each track, an image, a text and a clue to go deeper.",
- lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery",acess:"Accessibility",tema:"Theme",auto:"Auto",dia:"Day",noite:"Night",texto:"Text size",contraste:"High contrast",movimento:"Reduce motion",leitura:"Easy reading",mais2:"More options",img:"Image"}
+ lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery",acess:"Accessibility",tema:"Theme",auto:"Auto",dia:"Day",noite:"Night",texto:"Text size",contraste:"High contrast",movimento:"Reduce motion",leitura:"Easy reading",mais2:"More options",img:"Image",alea:"Shuffle",tela:"Full screen",sair:"Exit full screen",inst:"Add to home screen",sobre2:"About the project",fechar:"Close",voltar:"Back to the gallery",compart:"Share",agora:"Now playing",shsite:"Share the site",shfaixa:"Share this track",shspot:"Open on Spotify",copiado:"Link copied!",abriu:"Track shared with you:",shtxtsite:"Galeria Sonora do Nordeste: music and images from Northeast Brazil.",instios:"On iPhone or iPad: tap Share (the square with an arrow) and choose “Add to Home Screen”.",instand:"In your browser: open the menu (⋮ or the install icon) and choose “Install app” or “Add to home screen”.",lbhtml:`<p class="lead">This project began as an experiment: tying sound to image in a sensory experience of growing up, living, maturing and living together across the nine states of Northeast Brazil.</p>
+<p>The Galeria Sonora do Nordeste (Northeast Sound Gallery) is constantly growing, bringing new sounds and images. On one side, an immersive playlist, diverse in so many musical expressions; beside it, a gallery of images (photos, designs, illustrations, videos and more) that connects the experience of what was, what is and what will always transform: Northeast Brazil.</p>
+<p>It is a region that suffers prejudice, boycotts, eugenicist views and dismantling coming from other regions of the country, historically placed below because of its great mixing of races and cultures. One reference for thinking about this is the book <em>Só sei que foi assim</em>, by Octávio Santiago.</p>
+<p>This project is about plurality, sensoriality and memory.</p>
+<h3>The playlist</h3>
+<p>The <em>ka’atinga</em> playlist brings together {n} tracks, from baião and forró to cantoria de viola, from pífanos and rabecas to manguebeat and contemporary song, from masters of the oral tradition to today’s artists. Alongside each track you will find texts about the artist and, whenever possible, about the song.</p>
+<h3>How it works</h3>
+<ul>
+<li>Press play. To hear full tracks, log in to Spotify; without logging in, you only hear 30-second previews. If you just logged in, reload the page.</li>
+<li>Use Next and the order button to switch between playlist order and shuffle.</li>
+<li>Images change on their own, without repeating, while the music plays.</li>
+<li>Full screen leaves only the images, with minimal information at the bottom, to run in the background at home or at a party.</li>
+<li>The Aa button changes the theme (day or night), the text size and other accessibility features.</li>
+<li>On your phone, add the site to your home screen and use it like an app.</li>
+</ul>
+<h3>Images and credits</h3>
+<p>Images credit their respective authors. If you do not want your image associated with the project, please get in touch on Instagram <a href="https://instagram.com/galeriasonoranordeste" target="_blank" rel="noopener">@galeriasonoranordeste</a>.</p>`}
 };
 /* Textos longos traduzidos. Idiomas sem tradução aqui usam o inglês e, na falta dele, o português. */
 var TEXTOS_I18N={en:{
@@ -412,8 +533,8 @@ function desenhaLangs(){
 }
 function aplica(){
   document.documentElement.lang=LANG;
-  $("lbp1").textContent=T("lb1");$("lbp2").textContent=T("lb2");
-  $("lbspot").textContent=T("spot");$("entrar").textContent=T("gal");$("ctxh").textContent=T("sobre");
+  $("lbtxt").innerHTML=T("lbhtml").replace("{n}",FAIXAS.length);$("inst").textContent=T("inst");$("sobreb").setAttribute("aria-label",T("sobre2"));icOrd();icTV();
+  $("lbspot").textContent=T("spot");rotuloLB();$("lbx").setAttribute("aria-label",T("fechar"));$("shh").textContent=T("compart");$("shsite").textContent=T("shsite");$("shfaixa").textContent=T("shfaixa");$("shspot").textContent=T("shspot");$("lbdeep").hidden=!deep;if(deep)$("lbdeep").textContent=T("abriu")+" "+FAIXAS[deepI][0]+" — "+FAIXAS[deepI][1];$("ctxh").textContent=T("sobre");
   $("next").setAttribute("aria-label",T("prox"));
   desenhaLangs();pinta();icone();mostra(i,false,true);
 }
@@ -427,49 +548,11 @@ var PAUSE='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>'
 function cores(s){var h=0;for(var k=0;k<s.length;k++)h=(h*31+s.charCodeAt(k))%360;
   return ["hsl("+h+" 45% 38%)","hsl("+((h+30)%360)+" 50% 14%)"]}
 
-/* Fonte automática de fotos: Wikimedia Commons (licenças livres, com crédito). Desligue com false.
-   SEM_COMMONS: nomes que podem trazer fotos erradas (palavras comuns); para esses só vale a sua pasta "midia". */
-var FONTE_COMMONS=!ARENA.canal,SEM_COMMONS=["Andorinha","Xangai","Caçapa","Louro Branco","Oliveira de Panelas","Os Nonatos"];
-var rotT=null,comCache={};
+/* ===== SLIDESHOW GLOBAL: independe da faixa, eterno e sem repetir (embaralha tudo, só repete quando todas já passaram) ===== */
+var rotT=null,fila=[],ultimo="",pool=null,artistaAtual="",arenaCache={},ORIG=["15% 20%","85% 25%","25% 85%","80% 80%","50% 50%"];
 function nz(s){return s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
 function ehVideo(s){return /\.(mp4|webm|mov)$/i.test(s)}
 function norm(x){return typeof x==="string"?{src:x,cred:""}:{src:x[0],cred:x[1]||""}}
-function geral(n){var g=[],L=MIDIA_GERAL.length;for(var k=0;k<Math.min(3,L);k++)g.push(MIDIA_GERAL[(n*3+k)%L]);return g}
-function commons(nome){
-  if(!FONTE_COMMONS||SEM_COMMONS.indexOf(nome)>-1)return Promise.resolve([]);
-  if(comCache[nome])return comCache[nome];
-  var u="https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=15&gsrsearch="+
-    encodeURIComponent('"'+nome+'"')+"&prop=imageinfo&iiprop=url|mime|extmetadata&iiurlwidth=1400";
-  return comCache[nome]=fetch(u).then(function(r){return r.json()}).then(function(j){
-    var ps=j.query?Object.keys(j.query.pages).map(function(k){return j.query.pages[k]}):[],out=[];
-    ps.forEach(function(p){
-      var ii=p.imageinfo&&p.imageinfo[0];
-      if(!ii||out.length>=5||!/^image\/(jpeg|png|webp)$/.test(ii.mime)||nz(p.title).indexOf(nz(nome))<0)return;
-      var m=ii.extmetadata||{},aut=new DOMParser().parseFromString((m.Artist&&m.Artist.value)||"","text/html").body.textContent.trim().slice(0,60),
-          lic=(m.LicenseShortName&&m.LicenseShortName.value)||"";
-      out.push({src:ii.thumburl||ii.url,cred:[aut,lic,"Wikimedia Commons"].filter(Boolean).join(" · ")});
-    });
-    return out;
-  }).catch(function(){return []});
-}
-function mostraMidia(it,fim){
-  var src=it.src,a=$("art"),el,antigos=a.querySelectorAll(".photo");
-  function pronto(dur){
-    el.style.transformOrigin=ORIG[Math.floor(Math.random()*ORIG.length)];a.appendChild(el);void el.offsetWidth;el.classList.add("on");$("cred").textContent=it.cred||"";
-    for(var k=0;k<antigos.length;k++)(function(o){o.classList.remove("on");setTimeout(function(){o.remove()},900)})(antigos[k]);
-    fim(dur);
-  }
-  if(it.video||ehVideo(src)){
-    el=document.createElement("video");el.className="photo";el.muted=true;el.loop=true;el.playsInline=true;el.src=src;
-    el.onloadeddata=function(){el.play();pronto(Math.min(14000,(el.duration||10)*1000))};
-    el.onerror=function(){fim(1500)};
-  }else{
-    var im=new Image();el=document.createElement("div");el.className="photo";
-    im.onload=function(){el.style.backgroundImage='url("'+src+'")';pronto(6000+Math.random()*3000)};
-    im.onerror=function(){fim(1500)};im.src=src;
-  }
-}
-var ORIG=["15% 20%","85% 25%","25% 85%","80% 80%","50% 50%"],arenaCache={},usados={};
 function embaralha(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1)),t=a[k];a[k]=a[j];a[j]=t}return a}
 function urlDe(v){return typeof v==="string"?v:(v&&(v.src||v.src_1x||v.url))||""}
 function blocoParaItem(b){
@@ -498,43 +581,64 @@ function carregaCanal(slug){
   }
   return arenaCache[slug]=pagina("v3",1,[]).catch(function(){return pagina("v2",1,[])}).catch(function(){return []});
 }
-function sorteia(pool,n){
-  var a=embaralha(pool);
-  a.sort(function(x,y){return (usados[x.src]||0)-(usados[y.src]||0)});
-  a=a.slice(0,n);a.forEach(function(x){usados[x.src]=(usados[x.src]||0)+1});
-  return a;
+function mostraMidia(it,fim){
+  var src=it.src,a=$("art"),el,antigos=a.querySelectorAll(".photo");
+  function pronto(dur){
+    el.style.transformOrigin=ORIG[Math.floor(Math.random()*ORIG.length)];a.appendChild(el);void el.offsetWidth;el.classList.add("on");$("cred").textContent=it.cred||"";
+    for(var k=0;k<antigos.length;k++)(function(o){o.classList.remove("on");setTimeout(function(){o.remove()},900)})(antigos[k]);
+    fim(dur);
+  }
+  if(it.video||ehVideo(src)){
+    el=document.createElement("video");el.className="photo";el.muted=true;el.loop=true;el.playsInline=true;el.src=src;
+    el.onloadeddata=function(){el.play();pronto(Math.min(14000,(el.duration||10)*1000))};
+    el.onerror=function(){fim(1500)};
+  }else{
+    var im=new Image();el=document.createElement("div");el.className="photo";
+    im.onload=function(){el.style.backgroundImage='url("'+src+'")';pronto(6000+Math.random()*3000)};
+    im.onerror=function(){fim(1500)};im.src=src;
+  }
 }
-function arena(chave){
-  if(!ARENA.canal&&!ARENA.porArtista[chave])return Promise.resolve([]);
-  var pA=ARENA.porArtista[chave]?carregaCanal(ARENA.porArtista[chave]):Promise.resolve([]),
-      pG=ARENA.canal?carregaCanal(ARENA.canal):Promise.resolve([]);
-  return Promise.all([pA,pG]).then(function(r){
-    var nome=nz(chave),dele=r[1].filter(function(x){return x.txt.indexOf(nome)>-1}),resto=r[1].filter(function(x){return x.txt.indexOf(nome)<0});
-    return r[0].concat(embaralha(dele),sorteia(resto,ARENA.quantidade));
+/* Reúne: canal geral e canais por artista do Are.na + sua pasta "midia" (MIDIA e MIDIA_GERAL) */
+function montaPool(){
+  if(pool)return pool;
+  var loc=[],ps=[],k;
+  for(k in MIDIA)(function(nome){MIDIA[nome].forEach(function(x){var o=norm(x);o.txt=nz(nome+" "+o.cred);loc.push(o)})})(k);
+  MIDIA_GERAL.forEach(function(x){var o=norm(x);o.txt=nz(o.cred);loc.push(o)});
+  if(ARENA.canal)ps.push(carregaCanal(ARENA.canal));
+  for(k in ARENA.porArtista)(function(nome){ps.push(carregaCanal(ARENA.porArtista[nome]).then(function(r){
+    return r.map(function(x){return {src:x.src,cred:x.cred,video:x.video,txt:x.txt+" "+nz(nome)}})}))})(k);
+  return pool=Promise.all(ps).then(function(r){
+    var seen={};return loc.concat.apply(loc,r).filter(function(x){return seen[x.src]?false:(seen[x.src]=true)});
   });
 }
-/* Sequência (só avança enquanto a música toca): mídia do artista (sua pasta + Are.na) → Commons → sorteio geral */
-function pintaFoto(n){
-  clearTimeout(rotT);
-  var chave=FAIXAS[n][1].split(", ")[0],local=(MIDIA[chave]||[]).map(norm),ger=geral(n).map(norm),extra=[],com=[],s=0,parado=false;
-  function todos(){return local.concat(extra,com,ger)}
-  function espera(){if(paused)rotT=setTimeout(espera,600);else passa()}
-  function passa(){
-    if(n!==i)return;
-    var t=todos();
-    if(!t.length){parado=true;return}
-    mostraMidia(t[s%t.length],function(d){s++;rotT=setTimeout(espera,d)});
-  }
-  function chegou(){if(n===i&&parado&&todos().length){parado=false;passa()}}
-  arena(chave).then(function(r){extra=r;chegou()});
-  commons(chave).then(function(r){com=r;chegou()});
-  passa();
+/* Próxima mídia: nunca repete antes de passar todas; se a música é de um artista com mídia citando o nome, ela entra primeiro */
+function proxima(){
+  return montaPool().then(function(p){
+    if(!p.length)return null;
+    if(!fila.length){
+      fila=embaralha(p);
+      if(fila.length>1&&fila[fila.length-1].src===ultimo)fila.unshift(fila.pop());
+    }
+    if(artistaAtual){
+      for(var k=fila.length-1;k>=0;k--)if(fila[k].txt.indexOf(artistaAtual)>-1){fila.push(fila.splice(k,1)[0]);break}
+    }
+    var it=fila.pop();ultimo=it.src;return it;
+  });
+}
+function espera(){if(paused)rotT=setTimeout(espera,600);else ciclo()}
+function ciclo(){
+  proxima().then(function(it){
+    if(!it)return;
+    mostraMidia(it,function(d){rotT=setTimeout(espera,d)});
+  });
 }
 function mostra(n,fade,sem){
   var f=FAIXAS[n],b=$("body"),chave=f[1].split(", ")[0];
   b.classList.add("out");
   setTimeout(function(){
     $("nome").textContent=f[1];$("faixa").textContent=f[0];
+    var lg=f[1].length>28?" longo":"";$("nome").className="tt"+lg;
+    $("shtrack").textContent=T("agora")+": "+f[0]+" — "+f[1];$("shspot").href="https://open.spotify.com/track/"+f[3];
     $("meta").textContent=f[2]?T("album")+": "+f[2]:"";
     $("texto").textContent=tx(TEXTOS,TEXTOS_I18N,chave)||(f[2]?T("faixaDo")+" “"+f[2]+"”.":"");
     var tr=TRECHOS[f[0]];$("trecho").style.display=tr?"":"none";if(tr){$("trechot").textContent="“"+tr+"”";$("trechoc").textContent="— "+chave+", “"+f[0]+"”"}
@@ -544,17 +648,17 @@ function mostra(n,fade,sem){
       '<a href="https://open.spotify.com/artist/'+f[4]+'"'+A+'>'+T("spotify")+'</a>'+
       '<a href="https://'+LANG+'.wikipedia.org/w/index.php?search='+encodeURIComponent(chave)+'"'+A+'>'+T("mais")+'</a>';
     $("count").textContent=("0"+(n+1)).slice(-2)+" / "+("0"+FAIXAS.length).slice(-2);
-    var c=cores(chave),a=$("art");a.style.setProperty("--c1",c[0]);a.style.setProperty("--c2",c[1]);
-    $("ini").textContent=chave.charAt(0);
+    
+    
     b.classList.remove("out");
   },fade?350:0);
-  document.title=f[1]+" · ka’atinga";
+  document.title=f[1]+" · Galeria Sonora do Nordeste";
   $("art").setAttribute("aria-label",T("img")+": "+f[1]);
   if(!sem)$("live").textContent=f[1]+" — "+f[0];
-  if(!sem)pintaFoto(n);
+  if(!sem)artistaAtual=nz(chave);
 }
 function vai(n,tocar){
-  i=(n+FAIXAS.length)%FAIXAS.length;avancou=false;$("prog").style.width="0";mostra(i,true);
+  i=(n+FAIXAS.length)%FAIXAS.length;avancou=false;$("prog").style.width="0";mostra(i,true);try{history.replaceState(null,"","#f="+FAIXAS[i][3])}catch(e){}
   if(ctrl){
     ctrl.loadUri("spotify:track:"+FAIXAS[i][3]);
     if(tocar){quer=true;setTimeout(function(){if(quer){quer=false;ctrl.play()}},800)}
@@ -571,20 +675,22 @@ window.onSpotifyIframeApiReady=function(API){
       var d=e.data;paused=d.isPaused;icone();
       if(d.duration){
         $("prog").style.width=Math.min(100,d.position/d.duration*100)+"%";
-        if(!avancou&&d.position>=d.duration-400){avancou=true;vai(i+1,true)}
+        if(!avancou&&d.position>=d.duration-400){avancou=true;prox()}
       }
     });
   });
 };
 
 $("pp").onclick=function(){if(ctrl)ctrl.togglePlay();else quer=true};
-$("next").onclick=function(){vai(i+1,true)};
+$("next").onclick=function(){prox()};
 document.addEventListener("keydown",function(e){
   if(e.code==="Escape"&&!$("a11yp").hidden){$("a11yb").click();$("a11yb").focus();return}
-  if(!$("lb").hidden){if(e.code==="Escape")fecha();return}
+  if(e.code==="Escape"&&tv){saiTV();return}
+  if(!$("lb").hidden){if(e.code==="Escape")fechaLB(false);return}
   if(e.code==="Space"&&!/^(BUTTON|A|INPUT|SELECT)$/.test(e.target.tagName)){e.preventDefault();$("pp").click()}
-  if(e.code==="ArrowRight")vai(i+1,true);
-  if(e.code==="ArrowLeft")vai(i-1,true);
+  if(e.code==="KeyF")$("fs").click();
+  if(e.code==="ArrowRight")prox();
+  if(e.code==="ArrowLeft")ant();
 });
 /* ===== ACESSIBILIDADE E TEMA ===== */
 var PREF={tema:"auto",texto:0,contraste:false,movimento:false,leitura:false},ESC=[1,1.15,1.3];
@@ -624,14 +730,94 @@ $("a11yp").onclick=function(e){
 };
 try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",aplicaPref)}catch(e){}
 
-function fecha(){
-  $("lb").hidden=true;
-  try{sessionStorage.setItem("kz","1")}catch(e){}
-  if(ctrl){ctrl.play()}else quer=true;
+/* ===== ORDEM, TELA CHEIA E APP ===== */
+var aleatorio=false,hist=[],bolsa=[],tv=false,idleT=null,wake=null,adiar=null;
+try{aleatorio=localStorage.getItem("ko")==="1"}catch(e){}
+function prox(){
+  hist.push(i);if(hist.length>200)hist.shift();
+  var n;
+  if(aleatorio){
+    if(!bolsa.length)bolsa=embaralha(FAIXAS.map(function(_,k){return k})).filter(function(k){return k!==i});
+    n=bolsa.pop();
+  }else n=i+1;
+  vai(n,true);
 }
+function ant(){vai(hist.length?hist.pop():i-1,true)}
+function icOrd(){var b=$("ord");b.setAttribute("aria-pressed",aleatorio);b.setAttribute("aria-label",T("alea"));b.title=T("alea")}
+$("ord").onclick=function(){aleatorio=!aleatorio;bolsa=[];try{localStorage.setItem("ko",aleatorio?"1":"0")}catch(e){}icOrd()};
+
+function icTV(){var b=$("fs");b.setAttribute("aria-pressed",tv);b.setAttribute("aria-label",T(tv?"sair":"tela"));b.title=T(tv?"sair":"tela")}
+function acorda(){
+  document.body.classList.remove("quieto");clearTimeout(idleT);
+  if(tv)idleT=setTimeout(function(){document.body.classList.add("quieto")},4000);
+}
+function entraTV(){
+  tv=true;document.body.classList.add("tv");
+  try{var d=document.documentElement,r=(d.requestFullscreen||d.webkitRequestFullscreen).call(d);if(r&&r.catch)r.catch(function(){})}catch(e){}
+  try{if(navigator.wakeLock)navigator.wakeLock.request("screen").then(function(l){wake=l}).catch(function(){})}catch(e){}
+  acorda();icTV();
+}
+function saiTV(){
+  tv=false;document.body.classList.remove("tv","quieto");clearTimeout(idleT);
+  try{if(document.fullscreenElement||document.webkitFullscreenElement)(document.exitFullscreen||document.webkitExitFullscreen).call(document)}catch(e){}
+  try{if(wake){wake.release();wake=null}}catch(e){}
+  icTV();
+}
+function foraDoFs(){if(tv&&!document.fullscreenElement&&!document.webkitFullscreenElement)saiTV()}
+document.addEventListener("fullscreenchange",foraDoFs);document.addEventListener("webkitfullscreenchange",foraDoFs);
+["mousemove","touchstart","keydown","click"].forEach(function(ev){document.addEventListener(ev,acorda,{passive:true})});
+$("fs").onclick=function(){if(tv)saiTV();else entraTV()};
+$("sobreb").onclick=abreLB;
+
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();adiar=e});
+function instalado(){return (window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true}
+$("inst").hidden=instalado();
+$("inst").onclick=function(){
+  if(adiar){adiar.prompt();adiar=null;return}
+  var ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  $("instmsg").textContent=T(ios?"instios":"instand");$("instmsg").hidden=false;
+};
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
+
+/* Sol de raios afilados (como na referência): raios de comprimentos variados saindo de um disco */
+function montaSol(){
+  var n=44,r0=140,w=0.06,p="",j;
+  for(j=0;j<n;j++){
+    var a=2*Math.PI*j/n,f=Math.abs(Math.sin(j*0.9)*0.55+Math.sin(j*0.37+1)*0.45),r1=r0+70+f*270;
+    p+="M"+(Math.cos(a-w)*r0).toFixed(1)+" "+(Math.sin(a-w)*r0).toFixed(1)+"L"+(Math.cos(a)*r1).toFixed(1)+" "+(Math.sin(a)*r1).toFixed(1)+
+       "L"+(Math.cos(a+w)*r0).toFixed(1)+" "+(Math.sin(a+w)*r0).toFixed(1)+"Z";
+  }
+  $("sol").innerHTML='<circle r="'+(r0+6)+'" fill="currentColor"/><path d="'+p+'" fill="currentColor"/>';
+}
+var primeiraVez=true,deep=false,deepI=0;
+function rotuloLB(){$("entrar").textContent=T(primeiraVez?"gal":"voltar")}
+function mostraLB(v){$("lb").hidden=!v;$("lbx").hidden=!v;$("lbbar").hidden=!v}
+function abreLB(){rotuloLB();mostraLB(true);$("lbx").focus()}
+function fechaLB(tocar){
+  mostraLB(false);
+  try{sessionStorage.setItem("kz","1")}catch(e){}
+  if(tocar&&primeiraVez){if(ctrl)ctrl.play();else quer=true}
+  primeiraVez=false;rotuloLB();
+  try{$("sobreb").focus()}catch(e){}
+}
+function fecha(){fechaLB(true)}
 $("entrar").onclick=fecha;
-try{if(sessionStorage.getItem("kz"))$("lb").hidden=true}catch(e){}
-carregaPref();aplicaPref();aplica();pintaFoto(0);
+$("lbx").onclick=function(){fechaLB(false)};
+try{if(sessionStorage.getItem("kz")){mostraLB(false);primeiraVez=false}}catch(e){}
+
+/* Compartilhar: o site, ou uma faixa específica (o link abre o site já nessa faixa, #f=ID da faixa no Spotify) */
+function urlBase(){return location.origin+location.pathname}
+function compartilha(url,txt){
+  var d={title:"Galeria Sonora do Nordeste",text:txt,url:url};
+  if(navigator.share){navigator.share(d).catch(function(){});return}
+  try{navigator.clipboard.writeText(url).then(function(){$("shmsg").textContent=T("copiado")},function(){$("shmsg").textContent=url})}
+  catch(e){$("shmsg").textContent=url}
+}
+$("shsite").onclick=function(){compartilha(urlBase(),T("shtxtsite"))};
+$("shfaixa").onclick=function(){var f=FAIXAS[i];compartilha(urlBase()+"#f="+f[3],f[0]+" — "+f[1]+" · Galeria Sonora do Nordeste")};
+var hf=(location.hash.match(/[#&]f=([A-Za-z0-9]+)/)||[])[1];
+if(hf)for(var kk=0;kk<FAIXAS.length;kk++)if(FAIXAS[kk][3]===hf){i=kk;deep=true;deepI=kk;break}
+carregaPref();aplicaPref();aplica();montaSol();ciclo();
 if(!$("lb").hidden)$("entrar").focus();
 /* Carrega a API do Spotify só agora, com o callback já definido (evita a corrida que impedia o controle do player). */
 var sc=document.createElement("script");sc.src="https://open.spotify.com/embed/iframe-api/v1";sc.async=true;document.head.appendChild(sc);
