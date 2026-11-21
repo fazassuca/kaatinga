@@ -1,9 +1,17 @@
-name: Atualizar playlist
+name: Atualizar playlist e textos
 
 on:
   schedule:
     - cron: "17 6 * * *"   # todo dia às 03h17 (horário de Brasília)
   workflow_dispatch:        # permite rodar na mão pela aba Actions
+    inputs:
+      limite:
+        description: "Quantos artistas a IA processa nesta execução"
+        default: "10"
+      refazer:
+        description: "Refazer os textos que a IA já escreveu (não mexe nos escritos à mão)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -11,6 +19,7 @@ permissions:
 jobs:
   atualizar:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,12 +31,19 @@ jobs:
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
           SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+      - name: Escrever os textos novos com IA
+        continue-on-error: true   # se a IA falhar, a playlist atualizada é salva do mesmo jeito
+        run: node scripts/gerar-textos.mjs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LIMITE_ARTISTAS: ${{ inputs.limite || '10' }}
+          REFAZER_IA: ${{ inputs.refazer == true && 'true' || 'false' }}
       - name: Salvar se mudou
         run: |
-          if [ -n "$(git status --porcelain faixas.json)" ]; then
+          if [ -n "$(git status --porcelain faixas.json textos.json)" ]; then
             git config user.name "github-actions"
             git config user.email "github-actions@users.noreply.github.com"
-            git add faixas.json
-            git commit -m "Atualiza a playlist a partir do Spotify"
+            git add faixas.json textos.json
+            git commit -m "Atualiza a playlist e os textos"
             git push
           fi
