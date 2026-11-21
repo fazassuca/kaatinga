@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap">
 <style>
-:root{--bg:#f07f7b;--fg:#2a1e0b;--mute:#3b2a10;--line:rgba(42,30,11,.38);--art:#84652e}
+:root{--bg:#f6f1e7;--fg:#3a2a14;--mute:#5c4a2d;--line:rgba(58,42,20,.3);--art:#84652e}
 @media (prefers-color-scheme:dark){:root{--bg:#231a0b;--fg:#f07f7b;--mute:#dba596;--line:rgba(240,127,123,.38);--art:#5e4821}}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%}
@@ -61,7 +61,7 @@ p{font-size:clamp(15px,1.25vw,18px);line-height:1.7}
 .langs button{all:unset;cursor:pointer;padding:4px 6px;font:600 11px 'Manrope',system-ui,sans-serif;letter-spacing:.14em;color:var(--mute);border-bottom:1.5px solid transparent}
 .langs button.on,.langs button:hover,.langs button:focus-visible{color:var(--fg);border-bottom-color:var(--fg)}
 .lb .langs{margin:0 0 26px -6px}
-:root[data-tema="dia"]{--bg:#f07f7b;--fg:#2a1e0b;--mute:#3b2a10;--line:rgba(42,30,11,.38);--art:#84652e}
+:root[data-tema="dia"]{--bg:#f6f1e7;--fg:#3a2a14;--mute:#5c4a2d;--line:rgba(58,42,20,.3);--art:#84652e}
 :root[data-tema="noite"]{--bg:#231a0b;--fg:#f07f7b;--mute:#dba596;--line:rgba(240,127,123,.38);--art:#5e4821}
 :root[data-contraste="alto"][data-tema="dia"]{--bg:#fff;--fg:#000;--mute:#000;--line:#000}
 :root[data-contraste="alto"][data-tema="noite"]{--bg:#000;--fg:#fff;--mute:#fff;--line:#fff}
@@ -124,6 +124,8 @@ body.tv.quieto{cursor:none}
 .lb .nums .sub{grid-column:1/-1;margin-top:6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
 .lb .nums b{display:block;font-size:clamp(26px,4vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1}
 .lb .nums span{display:block;margin-top:4px;font-size:12px;line-height:1.3;color:var(--mute)}
+.ia{margin-top:14px;font-size:12px;line-height:1.5;color:var(--mute)}
+body.tv .ia{display:none}
 /* ===== Linguagem visual: oliva + coral, sol de raios afilados, tipografia larga, grão de papel ===== */
 :root{--coral:#f07f7b}
 .art{background:var(--art)}
@@ -187,6 +189,7 @@ body::after{content:"";position:fixed;inset:0;z-index:25;pointer-events:none;opa
       <p id="texto"></p>
       <blockquote class="trecho" id="trecho" style="display:none"><span id="trechot"></span><cite id="trechoc"></cite></blockquote>
       <div class="ctx" id="ctxw"><h2 id="ctxh">Sobre a canção</h2><p id="ctx"></p></div>
+      <p class="ia" id="ianota" hidden></p>
       <div class="links" id="links"></div>
     </div>
     <div class="dock">
@@ -413,7 +416,7 @@ var IDIOMAS={pt:"PT",en:"EN"};
 var UI={
 pt:{album:"Álbum",faixaDo:"Faixa do álbum",letra:"Ver a letra",spotify:"Artista no Spotify",mais:"Saiba mais",sobre:"Sobre a canção",tocar:"Tocar",pausar:"Pausar",prox:"Próxima",
  lb1:"Uma galeria sonora com música do Nordeste do Brasil, reunida a partir de uma pesquisa. A cada faixa, uma imagem, um texto e uma pista para ir mais fundo.",
- lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria",acess:"Acessibilidade",tema:"Tema",auto:"Automático",dia:"Dia",noite:"Noite",texto:"Tamanho do texto",contraste:"Alto contraste",movimento:"Menos movimento",leitura:"Leitura facilitada",mais2:"Mais opções",img:"Imagem",alea:"Ordem aleatória",tela:"Tela cheia",sair:"Sair da tela cheia",inst:"Adicionar à tela inicial",sobre2:"Sobre o projeto",fechar:"Fechar",voltar:"Voltar à galeria",compart:"Compartilhar",agora:"Tocando agora",shsite:"Compartilhar o site",shfaixa:"Compartilhar esta música",shspot:"Abrir no Spotify",copiado:"Link copiado!",abriu:"Faixa compartilhada com você:",stp:"Playlist",stg:"Galeria",n_faixas:"faixas",n_artistas:"artistas",n_horas:"de música",n_estados:"estados do Nordeste",n_estilos:"estilos musicais",n_imgs:"imagens",n_vids:"vídeos",n_aut:"autores",n_gest:"estados",stnota:"O + indica o mínimo já catalogado; os números crescem com a pesquisa.",shtxtsite:"Galeria Sonora do Nordeste: música e imagem do Nordeste do Brasil.",instios:"No iPhone ou iPad: toque em Compartilhar (o quadrado com seta) e escolha “Adicionar à Tela de Início”.",instand:"No navegador: abra o menu (⋮ ou o ícone de instalar) e escolha “Instalar app” ou “Adicionar à tela inicial”.",lbhtml:`<p class="lead">Este projeto nasce de um experimento: associar som e imagem numa experiência sensorial do que é crescer, viver, amadurecer e conviver nos nove estados do Nordeste do Brasil.</p>
+ lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria",acess:"Acessibilidade",tema:"Tema",auto:"Automático",dia:"Dia",noite:"Noite",texto:"Tamanho do texto",contraste:"Alto contraste",movimento:"Menos movimento",leitura:"Leitura facilitada",mais2:"Mais opções",img:"Imagem",alea:"Ordem aleatória",tela:"Tela cheia",sair:"Sair da tela cheia",inst:"Adicionar à tela inicial",sobre2:"Sobre o projeto",fechar:"Fechar",voltar:"Voltar à galeria",compart:"Compartilhar",agora:"Tocando agora",shsite:"Compartilhar o site",shfaixa:"Compartilhar esta música",shspot:"Abrir no Spotify",copiado:"Link copiado!",abriu:"Faixa compartilhada com você:",stp:"Playlist",stg:"Galeria",n_faixas:"faixas",n_artistas:"artistas",n_horas:"de música",n_estados:"estados do Nordeste",n_estilos:"estilos musicais",n_imgs:"imagens",n_vids:"vídeos",n_aut:"autores",n_gest:"estados",stnota:"O + indica o mínimo já catalogado; os números crescem com a pesquisa.",ianota:"Texto escrito com apoio de IA a partir de fontes públicas; pode conter imprecisões. Viu algo para corrigir? Fale com @galeriasonoranordeste.",shtxtsite:"Galeria Sonora do Nordeste: música e imagem do Nordeste do Brasil.",instios:"No iPhone ou iPad: toque em Compartilhar (o quadrado com seta) e escolha “Adicionar à Tela de Início”.",instand:"No navegador: abra o menu (⋮ ou o ícone de instalar) e escolha “Instalar app” ou “Adicionar à tela inicial”.",lbhtml:`<p class="lead">Este projeto nasce de um experimento: associar som e imagem numa experiência sensorial do que é crescer, viver, amadurecer e conviver nos nove estados do Nordeste do Brasil.</p>
 <p>A Galeria Sonora do Nordeste está em constante crescimento, trazendo novos sons e imagens. De um lado, uma playlist imersiva e diversa em tantas manifestações musicais; ao lado, uma galeria de imagens (fotos, designs, ilustrações, vídeos e mais) que conecta a experiência do que foi, do que é e do que sempre se transformará: o Nordeste do Brasil.</p>
 <p>É uma região que sofre com preconceitos, boicotes, eugenismos e desconstruções vindas de outras regiões do país, historicamente colocada abaixo por sua grande miscigenação de raças e culturas. Uma referência para pensar isso é o livro <em>Só sei que foi assim</em>, de Octávio Santiago.</p>
 <p>Este projeto é sobre pluralidade, sensorialidade e memória.</p>
@@ -435,7 +438,7 @@ pt:{album:"Álbum",faixaDo:"Faixa do álbum",letra:"Ver a letra",spotify:"Artist
 <p>As imagens citam seus respectivos autores. Se você não quiser que sua imagem seja associada ao projeto, entre em contato pelo Instagram <a href="https://instagram.com/galeriasonoranordeste" target="_blank" rel="noopener">@galeriasonoranordeste</a>.</p>`},
 en:{album:"Album",faixaDo:"Track from the album",letra:"See the lyrics",spotify:"Artist on Spotify",mais:"Learn more",sobre:"About the song",tocar:"Play",pausar:"Pause",prox:"Next",
  lb1:"A sound gallery of music from Northeast Brazil, gathered from a research project. For each track, an image, a text and a clue to go deeper.",
- lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery",acess:"Accessibility",tema:"Theme",auto:"Auto",dia:"Day",noite:"Night",texto:"Text size",contraste:"High contrast",movimento:"Reduce motion",leitura:"Easy reading",mais2:"More options",img:"Image",alea:"Shuffle",tela:"Full screen",sair:"Exit full screen",inst:"Add to home screen",sobre2:"About the project",fechar:"Close",voltar:"Back to the gallery",compart:"Share",agora:"Now playing",shsite:"Share the site",shfaixa:"Share this track",shspot:"Open on Spotify",copiado:"Link copied!",abriu:"Track shared with you:",stp:"Playlist",stg:"Gallery",n_faixas:"tracks",n_artistas:"artists",n_horas:"of music",n_estados:"Northeast states",n_estilos:"musical styles",n_imgs:"images",n_vids:"videos",n_aut:"authors",n_gest:"states",stnota:"“+” marks the minimum catalogued so far; the numbers grow with the research.",shtxtsite:"Galeria Sonora do Nordeste: music and images from Northeast Brazil.",instios:"On iPhone or iPad: tap Share (the square with an arrow) and choose “Add to Home Screen”.",instand:"In your browser: open the menu (⋮ or the install icon) and choose “Install app” or “Add to home screen”.",lbhtml:`<p class="lead">This project began as an experiment: tying sound to image in a sensory experience of growing up, living, maturing and living together across the nine states of Northeast Brazil.</p>
+ lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery",acess:"Accessibility",tema:"Theme",auto:"Auto",dia:"Day",noite:"Night",texto:"Text size",contraste:"High contrast",movimento:"Reduce motion",leitura:"Easy reading",mais2:"More options",img:"Image",alea:"Shuffle",tela:"Full screen",sair:"Exit full screen",inst:"Add to home screen",sobre2:"About the project",fechar:"Close",voltar:"Back to the gallery",compart:"Share",agora:"Now playing",shsite:"Share the site",shfaixa:"Share this track",shspot:"Open on Spotify",copiado:"Link copied!",abriu:"Track shared with you:",stp:"Playlist",stg:"Gallery",n_faixas:"tracks",n_artistas:"artists",n_horas:"of music",n_estados:"Northeast states",n_estilos:"musical styles",n_imgs:"images",n_vids:"videos",n_aut:"authors",n_gest:"states",stnota:"“+” marks the minimum catalogued so far; the numbers grow with the research.",ianota:"Text written with AI support from public sources; it may contain inaccuracies. Spotted something to fix? Contact @galeriasonoranordeste.",shtxtsite:"Galeria Sonora do Nordeste: music and images from Northeast Brazil.",instios:"On iPhone or iPad: tap Share (the square with an arrow) and choose “Add to Home Screen”.",instand:"In your browser: open the menu (⋮ or the install icon) and choose “Install app” or “Add to home screen”.",lbhtml:`<p class="lead">This project began as an experiment: tying sound to image in a sensory experience of growing up, living, maturing and living together across the nine states of Northeast Brazil.</p>
 <p>The Galeria Sonora do Nordeste (Northeast Sound Gallery) is constantly growing, bringing new sounds and images. On one side, an immersive playlist, diverse in so many musical expressions; beside it, a gallery of images (photos, designs, illustrations, videos and more) that connects the experience of what was, what is and what will always transform: Northeast Brazil.</p>
 <p>It is a region that suffers prejudice, boycotts, eugenicist views and dismantling coming from other regions of the country, historically placed below because of its great mixing of races and cultures. One reference for thinking about this is the book <em>Só sei que foi assim</em>, by Octávio Santiago.</p>
 <p>This project is about plurality, sensoriality and memory.</p>
@@ -650,14 +653,15 @@ function mostra(n,fade,sem){
     var lg=f[1].length>28?" longo":"";$("nome").className="tt"+lg;
     $("shtrack").textContent=T("agora")+": "+f[0]+" — "+f[1];$("shspot").href="https://open.spotify.com/track/"+f[3];
     $("meta").textContent=f[2]?T("album")+": "+f[2]:"";
-    $("texto").textContent=tx(TEXTOS,TEXTOS_I18N,chave)||(f[2]?T("faixaDo")+" “"+f[2]+"”.":"");
+    var ea=acha(TX.artistas,chave);$("texto").textContent=(ea&&idioma(ea))||tx(TEXTOS,TEXTOS_I18N,chave)||(f[2]?T("faixaDo")+" “"+f[2]+"”.":"");
     var kt=CHAVE[f[3]]||f[0],tr=acha(TRECHOS,kt);$("trecho").style.display=tr?"":"none";if(tr){$("trechot").textContent="“"+tr+"”";$("trechoc").textContent="— "+chave+", “"+f[0]+"”"}
-    var ct=tx(CONTEXTO,CONTEXTO_I18N,kt);$("ctxw").style.display=ct?"":"none";$("ctx").textContent=ct||"";
+    var ef=TX.faixas[f[3]],ct=(ef&&idioma(ef))||tx(CONTEXTO,CONTEXTO_I18N,kt);$("ctxw").style.display=ct?"":"none";$("ctx").textContent=ct||"";
+    var ia=(ea&&ea.ia&&idioma(ea))||(ef&&ef.ia&&idioma(ef));$("ianota").hidden=!ia;$("ianota").textContent=ia?T("ianota"):"";
     var q=encodeURIComponent(f[0].split(" / ")[0]+" "+chave),A=' target="_blank" rel="noopener"';
     $("links").innerHTML=(tr?"":'<a href="https://www.letras.mus.br/?q='+q+'"'+A+'>'+T("letra")+'</a>')+
       '<a href="https://open.spotify.com/artist/'+f[4]+'"'+A+'>'+T("spotify")+'</a>'+
       '<a href="https://'+LANG+'.wikipedia.org/w/index.php?search='+encodeURIComponent(chave)+'"'+A+'>'+T("mais")+'</a>';
-    $("count").textContent=("0"+(n+1)).slice(-2)+" / "+("0"+FAIXAS.length).slice(-2);
+    var tot=String(FAIXAS.length),pos=String(n+1);while(pos.length<tot.length)pos="0"+pos;$("count").textContent=pos+" / "+tot;
     
     
     b.classList.remove("out");
@@ -801,6 +805,14 @@ var PERFIL={
 "Sebastião da Silva":"|cantoria de viola","Andorinha":"|cantoria de viola","Sebastião Marinho":"|cantoria de viola","Louro Branco":"|cantoria de viola",
 "Valdir Teles":"|cantoria de viola","União dos Artistas da Terra da Mãe de Deus":"|reisado e guerreiro"
 };
+var TX={artistas:{},faixas:{}};
+function idioma(e){return LANG==="pt"?(e.pt||""):(e.en||e.pt||"")}
+/* textos.json: textos dos artistas (por nome) e das faixas (por id). "ia":true marca o que foi escrito pela IA. */
+function carregaTextos(){
+  var tempo=new Promise(function(_,rej){setTimeout(rej,3500)});
+  return Promise.race([fetch("textos.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw 0;return r.json()}),tempo])
+    .then(function(j){if(j&&j.artistas&&j.faixas)TX=j}).catch(function(){});
+}
 function acha(o,k){if(o[k]!==undefined)return o[k];var n=nz(k);for(var x in o)if(nz(x)===n)return o[x];return undefined}
 function resumoPlaylist(){
   var arts={},ufs={},est={},seg=0;
@@ -894,7 +906,7 @@ function compartilha(url,txt){
 $("shsite").onclick=function(){compartilha(urlBase(),T("shtxtsite"))};
 $("shfaixa").onclick=function(){var f=FAIXAS[i];compartilha(urlBase()+"#f="+f[3],f[0]+" — "+f[1]+" · Galeria Sonora do Nordeste")};
 carregaPref();aplicaPref();aplica();montaSol();
-carregaFaixas().then(iniciar);
+Promise.all([carregaFaixas(),carregaTextos()]).then(iniciar);
 </script>
 </body>
 </html>

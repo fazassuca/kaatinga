@@ -1,0 +1,317 @@
+{
+ "versao": 1,
+ "artistas": {
+  "Quinteto Violado": {
+   "pt": "Formado em Recife no início dos anos 1970, o Quinteto Violado mistura baião, xote, cantoria e música instrumental em arranjos que dão destaque à viola, aos sopros e à percussão. Foi um dos grupos que levaram a música popular do sertão aos palcos com rigor de orquestra e alma de feira.",
+   "en": "Formed in Recife in the early 1970s, Quinteto Violado blends baião, xote, cantoria and instrumental music in arrangements that spotlight the viola, wind instruments and percussion. It was one of the groups that took the popular music of the sertão to the stage with the rigor of an orchestra and the soul of a street market.",
+   "ia": false
+  },
+  "Quinteto Armorial": {
+   "pt": "Criado em Recife em 1970, ligado ao Movimento Armorial de Ariano Suassuna, o Quinteto Armorial buscava uma música erudita feita com raízes populares. Rabeca, viola sertaneja, flauta e percussão dão ao seu som um ar de cantoria transformada em música de câmara.",
+   "en": "Created in Recife in 1970 and tied to Ariano Suassuna’s Armorial Movement, Quinteto Armorial sought an art music built on popular roots. Rabeca, sertão viola, flute and percussion give its sound the air of cantoria turned into chamber music.",
+   "ia": false
+  },
+  "Moacir Laurentino": {
+   "pt": "Dupla de violeiros repentistas. Na cantoria de viola, dois poetas se alternam em versos rimados, acompanhados pela viola, e criam na hora sobre os temas que surgem. Esta faixa integra a série Os Grandes Repentistas do Nordeste, que registra essa tradição do improviso.",
+   "en": "A duo of improvising viola singers. In cantoria de viola, two poets trade rhymed verses to the sound of the viola, inventing on the spot around the themes that arise. This track is part of the series Os Grandes Repentistas do Nordeste, which documents this tradition of improvisation.",
+   "ia": false
+  },
+  "Andorinha": {
+   "pt": "Dupla de violeiros repentistas. A cantoria de viola é a arte de improvisar versos em disputa amistosa, com métrica e rima rigorosas. O título da faixa aponta para dois estados com forte tradição de repente: Paraíba e Pernambuco.",
+   "en": "A duo of improvising viola singers. Cantoria de viola is the art of improvising verses in a friendly contest, with strict meter and rhyme. The track’s title points to two neighboring states with a strong tradition of repente: Paraíba and Pernambuco.",
+   "ia": false
+  },
+  "Nicolas Krassik": {
+   "pt": "Violinista nascido na França e radicado no Brasil, Nicolas Krassik encontrou nos ritmos nordestinos, como o forró e o baião, um território para o violino e a rabeca. Com os Cordestinos, leva a música do Nordeste ao universo instrumental.",
+   "en": "A violinist born in France and based in Brazil, Nicolas Krassik found in Northeastern rhythms such as forró and baião a territory for the violin and the rabeca. With the Cordestinos, he brings the music of the Northeast into the world of instrumental music.",
+   "ia": false
+  },
+  "União dos Artistas da Terra da Mãe de Deus": {
+   "pt": "Reisado e guerreiro são folguedos populares do Nordeste que reúnem música, dança, personagens e cortejo. Os grupos se apresentam em festas de fim de ano e de santos, mantendo viva uma tradição passada de geração em geração.",
+   "en": "Reisado and guerreiro are popular Northeastern festivals that bring together music, dance, characters and procession. The groups perform at year-end and saints’ day celebrations, keeping alive a tradition handed down from generation to generation.",
+   "ia": false
+  },
+  "Marinês": {
+   "pt": "Marinês, a Rainha do Xaxado, nasceu em Pernambuco e ficou conhecida ao lado da banda Marinês e Sua Gente. Com zabumba, triângulo e sanfona, foi uma das grandes vozes do forró e abriu caminho para outras mulheres nesse universo. O aboio, que dá nome à faixa, é o canto longo e sem palavras com que o vaqueiro conduz o gado.",
+   "en": "Marinês, the Queen of Xaxado, was born in Pernambuco and became known alongside her band, Marinês e Sua Gente. With zabumba, triangle and accordion, she was one of the great voices of forró and opened the way for other women in that world. The aboio, which gives the track its name, is the long, wordless chant a cowboy uses to lead the cattle.",
+   "ia": false
+  },
+  "Mestre Luiz Paixão": {
+   "pt": "Mestre da rabeca. Parente rústico do violino, a rabeca é uma das vozes centrais do forró pé de serra e dos folguedos populares do Nordeste, e seus mestres guardam um saber transmitido de ouvido.",
+   "en": "A master of the rabeca. A rustic relative of the violin, the rabeca is one of the central voices of pé-de-serra forró and of the popular festivals of the Northeast, and its masters carry knowledge passed on by ear.",
+   "ia": false
+  },
+  "Amelinha": {
+   "pt": "Cantora cearense, Amelinha trouxe o frevo, o forró e outros ritmos nordestinos para a MPB, com voz potente e muita energia no palco.",
+   "en": "A singer from Ceará, Amelinha brought frevo, forró and other Northeastern rhythms into Brazilian popular music, with a powerful voice and plenty of stage energy.",
+   "ia": false
+  },
+  "Zabé da Loca": {
+   "pt": "Zabé da Loca (1924–2014), pifeira da Paraíba, ficou conhecida por tocar o pífano com um jeito próprio, aprendido desde menina. O apelido vem do tempo em que viveu numa loca, uma gruta no sertão. Aqui toca ao lado de Maciel Salú, rabequeiro pernambucano que une a tradição ao som contemporâneo.",
+   "en": "Zabé da Loca (1924–2014), a pífano player from Paraíba, became known for playing with a style all her own, learned since girlhood. The nickname comes from the years she lived in a loca, a cave in the sertão. Here she plays alongside Maciel Salú, a rabeca player from Pernambuco who joins tradition with a contemporary sound.",
+   "ia": false
+  },
+  "Alceu Valença": {
+   "pt": "Nascido em São Bento do Una, Pernambuco, em 1946, Alceu Valença mistura frevo, forró, cantoria e rock numa obra que olha para a cultura popular do Nordeste com liberdade e teatralidade.",
+   "en": "Born in São Bento do Una, Pernambuco, in 1946, Alceu Valença mixes frevo, forró, cantoria and rock in a body of work that looks at Northeastern popular culture with freedom and theatricality.",
+   "ia": false
+  },
+  "João do Vale": {
+   "pt": "João do Vale (1934–1996), compositor maranhense de Pedreiras, é autor de clássicos como “Carcará” e “Pisa na Fulô”. Suas canções retratam o sertanejo, a seca e a vida simples com humor e dor.",
+   "en": "João do Vale (1934–1996), a composer from Pedreiras, Maranhão, wrote classics such as “Carcará” and “Pisa na Fulô.” His songs portray the sertanejo, the drought and simple life with humor and pain.",
+   "ia": false
+  },
+  "Mestre Ambrósio": {
+   "pt": "Banda surgida em Recife nos anos 1990, no ambiente do manguebeat. O Mestre Ambrósio misturou rabeca, pífano e percussões da tradição popular com a energia do rock.",
+   "en": "A band that emerged in Recife in the 1990s, in the manguebeat scene. Mestre Ambrósio mixed rabeca, pífano and percussion from popular tradition with the energy of rock.",
+   "ia": false
+  },
+  "Lenine": {
+   "pt": "Pernambucano de Recife, Lenine une MPB, rock, eletrônica e ritmos nordestinos em canções de produção cuidadosa, mostrando como a música do Nordeste dialoga com o mundo contemporâneo.",
+   "en": "From Recife, Pernambuco, Lenine joins MPB, rock, electronics and Northeastern rhythms in carefully produced songs, showing how the music of the Northeast talks with the contemporary world.",
+   "ia": false
+  },
+  "Sivuca": {
+   "pt": "Sivuca (1930–2006), paraibano de Itabaiana, foi sanfoneiro, violonista e arranjador de formação ampla. Tocou baião, jazz e música clássica com a mesma desenvoltura. Nesta gravação toca ao lado da violonista Rosinha de Valença.",
+   "en": "Sivuca (1930–2006), from Itabaiana, Paraíba, was an accordionist, guitarist and arranger of wide training. He played baião, jazz and classical music with equal ease. On this recording he plays alongside guitarist Rosinha de Valença.",
+   "ia": false
+  },
+  "Carlos Malta": {
+   "pt": "Flautista e saxofonista, Carlos Malta levou o pífano, instrumento das bandas populares do Nordeste, para o universo instrumental. Com o grupo Pife Muderno, reinventa a tradição dos pífanos com arranjos modernos.",
+   "en": "A flutist and saxophonist, Carlos Malta took the pífano, an instrument of the Northeast’s popular bands, into the world of instrumental music. With the group Pife Muderno, he reinvents the pífano tradition with modern arrangements.",
+   "ia": false
+  },
+  "Banda de Pífanos de Caruaru": {
+   "pt": "Grupo de Caruaru, Pernambuco, referência na tradição das bandas de pífano, formadas por flautas, zabumba e caixa, que animam festas, novenas e procissões do interior.",
+   "en": "A group from Caruaru, Pernambuco, and a reference in the pífano band tradition, made up of flutes, zabumba and snare drum, which liven up festivals, novenas and processions in the interior.",
+   "ia": false
+  },
+  "Xangai": {
+   "pt": "Cantor, compositor e violeiro baiano, Xangai dedica sua obra à música e à poesia do sertão.",
+   "en": "A singer, songwriter and viola player from Bahia, Xangai devotes his work to the music and poetry of the sertão.",
+   "ia": false
+  },
+  "Cabruêra": {
+   "pt": "Banda paraibana criada em 1998, em Campina Grande, por alunos da UFPB. Mistura coco, ciranda, maracatu e outros ritmos regionais com toques de eletrônica e hip-hop, e já levou o som do Nordeste a várias turnês pela Europa. O álbum Nordeste Oculto (2012) nasceu de uma colaboração com o sitarista e filósofo Alberto Marsicano.",
+   "en": "A band from Paraíba formed in 1998 in Campina Grande by students of UFPB. It mixes coco, ciranda, maracatu and other regional rhythms with touches of electronics and hip-hop, and has taken the sound of the Northeast on several tours of Europe. The album Nordeste Oculto (2012) grew out of a collaboration with sitar player and philosopher Alberto Marsicano.",
+   "ia": false
+  },
+  "Vital Farias": {
+   "pt": "Cantor e compositor paraibano, nascido em Taperoá, Vital Farias é autor de “Saga da Amazônia”. Nos discos Cantoria 1 e 2 reúne-se a Elomar, Geraldo Azevedo e Xangai, num encontro entre poetas da música nordestina.",
+   "en": "A singer and songwriter from Taperoá, Paraíba, Vital Farias wrote “Saga da Amazônia.” On the albums Cantoria 1 and 2 he joins Elomar, Geraldo Azevedo and Xangai, in a meeting among poets of Northeastern music.",
+   "ia": false
+  },
+  "Geraldo Azevedo": {
+   "pt": "Nascido em Petrolina, Pernambuco, em 1945, Geraldo Azevedo é cantor, compositor e violonista, um dos nomes centrais da canção brasileira desde os anos 1970, com as raízes nordestinas sempre presentes.",
+   "en": "Born in Petrolina, Pernambuco, in 1945, Geraldo Azevedo is a singer, songwriter and guitarist, one of the central names in Brazilian song since the 1970s, with Northeastern roots always present.",
+   "ia": false
+  },
+  "Antônio Nóbrega": {
+   "pt": "Violinista, dançarino e ator pernambucano, Antônio Nóbrega integrou o Quinteto Armorial e depois criou em São Paulo o Instituto Brincante, dedicado às culturas populares brasileiras. Seu trabalho une música, dança e teatro a partir das tradições do Nordeste.",
+   "en": "A violinist, dancer and actor from Pernambuco, Antônio Nóbrega was a member of Quinteto Armorial and later founded the Instituto Brincante in São Paulo, devoted to Brazilian popular cultures. His work joins music, dance and theater drawing on the traditions of the Northeast.",
+   "ia": false
+  },
+  "Cátia de França": {
+   "pt": "Cantora e compositora paraibana. Seu álbum Vinte Palavras ao Redor do Sol, de 1979, é hoje um disco de culto da música brasileira.",
+   "en": "A singer and songwriter from Paraíba. Her 1979 album Vinte Palavras ao Redor do Sol is today a cult record of Brazilian music.",
+   "ia": false
+  },
+  "Elomar": {
+   "pt": "Elomar Figueira Mello, compositor, violonista e poeta baiano, criou um universo próprio em que o sertão ganha ares de cantiga medieval e de ópera rústica, com versos de linguagem arcaica e violão refinado. Esta faixa vem de Cantoria 2, encontro de quatro nomes da música nordestina.",
+   "en": "Elomar Figueira Mello, a composer, guitarist and poet from Bahia, created a universe of his own in which the sertão takes on the air of a medieval ballad and a rustic opera, with verses in archaic language and refined guitar. This track comes from Cantoria 2, a meeting of four names in Northeastern music.",
+   "ia": false
+  },
+  "Renata Rosa": {
+   "pt": "Cantora e rabequeira que pesquisou de perto a música de tradição oral do Nordeste, em especial a da Zona da Mata pernambucana, aprendendo com mestres da rabeca e dos folguedos populares.",
+   "en": "A singer and rabeca player who studied the oral-tradition music of the Northeast up close, especially that of Pernambuco’s Zona da Mata, learning from masters of the rabeca and the popular festivals.",
+   "ia": false
+  },
+  "Louro Branco": {
+   "pt": "Dupla de repentistas. No desafio, os cantadores se enfrentam em versos improvisados, respondendo um ao outro em métrica e rima diante do público.",
+   "en": "A duo of repentistas. In the desafio, the singers face off in improvised verses, answering each other in meter and rhyme before an audience.",
+   "ia": false
+  },
+  "Oliveira de Panelas": {
+   "pt": "Dupla de repentistas formada por Oliveira de Panelas e Ivanildo Vila Nova, nomes conhecidos da cantoria nordestina, que transformam o improviso em poesia de palco e de feira.",
+   "en": "A repentista duo made up of Oliveira de Panelas and Ivanildo Vila Nova, well-known names in Northeastern cantoria, who turn improvisation into poetry for the stage and the street market.",
+   "ia": false
+  },
+  "Heraldo Do Monte": {
+   "pt": "Violonista, guitarrista e violeiro pernambucano, Heraldo do Monte integrou o Quarteto Novo, que na segunda metade dos anos 1960 uniu a música instrumental brasileira aos ritmos do Nordeste. O álbum Viola Nordestina coloca o instrumento no centro.",
+   "en": "A guitarist and viola player from Pernambuco, Heraldo do Monte was part of Quarteto Novo, which in the late 1960s joined Brazilian instrumental music with the rhythms of the Northeast. The album Viola Nordestina puts the instrument at the center.",
+   "ia": false
+  },
+  "Socorro Lira": {
+   "pt": "Cantora paraibana, Socorro Lira divide a faixa com as Cirandeiras de Caiana dos Crioulos, grupo de mulheres da comunidade quilombola de Caiana dos Crioulos, em Alagoa Grande, na Paraíba, que mantém viva a ciranda.",
+   "en": "A singer from Paraíba, Socorro Lira shares the track with the Cirandeiras de Caiana dos Crioulos, a group of women from the quilombola community of Caiana dos Crioulos, in Alagoa Grande, Paraíba, who keep the ciranda alive.",
+   "ia": false
+  },
+  "Ceguinhas De Campina Grande": {
+   "pt": "Grupo de mulheres cegas de Campina Grande, na Paraíba, que cantava ao som de pandeiro e ganzá e fez da música seu ofício. A história delas virou o documentário A Pessoa É para o Que Nasce, título que dá nome a este disco.",
+   "en": "A group of blind women from Campina Grande, Paraíba, who sang to pandeiro and ganzá and made music their trade. Their story became the documentary A Pessoa É para o Que Nasce, which gives this album its name.",
+   "ia": false
+  },
+  "Chico César": {
+   "pt": "Cantor, compositor e poeta nascido em Catolé do Rocha, na Paraíba, em 1964, Chico César mistura a tradição nordestina com o pop, o samba e ritmos africanos, em letras que olham o cotidiano e a identidade brasileira com leveza.",
+   "en": "A singer, songwriter and poet born in Catolé do Rocha, Paraíba, in 1964, Chico César blends Northeastern tradition with pop, samba and African rhythms, in lyrics that look at everyday life and Brazilian identity with lightness.",
+   "ia": false
+  },
+  "José Miguel Wisnik": {
+   "pt": "Compositor, pianista e ensaísta, Wisnik assinou com o baiano Tom Zé a trilha de Parabelo, espetáculo do Grupo Corpo, em que a música popular e a invenção experimental se encontram.",
+   "en": "A composer, pianist and essayist, Wisnik wrote, with Tom Zé from Bahia, the score for Parabelo, a Grupo Corpo production, where popular music and experimental invention meet.",
+   "ia": false
+  },
+  "Luiz Gonzaga": {
+   "pt": "Luiz Gonzaga (1912–1989), nascido em Exu, no sertão de Pernambuco, é o Rei do Baião. Levou a sanfona, o triângulo e a zabumba para o país inteiro e deu ao Nordeste uma voz que o Brasil passou a reconhecer.",
+   "en": "Luiz Gonzaga (1912–1989), born in Exu, in the sertão of Pernambuco, is the King of Baião. He took the accordion, triangle and zabumba across the whole country and gave the Northeast a voice Brazil came to recognize.",
+   "ia": false
+  },
+  "Jackson Do Pandeiro": {
+   "pt": "Jackson do Pandeiro (1919–1982), paraibano de Alagoa Grande, ficou famoso pelo senso rítmico fora do comum e pela dicção veloz, misturando coco, baião, xaxado e samba.",
+   "en": "Jackson do Pandeiro (1919–1982), from Alagoa Grande, Paraíba, became famous for his extraordinary sense of rhythm and rapid-fire delivery, blending coco, baião, xaxado and samba.",
+   "ia": false
+  }
+ },
+ "faixas": {
+  "1dkouqqh5PEepxDRXpoEvJ": {
+   "pt": "O vaqueiro é uma das figuras centrais do sertão: um ofício duro, de campo aberto, que moldou jeitos de vestir, de cantar e de celebrar. As toadas e os cantos de luto lembram que essa vida tem beleza e risco, e que a comunidade a reverencia.",
+   "en": "The vaqueiro (cowboy) is one of the central figures of the sertão: a hard trade in open country that shaped ways of dressing, singing and celebrating. The cattle songs and songs of mourning remind us that this life has beauty and risk, and that the community reveres it.",
+   "ia": false
+  },
+  "6gjAmKkIQOnXXaIWIe1xg9": {
+   "pt": "O canto da acauã, ave tida como presságio de seca, e a memória do cangaço, com figuras como Corisco, reúnem imagens de um sertão de violência, crença e escassez. A arte as retoma para entender de onde o povo vem, sem transformá-las em folclore parado no tempo.",
+   "en": "The call of the acauã, a bird taken as an omen of drought, and the memory of the cangaço, with figures like Corisco, bring together images of a sertão of violence, belief and scarcity. Art revisits them to understand where the people come from, without turning them into folklore frozen in time.",
+   "ia": false
+  },
+  "00v8bzfSReQNPbJz60oBpd": {
+   "pt": "Pelo título, a faixa toca num tema que atravessa o Nordeste: a relação entre o campo e a cidade, entre quem partiu em busca de trabalho e quem ficou. A migração marcou famílias inteiras e continua moldando o país.",
+   "en": "As the title suggests, the track touches on a theme that runs through the Northeast: the relationship between countryside and city, between those who left in search of work and those who stayed. Migration marked entire families and still shapes the country.",
+   "ia": false
+  },
+  "7wayz4a7ffBwG05httClRN": {
+   "pt": "A cantoria de viola vive de memória e de improviso, passada de geração em geração e mantida em festivais, feiras e encontros. Ao nomear dois estados vizinhos, a faixa lembra que essa poesia nasce de um território compartilhado.",
+   "en": "Cantoria de viola lives on memory and improvisation, passed down through generations and kept alive in festivals, markets and gatherings. By naming two neighboring states, the track reminds us that this poetry is born of a shared territory.",
+   "ia": false
+  },
+  "5wyA6DTX4Urp7c4Cw9RfyZ": {
+   "pt": "O título junta memória familiar e fé popular. As novenas, comuns no interior do Nordeste, reúnem reza, música e comunidade, e são uma das formas de a tradição passar de pais para filhos.",
+   "en": "The title joins family memory and popular faith. Novenas, common in the interior of the Northeast, bring together prayer, music and community, and are one of the ways tradition passes from parents to children.",
+   "ia": false
+  },
+  "3wVO217tRr3V0snOgU34Mp": {
+   "pt": "O improviso é a base de boa parte da música nordestina, da cantoria ao repente. Criar na hora exige domínio de métrica, rima e repertório: um conhecimento que não está nos livros, e sim na prática e na escuta.",
+   "en": "Improvisation is the foundation of much Northeastern music, from cantoria to repente. Creating on the spot takes command of meter, rhyme and repertoire: knowledge that is not in books but in practice and listening.",
+   "ia": false
+  },
+  "0JRz3ql244iRek1JJmc733": {
+   "pt": "O martelo agalopado é uma das formas poéticas da cantoria, de ritmo galopante e rimas rigorosas. Conhecê-lo é entrar numa tradição de poetas muitas vezes sem escolaridade formal, mas de domínio refinado da palavra.",
+   "en": "The martelo agalopado is one of the poetic forms of cantoria, with a galloping rhythm and strict rhymes. Getting to know it means entering a tradition of poets often without formal schooling but with a refined mastery of words.",
+   "ia": false
+  },
+  "2UVgmpwAmIecxDTdPZM2UU": {
+   "pt": "O aboio é um canto sem palavras fixas, que conduz o gado e atravessa a distância do pasto. Ouvi-lo hoje é lembrar de um modo de vida ligado ao campo, à criação extensiva e ao conhecimento do clima.",
+   "en": "The aboio is a chant without fixed words that leads the cattle and carries across the distance of the pasture. Hearing it today recalls a way of life tied to the countryside, extensive cattle raising and knowledge of the weather.",
+   "ia": false
+  },
+  "64hIF7AtHxSsGf54ki6mzu": {
+   "pt": "O pífano é uma flauta de taquara, feita à mão, tradicional nas bandas populares do interior. Mestres como Zabé foram reconhecidos já em idade avançada, o que lembra quanto saber da cultura popular ainda circula fora dos holofotes.",
+   "en": "The pífano is a bamboo flute, handmade, traditional in the popular bands of the interior. Masters like Zabé were recognized only late in life, a reminder of how much popular-culture knowledge still circulates outside the spotlight.",
+   "ia": false
+  },
+  "31uwjKEzfQ8h9IHXARtuLn": {
+   "pt": "Composta por Luiz Gonzaga e Humberto Teixeira em 1947, “Asa Branca” retrata a seca que expulsa o sertanejo da terra e a esperança de voltar quando a chuva chegar. Virou um hino da migração nordestina e ainda fala de água, terra e permanência.",
+   "en": "Written by Luiz Gonzaga and Humberto Teixeira in 1947, “Asa Branca” portrays the drought that drives the sertanejo from the land and the hope of returning when the rain comes. It became an anthem of Northeastern migration and still speaks of water, land and staying.",
+   "ia": false
+  },
+  "0yXC4QavzL2tzQeQ5GGLfw": {
+   "pt": "Duas canções de Luiz Gonzaga e Humberto Teixeira reinterpretadas por Carlos Malta e o Pife Muderno. “Asa Branca”, de 1947, é o retrato da seca que expulsa o sertanejo e da esperança de voltar com a chuva, uma história de migração que segue atual.",
+   "en": "Two songs by Luiz Gonzaga and Humberto Teixeira reinterpreted by Carlos Malta and Pife Muderno. “Asa Branca,” from 1947, portrays the drought that drives the sertanejo away and the hope of returning with the rain, a story of migration that remains current.",
+   "ia": false
+  },
+  "38mamthWhdtUd1KxB8QL9O": {
+   "pt": "Parceria de Dominguinhos e Gilberto Gil, a canção retrata o recolhimento e a solidão de um sertanejo. Toca na identidade de quem carrega o sertão consigo, e no modo como o interior, tantas vezes visto de fora, fala de si.",
+   "en": "A collaboration between Dominguinhos and Gilberto Gil, the song portrays the withdrawn, solitary side of a sertanejo. It touches on the identity of those who carry the sertão with them, and on how the interior, so often seen from outside, speaks for itself.",
+   "ia": false
+  },
+  "6YnDG1XE5RvomBuC0jvcml": {
+   "pt": "Canção de protesto de Jatobá que denuncia a derrubada de árvores. É um dos retratos mais conhecidos da questão ambiental no sertão: a caatinga, bioma exclusivamente brasileiro, sofre com desmatamento e risco de desertificação.",
+   "en": "A protest song by Jatobá that denounces the felling of trees. It is one of the best-known portraits of the environmental issue in the sertão: the caatinga, a biome found only in Brazil, suffers from deforestation and the risk of desertification.",
+   "ia": false
+  },
+  "7KrFsnTglV3tzvGqGCd9qw": {
+   "pt": "Petrolina (PE) e Juazeiro (BA) são cidades irmãs, uma de cada lado do rio São Francisco, unidas pela vida às margens do Velho Chico. A irrigação transformou a região num polo de fruticultura, mas o rio, essencial no semiárido, pede cuidado constante.",
+   "en": "Petrolina (PE) and Juazeiro (BA) are sister cities, one on each bank of the São Francisco River, joined by life along the Velho Chico. Irrigation turned the region into a fruit-growing hub, but the river, essential in the semi-arid, needs constant care.",
+   "ia": false
+  },
+  "6o7a05pKZlOkLBccnBy0Q2": {
+   "pt": "Pelo título, a faixa retoma o cangaço, fenômeno dos bandos armados do sertão que durou até o início dos anos 1940. Entre o mito e a história, é um tema que a arte revisita para falar de violência, miséria e poder no interior do Nordeste.",
+   "en": "As the title suggests, the track revisits the cangaço, the phenomenon of armed bands in the sertão that lasted until the early 1940s. Between myth and history, it is a theme art returns to in order to speak of violence, poverty and power in the interior of the Northeast.",
+   "ia": false
+  },
+  "4e3gqKaNCli04IBlgFmZDC": {
+   "pt": "A faixa dá nome ao álbum de 2012 que a banda fez com o sitarista Alberto Marsicano, lançado junto com um livro de fotografias, o Nordeste Desvelado. O projeto olha para a religiosidade e a cultura popular da região, o Nordeste menos visível, fora dos clichês.",
+   "en": "The track gives its name to the 2012 album the band made with sitar player Alberto Marsicano, released with a photography book, Nordeste Desvelado. The project looks at the religiosity and popular culture of the region, the less visible Northeast, beyond the clichés.",
+   "ia": false
+  },
+  "3onRYleuf1rkOMQ1DpuefG": {
+   "pt": "Canção de protesto que denuncia a devastação da floresta amazônica. Mostra como a música nordestina também olha para o país inteiro, e como as questões ambientais ligam o sertão à floresta.",
+   "en": "A protest song that denounces the devastation of the Amazon rainforest. It shows that Northeastern music also looks at the whole country, and how environmental issues connect the sertão to the forest.",
+   "ia": false
+  },
+  "6IHeE8C2uzklODzGJ5vJt1": {
+   "pt": "O Auto da Catingueira, de Elomar, remete a Inácio da Catingueira, cantador paraibano que nasceu escravizado e virou lenda do repente. A história lembra que a cantoria também foi espaço de afirmação de pessoas negras num país escravista.",
+   "en": "Elomar’s Auto da Catingueira refers to Inácio da Catingueira, a singer from Paraíba who was born enslaved and became a legend of repente. The story reminds us that cantoria was also a space of affirmation for Black people in a slaveholding country.",
+   "ia": false
+  },
+  "3V792UXdldiAIBTJBf12ii": {
+   "pt": "Canção de protesto de Jatobá que denuncia a derrubada de árvores. É um dos retratos mais conhecidos da questão ambiental no sertão: a caatinga, bioma exclusivamente brasileiro, sofre com desmatamento e risco de desertificação.",
+   "en": "A protest song by Jatobá that denounces the felling of trees. It is one of the best-known portraits of the environmental issue in the sertão: the caatinga, a biome found only in Brazil, suffers from deforestation and the risk of desertification.",
+   "ia": false
+  },
+  "5AH4URhuNZDXLYDW0ijh6L": {
+   "pt": "Pelo título, a faixa remete à jurema, planta do sertão que dá nome a uma tradição religiosa de origem indígena, ligada ao catimbó e a cantos de encantaria. É um universo espiritual que sobreviveu a séculos de preconceito.",
+   "en": "As the title suggests, the track points to jurema, a plant of the sertão that gives its name to a religious tradition of Indigenous origin, linked to catimbó and to songs of encantaria. It is a spiritual world that has survived centuries of prejudice.",
+   "ia": false
+  },
+  "2xEPX0ouSgFhKXSOfPYELf": {
+   "pt": "O desafio é o momento mais aguardado da cantoria: dois cantadores trocam versos, cada um respondendo ao outro na mesma métrica e rima. É esporte, arte e conversa ao mesmo tempo.",
+   "en": "The desafio is the most anticipated moment of a cantoria: two singers trade verses, each answering the other in the same meter and rhyme. It is sport, art and conversation all at once.",
+   "ia": false
+  },
+  "1l1vjCNXa46Z6Nj6ShXNKw": {
+   "pt": "Imaginar um Nordeste independente é um tema clássico do repente e da canção, e convida a pensar em autonomia, desigualdade regional e orgulho cultural. O mote decassílabo é o verso-tema sobre o qual os cantadores constroem as estrofes.",
+   "en": "Imagining an independent Northeast is a classic theme of repente and song, and invites us to think about autonomy, regional inequality and cultural pride. The decasyllabic mote is the theme-verse on which the singers build their stanzas.",
+   "ia": false
+  },
+  "2Xt1EQ8zNlIsSZQWwRh80D": {
+   "pt": "O título é um ditado popular sobre destino e ofício. Na história do grupo, ele fala também de trabalho, deficiência e dignidade, num país em que artistas populares nem sempre tiveram acesso a direitos e reconhecimento.",
+   "en": "The title is a popular saying about destiny and trade. In the group’s story it also speaks of work, disability and dignity, in a country where popular artists did not always have access to rights and recognition.",
+   "ia": false
+  },
+  "5akZURoD4WDkdh6ElAcwJX": {
+   "pt": "O xiquexique é um cacto da caatinga que guarda água e sustenta bichos e gente nos tempos de seca. O nome evoca a resistência de uma vegetação que sabe viver com pouco, e a riqueza de um bioma muitas vezes visto só pela escassez.",
+   "en": "The xiquexique is a cactus of the caatinga that stores water and sustains animals and people in times of drought. The name evokes the resilience of vegetation that knows how to live on little, and the richness of a biome often seen only through scarcity.",
+   "ia": false
+  },
+  "7HTo4eAHMq8cjhwcsQaM4C": {
+   "pt": "As festas juninas são a grande celebração popular do Nordeste: fogueira, quadrilha, comida de milho, sanfona e forró. Mais que folclore, movimentam a economia, o turismo e os laços de comunidade.",
+   "en": "The festas juninas are the great popular celebration of the Northeast: bonfire, quadrilha dance, corn-based food, accordion and forró. More than folklore, they drive the economy, tourism and community bonds.",
+   "ia": false
+  },
+  "0V7iPl67ctA3MioAzO2ae5": {
+   "pt": "Parceria de Luiz Gonzaga e Zé Dantas, a canção acompanha o despertar da adolescência de uma menina, com humor e delicadeza. Mostra como o forró levou ao rádio a vida do interior, inclusive seus afetos.",
+   "en": "A collaboration between Luiz Gonzaga and Zé Dantas, the song follows a girl’s awakening into adolescence, with humor and tenderness. It shows how forró brought life in the interior, including its affections, to the radio.",
+   "ia": false
+  },
+  "1BMVLfQaeSsJagK9dHVHV0": {
+   "pt": "Composta por Luiz Gonzaga e Humberto Teixeira, a canção toma como imagem o assum-preto, pássaro que, numa prática cruel do interior, era cegado para cantar mais. É uma metáfora potente do canto que nasce da dor e da falta de liberdade.",
+   "en": "Written by Luiz Gonzaga and Humberto Teixeira, the song takes as its image the assum-preto, a bird that, in a cruel practice of the interior, was blinded so that it would sing more. It is a powerful metaphor for song born of pain and lack of freedom.",
+   "ia": false
+  },
+  "4HH7tAjimHWnlLJZDFYQQ1": {
+   "pt": "Composta por Luiz Gonzaga e Humberto Teixeira em 1947, “Asa Branca” retrata a seca que expulsa o sertanejo da terra e a esperança de voltar quando a chuva chegar. Virou um hino da migração nordestina e ainda fala de água, terra e permanência.",
+   "en": "Written by Luiz Gonzaga and Humberto Teixeira in 1947, “Asa Branca” portrays the drought that drives the sertanejo from the land and the hope of returning when the rain comes. It became an anthem of Northeastern migration and still speaks of water, land and staying.",
+   "ia": false
+  }
+ }
+}
