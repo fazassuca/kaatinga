@@ -120,12 +120,15 @@ body.tv .cred:not(:empty){padding:6px 10px;border-radius:8px;background:rgba(0,0
 body.tv.quieto .txt{opacity:.18}
 body.tv.quieto .a11y{opacity:0;pointer-events:none}
 body.tv.quieto{cursor:none}
+.lb .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:14px 10px;margin:4px 0 10px}
+.lb .nums .sub{grid-column:1/-1;margin-top:6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.lb .nums b{display:block;font-size:clamp(26px,4vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.lb .nums span{display:block;margin-top:4px;font-size:12px;line-height:1.3;color:var(--mute)}
 /* ===== Linguagem visual: oliva + coral, sol de raios afilados, tipografia larga, grão de papel ===== */
 :root{--coral:#f07f7b}
 .art{background:var(--art)}
 .art .img{display:none}
-.art .photo{inset:clamp(10px,2vw,22px);border-radius:3px}
-body.tv .art .photo{inset:0;border-radius:0}
+.art .photo{inset:0}
 .sol{position:absolute;inset:0;width:100%;height:100%;color:var(--coral);animation:giro 240s linear infinite}
 @keyframes giro{to{transform:rotate(360deg)}}
 :root[data-movimento="reduzido"] .sol{animation:none}
@@ -191,7 +194,6 @@ body::after{content:"";position:fixed;inset:0;z-index:25;pointer-events:none;opa
         <button class="btn" id="pp" aria-label="Tocar"></button>
         <div class="bar"><i id="prog"></i></div>
         <button class="btn" id="next" aria-label="Próxima"><svg viewBox="0 0 24 24"><path d="M6 5l9 7-9 7V5zm11 0h2v14h-2V5z"/></svg></button>
-        <button class="btn sm" id="ord" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg></button>
         <button class="btn sm" id="fs" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg></button>
       </div>
       <div class="sp"><div id="embed"></div></div>
@@ -306,6 +308,8 @@ var FAIXAS = [
 ["Matança","Xangai","Qué Qui Tu Tem Canário","6YnDG1XE5RvomBuC0jvcml","1fCdub35SOEgPYVfSrYTI6"],
 ["Astronauta","Os Nonatos","","1l35fhxjWXsjmknWdsB3tw","7vtM3rPmMIVLewega85WaC"]
 ];
+/* Lista de reserva (a oficial vem de faixas.json). CHAVE guarda o título original de cada faixa, usado para achar textos e contextos. */
+var CHAVE={};FAIXAS.forEach(function(r){CHAVE[r[3]]=r[0]});
 
 var TEXTOS = {
 "Quinteto Violado":"Formado em Recife no início dos anos 1970, o Quinteto Violado mistura baião, xote, cantoria e música instrumental em arranjos que dão destaque à viola, aos sopros e à percussão. Foi um dos grupos que levaram a música popular do sertão aos palcos com rigor de orquestra e alma de feira.",
@@ -409,16 +413,19 @@ var IDIOMAS={pt:"PT",en:"EN"};
 var UI={
 pt:{album:"Álbum",faixaDo:"Faixa do álbum",letra:"Ver a letra",spotify:"Artista no Spotify",mais:"Saiba mais",sobre:"Sobre a canção",tocar:"Tocar",pausar:"Pausar",prox:"Próxima",
  lb1:"Uma galeria sonora com música do Nordeste do Brasil, reunida a partir de uma pesquisa. A cada faixa, uma imagem, um texto e uma pista para ir mais fundo.",
- lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria",acess:"Acessibilidade",tema:"Tema",auto:"Automático",dia:"Dia",noite:"Noite",texto:"Tamanho do texto",contraste:"Alto contraste",movimento:"Menos movimento",leitura:"Leitura facilitada",mais2:"Mais opções",img:"Imagem",alea:"Ordem aleatória",tela:"Tela cheia",sair:"Sair da tela cheia",inst:"Adicionar à tela inicial",sobre2:"Sobre o projeto",fechar:"Fechar",voltar:"Voltar à galeria",compart:"Compartilhar",agora:"Tocando agora",shsite:"Compartilhar o site",shfaixa:"Compartilhar esta música",shspot:"Abrir no Spotify",copiado:"Link copiado!",abriu:"Faixa compartilhada com você:",shtxtsite:"Galeria Sonora do Nordeste: música e imagem do Nordeste do Brasil.",instios:"No iPhone ou iPad: toque em Compartilhar (o quadrado com seta) e escolha “Adicionar à Tela de Início”.",instand:"No navegador: abra o menu (⋮ ou o ícone de instalar) e escolha “Instalar app” ou “Adicionar à tela inicial”.",lbhtml:`<p class="lead">Este projeto nasce de um experimento: associar som e imagem numa experiência sensorial do que é crescer, viver, amadurecer e conviver nos nove estados do Nordeste do Brasil.</p>
+ lb2:"Para ouvir as músicas inteiras, entre na sua conta do Spotify. Sem login, você escuta apenas trechos de 30 segundos. Se acabou de entrar, recarregue esta página.",spot:"Entrar no Spotify",gal:"Entrar na galeria",acess:"Acessibilidade",tema:"Tema",auto:"Automático",dia:"Dia",noite:"Noite",texto:"Tamanho do texto",contraste:"Alto contraste",movimento:"Menos movimento",leitura:"Leitura facilitada",mais2:"Mais opções",img:"Imagem",alea:"Ordem aleatória",tela:"Tela cheia",sair:"Sair da tela cheia",inst:"Adicionar à tela inicial",sobre2:"Sobre o projeto",fechar:"Fechar",voltar:"Voltar à galeria",compart:"Compartilhar",agora:"Tocando agora",shsite:"Compartilhar o site",shfaixa:"Compartilhar esta música",shspot:"Abrir no Spotify",copiado:"Link copiado!",abriu:"Faixa compartilhada com você:",stp:"Playlist",stg:"Galeria",n_faixas:"faixas",n_artistas:"artistas",n_horas:"de música",n_estados:"estados do Nordeste",n_estilos:"estilos musicais",n_imgs:"imagens",n_vids:"vídeos",n_aut:"autores",n_gest:"estados",stnota:"O + indica o mínimo já catalogado; os números crescem com a pesquisa.",shtxtsite:"Galeria Sonora do Nordeste: música e imagem do Nordeste do Brasil.",instios:"No iPhone ou iPad: toque em Compartilhar (o quadrado com seta) e escolha “Adicionar à Tela de Início”.",instand:"No navegador: abra o menu (⋮ ou o ícone de instalar) e escolha “Instalar app” ou “Adicionar à tela inicial”.",lbhtml:`<p class="lead">Este projeto nasce de um experimento: associar som e imagem numa experiência sensorial do que é crescer, viver, amadurecer e conviver nos nove estados do Nordeste do Brasil.</p>
 <p>A Galeria Sonora do Nordeste está em constante crescimento, trazendo novos sons e imagens. De um lado, uma playlist imersiva e diversa em tantas manifestações musicais; ao lado, uma galeria de imagens (fotos, designs, ilustrações, vídeos e mais) que conecta a experiência do que foi, do que é e do que sempre se transformará: o Nordeste do Brasil.</p>
 <p>É uma região que sofre com preconceitos, boicotes, eugenismos e desconstruções vindas de outras regiões do país, historicamente colocada abaixo por sua grande miscigenação de raças e culturas. Uma referência para pensar isso é o livro <em>Só sei que foi assim</em>, de Octávio Santiago.</p>
 <p>Este projeto é sobre pluralidade, sensorialidade e memória.</p>
 <h3>A playlist</h3>
 <p>A playlist <em>ka’atinga</em> reúne {n} faixas, do baião e do forró à cantoria de viola, dos pífanos e rabecas ao manguebeat e à canção contemporânea, de mestres da tradição oral a artistas de hoje. Junto de cada faixa, você encontra textos sobre o artista e, sempre que possível, sobre a canção.</p>
+<h3>Em números</h3>
+<div class="nums" id="stats"></div>
+<p class="mute" id="stnota"></p>
 <h3>Como funciona</h3>
 <ul>
 <li>Toque o play. Para ouvir as faixas inteiras, entre no Spotify; sem login, são trechos de 30 segundos. Se acabou de entrar, recarregue a página.</li>
-<li>Use Próxima e o botão de ordem para alternar entre a ordem da playlist e a ordem aleatória.</li>
+<li>As músicas tocam em ordem aleatória: use Próxima para ir para outra.</li>
 <li>As imagens passam sozinhas, sem se repetir, enquanto a música toca.</li>
 <li>A tela cheia deixa só as imagens, com as informações mínimas embaixo, para ficar de fundo em casa ou numa festa.</li>
 <li>O botão Aa muda o tema (dia ou noite), o tamanho do texto e outros recursos de acessibilidade.</li>
@@ -428,16 +435,19 @@ pt:{album:"Álbum",faixaDo:"Faixa do álbum",letra:"Ver a letra",spotify:"Artist
 <p>As imagens citam seus respectivos autores. Se você não quiser que sua imagem seja associada ao projeto, entre em contato pelo Instagram <a href="https://instagram.com/galeriasonoranordeste" target="_blank" rel="noopener">@galeriasonoranordeste</a>.</p>`},
 en:{album:"Album",faixaDo:"Track from the album",letra:"See the lyrics",spotify:"Artist on Spotify",mais:"Learn more",sobre:"About the song",tocar:"Play",pausar:"Pause",prox:"Next",
  lb1:"A sound gallery of music from Northeast Brazil, gathered from a research project. For each track, an image, a text and a clue to go deeper.",
- lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery",acess:"Accessibility",tema:"Theme",auto:"Auto",dia:"Day",noite:"Night",texto:"Text size",contraste:"High contrast",movimento:"Reduce motion",leitura:"Easy reading",mais2:"More options",img:"Image",alea:"Shuffle",tela:"Full screen",sair:"Exit full screen",inst:"Add to home screen",sobre2:"About the project",fechar:"Close",voltar:"Back to the gallery",compart:"Share",agora:"Now playing",shsite:"Share the site",shfaixa:"Share this track",shspot:"Open on Spotify",copiado:"Link copied!",abriu:"Track shared with you:",shtxtsite:"Galeria Sonora do Nordeste: music and images from Northeast Brazil.",instios:"On iPhone or iPad: tap Share (the square with an arrow) and choose “Add to Home Screen”.",instand:"In your browser: open the menu (⋮ or the install icon) and choose “Install app” or “Add to home screen”.",lbhtml:`<p class="lead">This project began as an experiment: tying sound to image in a sensory experience of growing up, living, maturing and living together across the nine states of Northeast Brazil.</p>
+ lb2:"To hear full tracks, log in to your Spotify account. Without logging in, you only hear 30-second previews. If you just logged in, reload this page.",spot:"Log in to Spotify",gal:"Enter the gallery",acess:"Accessibility",tema:"Theme",auto:"Auto",dia:"Day",noite:"Night",texto:"Text size",contraste:"High contrast",movimento:"Reduce motion",leitura:"Easy reading",mais2:"More options",img:"Image",alea:"Shuffle",tela:"Full screen",sair:"Exit full screen",inst:"Add to home screen",sobre2:"About the project",fechar:"Close",voltar:"Back to the gallery",compart:"Share",agora:"Now playing",shsite:"Share the site",shfaixa:"Share this track",shspot:"Open on Spotify",copiado:"Link copied!",abriu:"Track shared with you:",stp:"Playlist",stg:"Gallery",n_faixas:"tracks",n_artistas:"artists",n_horas:"of music",n_estados:"Northeast states",n_estilos:"musical styles",n_imgs:"images",n_vids:"videos",n_aut:"authors",n_gest:"states",stnota:"“+” marks the minimum catalogued so far; the numbers grow with the research.",shtxtsite:"Galeria Sonora do Nordeste: music and images from Northeast Brazil.",instios:"On iPhone or iPad: tap Share (the square with an arrow) and choose “Add to Home Screen”.",instand:"In your browser: open the menu (⋮ or the install icon) and choose “Install app” or “Add to home screen”.",lbhtml:`<p class="lead">This project began as an experiment: tying sound to image in a sensory experience of growing up, living, maturing and living together across the nine states of Northeast Brazil.</p>
 <p>The Galeria Sonora do Nordeste (Northeast Sound Gallery) is constantly growing, bringing new sounds and images. On one side, an immersive playlist, diverse in so many musical expressions; beside it, a gallery of images (photos, designs, illustrations, videos and more) that connects the experience of what was, what is and what will always transform: Northeast Brazil.</p>
 <p>It is a region that suffers prejudice, boycotts, eugenicist views and dismantling coming from other regions of the country, historically placed below because of its great mixing of races and cultures. One reference for thinking about this is the book <em>Só sei que foi assim</em>, by Octávio Santiago.</p>
 <p>This project is about plurality, sensoriality and memory.</p>
 <h3>The playlist</h3>
 <p>The <em>ka’atinga</em> playlist brings together {n} tracks, from baião and forró to cantoria de viola, from pífanos and rabecas to manguebeat and contemporary song, from masters of the oral tradition to today’s artists. Alongside each track you will find texts about the artist and, whenever possible, about the song.</p>
+<h3>By the numbers</h3>
+<div class="nums" id="stats"></div>
+<p class="mute" id="stnota"></p>
 <h3>How it works</h3>
 <ul>
 <li>Press play. To hear full tracks, log in to Spotify; without logging in, you only hear 30-second previews. If you just logged in, reload the page.</li>
-<li>Use Next and the order button to switch between playlist order and shuffle.</li>
+<li>Tracks play in random order: use Next to jump to another.</li>
 <li>Images change on their own, without repeating, while the music plays.</li>
 <li>Full screen leaves only the images, with minimal information at the bottom, to run in the background at home or at a party.</li>
 <li>The Aa button changes the theme (day or night), the text size and other accessibility features.</li>
@@ -519,7 +529,7 @@ var LANG="en";
   if(!IDIOMAS[l])l=(navigator.language||"en").slice(0,2).toLowerCase();
   LANG=IDIOMAS[l]?l:"en"})();
 function T(k){return (UI[LANG]&&UI[LANG][k])||UI.en[k]}
-function tx(base,i18n,k){return (LANG!=="pt"&&((i18n[LANG]&&i18n[LANG][k])||(i18n.en&&i18n.en[k])))||base[k]||""}
+function tx(base,i18n,k){return (LANG!=="pt"&&(acha(i18n[LANG]||{},k)||acha(i18n.en||{},k)))||acha(base,k)||""}
 function desenhaLangs(){
   ["langs","lblangs"].forEach(function(id){
     var c=$(id);c.innerHTML="";
@@ -533,7 +543,7 @@ function desenhaLangs(){
 }
 function aplica(){
   document.documentElement.lang=LANG;
-  $("lbtxt").innerHTML=T("lbhtml").replace("{n}",FAIXAS.length);$("inst").textContent=T("inst");$("sobreb").setAttribute("aria-label",T("sobre2"));icOrd();icTV();
+  $("lbtxt").innerHTML=T("lbhtml").replace("{n}",FAIXAS.length);$("inst").textContent=T("inst");$("sobreb").setAttribute("aria-label",T("sobre2"));icTV();pintaStats();
   $("lbspot").textContent=T("spot");rotuloLB();$("lbx").setAttribute("aria-label",T("fechar"));$("shh").textContent=T("compart");$("shsite").textContent=T("shsite");$("shfaixa").textContent=T("shfaixa");$("shspot").textContent=T("shspot");$("lbdeep").hidden=!deep;if(deep)$("lbdeep").textContent=T("abriu")+" "+FAIXAS[deepI][0]+" — "+FAIXAS[deepI][1];$("ctxh").textContent=T("sobre");
   $("next").setAttribute("aria-label",T("prox"));
   desenhaLangs();pinta();icone();mostra(i,false,true);
@@ -641,8 +651,8 @@ function mostra(n,fade,sem){
     $("shtrack").textContent=T("agora")+": "+f[0]+" — "+f[1];$("shspot").href="https://open.spotify.com/track/"+f[3];
     $("meta").textContent=f[2]?T("album")+": "+f[2]:"";
     $("texto").textContent=tx(TEXTOS,TEXTOS_I18N,chave)||(f[2]?T("faixaDo")+" “"+f[2]+"”.":"");
-    var tr=TRECHOS[f[0]];$("trecho").style.display=tr?"":"none";if(tr){$("trechot").textContent="“"+tr+"”";$("trechoc").textContent="— "+chave+", “"+f[0]+"”"}
-    var ct=tx(CONTEXTO,CONTEXTO_I18N,f[0]);$("ctxw").style.display=ct?"":"none";$("ctx").textContent=ct||"";
+    var kt=CHAVE[f[3]]||f[0],tr=acha(TRECHOS,kt);$("trecho").style.display=tr?"":"none";if(tr){$("trechot").textContent="“"+tr+"”";$("trechoc").textContent="— "+chave+", “"+f[0]+"”"}
+    var ct=tx(CONTEXTO,CONTEXTO_I18N,kt);$("ctxw").style.display=ct?"":"none";$("ctx").textContent=ct||"";
     var q=encodeURIComponent(f[0].split(" / ")[0]+" "+chave),A=' target="_blank" rel="noopener"';
     $("links").innerHTML=(tr?"":'<a href="https://www.letras.mus.br/?q='+q+'"'+A+'>'+T("letra")+'</a>')+
       '<a href="https://open.spotify.com/artist/'+f[4]+'"'+A+'>'+T("spotify")+'</a>'+
@@ -731,8 +741,7 @@ $("a11yp").onclick=function(e){
 try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",aplicaPref)}catch(e){}
 
 /* ===== ORDEM, TELA CHEIA E APP ===== */
-var aleatorio=false,hist=[],bolsa=[],tv=false,idleT=null,wake=null,adiar=null;
-try{aleatorio=localStorage.getItem("ko")==="1"}catch(e){}
+var aleatorio=true,hist=[],bolsa=[],tv=false,idleT=null,wake=null,adiar=null;
 function prox(){
   hist.push(i);if(hist.length>200)hist.shift();
   var n;
@@ -743,8 +752,6 @@ function prox(){
   vai(n,true);
 }
 function ant(){vai(hist.length?hist.pop():i-1,true)}
-function icOrd(){var b=$("ord");b.setAttribute("aria-pressed",aleatorio);b.setAttribute("aria-label",T("alea"));b.title=T("alea")}
-$("ord").onclick=function(){aleatorio=!aleatorio;bolsa=[];try{localStorage.setItem("ko",aleatorio?"1":"0")}catch(e){}icOrd()};
 
 function icTV(){var b=$("fs");b.setAttribute("aria-pressed",tv);b.setAttribute("aria-label",T(tv?"sair":"tela"));b.title=T(tv?"sair":"tela")}
 function acorda(){
@@ -779,6 +786,77 @@ $("inst").onclick=function(){
 };
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
 
+/* ===== DADOS DA PLAYLIST E DA GALERIA ===== */
+var UFS_NE=["MA","PI","CE","RN","PB","PE","AL","SE","BA"],PERFIL_COMPLETO=false,stTok=0;
+/* PERFIL: artista → "UF|estilo/estilo". Em preenchimento: os totais com "+" contam só o que já está catalogado.
+   Quando todos os artistas da playlist estiverem aqui, troque PERFIL_COMPLETO para true e o "+" some. */
+var PERFIL={
+"Quinteto Violado":"PE|baião","Quinteto Armorial":"PE|música armorial","Marinês":"PE|forró/xaxado","Luiz Gonzaga":"PE|baião/forró",
+"Jackson do Pandeiro":"PB|coco/forró","Sivuca":"PB|baião/música instrumental","Mestre Luiz Paixão":"PE|rabeca/forró","Zabé da Loca":"PB|pífano",
+"Banda de Pífanos de Caruaru":"PE|pífano","Edmilson do Pífano":"|pífano","Carlos Malta":"|pífano","Amelinha":"CE|frevo/MPB","Alceu Valença":"PE|MPB/frevo",
+"Lenine":"PE|MPB","Chico César":"PB|MPB","Geraldo Azevedo":"PE|MPB","Cátia de França":"PB|MPB","João do Vale":"MA|MPB/baião","Elomar":"BA|canção sertaneja",
+"Xangai":"BA|canção sertaneja","Vital Farias":"PB|MPB","Mestre Ambrósio":"PE|manguebeat","Cabruêra":"PB|coco/ciranda/maracatu","Socorro Lira":"PB|ciranda",
+"Cirandeiras de Caiana dos Crioulos":"PB|ciranda","Heraldo do Monte":"PE|música instrumental","Antônio Nóbrega":"PE|","Ceguinhas de Campina Grande":"PB|",
+"Tom Zé":"BA|música experimental","Oliveira de Panelas":"PE|cantoria de viola","Ivanildo Vila Nova":"PE|cantoria de viola","Moacir Laurentino":"|cantoria de viola",
+"Sebastião da Silva":"|cantoria de viola","Andorinha":"|cantoria de viola","Sebastião Marinho":"|cantoria de viola","Louro Branco":"|cantoria de viola",
+"Valdir Teles":"|cantoria de viola","União dos Artistas da Terra da Mãe de Deus":"|reisado e guerreiro"
+};
+function acha(o,k){if(o[k]!==undefined)return o[k];var n=nz(k);for(var x in o)if(nz(x)===n)return o[x];return undefined}
+function resumoPlaylist(){
+  var arts={},ufs={},est={},seg=0;
+  FAIXAS.forEach(function(f){
+    seg+=+f[5]||0;
+    f[1].split(", ").forEach(function(n){
+      arts[nz(n)]=1;
+      var pf=acha(PERFIL,n);if(!pf)return;
+      var a=pf.split("|");if(a[0])ufs[a[0]]=1;
+      (a[1]||"").split("/").forEach(function(e){if(e)est[e]=1});
+    });
+  });
+  return {n:FAIXAS.length,art:Object.keys(arts).length,uf:Object.keys(ufs).length,est:Object.keys(est).length,seg:seg};
+}
+/* Galeria: conta imagens e vídeos; autores e estados só aparecem se os títulos seguirem o padrão "Nome do autor (UF)" */
+function resumoGaleria(p){
+  var im=0,vd=0,aut={},uf={};
+  p.forEach(function(x){
+    if(x.video||ehVideo(x.src))vd++;else im++;
+    var c=(x.cred||"").trim(),m=c.match(/\(([A-Za-z]{2})\)\s*$/),u=m&&m[1].toUpperCase();
+    if(u&&UFS_NE.indexOf(u)>-1){uf[u]=1;aut[nz(c.replace(/\s*\([A-Za-z]{2}\)\s*$/,""))]=1}
+  });
+  return {im:im,vd:vd,aut:Object.keys(aut).length,uf:Object.keys(uf).length};
+}
+function celula(v,k){return '<div><b>'+v+'</b><span>'+T(k)+'</span></div>'}
+function pintaStats(){
+  var box=$("stats");if(!box)return;
+  var tk=++stTok,s=resumoPlaylist(),mais=PERFIL_COMPLETO?"":"+",min=Math.round(s.seg/60),
+      html='<div class="sub">'+T("stp")+'</div>'+celula(s.n,"n_faixas")+celula(s.art,"n_artistas");
+  if(s.seg>0)html+=celula(Math.floor(min/60)+"h"+("0"+min%60).slice(-2),"n_horas");
+  html+=celula(s.uf+mais,"n_estados")+celula(s.est+mais,"n_estilos");
+  box.innerHTML=html;$("stnota").textContent=PERFIL_COMPLETO?"":T("stnota");
+  montaPool().then(function(p){
+    var g=resumoGaleria(p);if(tk!==stTok||(!g.im&&!g.vd))return;
+    var h2='<div class="sub">'+T("stg")+'</div>'+celula(g.im,"n_imgs")+celula(g.vd,"n_vids");
+    if(g.uf>0)h2+=celula(g.aut,"n_aut")+celula(g.uf,"n_gest");
+    box.insertAdjacentHTML("beforeend",h2);
+  });
+}
+/* A lista oficial fica em faixas.json (linhas: título, artistas, álbum, id da faixa, id do 1º artista, duração em segundos).
+   Para atualizar a playlist basta trocar esse arquivo: à mão, por mim, ou automaticamente pelo GitHub Actions (veja o LEIA-ME). */
+function carregaFaixas(){
+  var tempo=new Promise(function(_,rej){setTimeout(rej,3500)});
+  return Promise.race([fetch("faixas.json",{cache:"no-cache"}).then(function(r){if(!r.ok)throw 0;return r.json()}),tempo])
+    .then(function(j){if(Array.isArray(j)&&j.length>1){FAIXAS.length=0;j.forEach(function(r){FAIXAS.push(r)})}})
+    .catch(function(){});
+}
+function iniciar(){
+  var hf=(location.hash.match(/[#&]f=([A-Za-z0-9]+)/)||[])[1];
+  i=Math.floor(Math.random()*FAIXAS.length);bolsa=[];hist=[];
+  if(hf)for(var kk=0;kk<FAIXAS.length;kk++)if(FAIXAS[kk][3]===hf){i=kk;deep=true;deepI=kk;break}
+  aplica();ciclo();
+  if(!$("lb").hidden)$("entrar").focus();
+  /* Carrega a API do Spotify só agora, com a lista final e o callback já definidos */
+  var sc=document.createElement("script");sc.src="https://open.spotify.com/embed/iframe-api/v1";sc.async=true;document.head.appendChild(sc);
+}
 /* Sol de raios afilados (como na referência): raios de comprimentos variados saindo de um disco */
 function montaSol(){
   var n=44,r0=140,w=0.06,p="",j;
@@ -815,12 +893,8 @@ function compartilha(url,txt){
 }
 $("shsite").onclick=function(){compartilha(urlBase(),T("shtxtsite"))};
 $("shfaixa").onclick=function(){var f=FAIXAS[i];compartilha(urlBase()+"#f="+f[3],f[0]+" — "+f[1]+" · Galeria Sonora do Nordeste")};
-var hf=(location.hash.match(/[#&]f=([A-Za-z0-9]+)/)||[])[1];
-if(hf)for(var kk=0;kk<FAIXAS.length;kk++)if(FAIXAS[kk][3]===hf){i=kk;deep=true;deepI=kk;break}
-carregaPref();aplicaPref();aplica();montaSol();ciclo();
-if(!$("lb").hidden)$("entrar").focus();
-/* Carrega a API do Spotify só agora, com o callback já definido (evita a corrida que impedia o controle do player). */
-var sc=document.createElement("script");sc.src="https://open.spotify.com/embed/iframe-api/v1";sc.async=true;document.head.appendChild(sc);
+carregaPref();aplicaPref();aplica();montaSol();
+carregaFaixas().then(iniciar);
 </script>
 </body>
 </html>
