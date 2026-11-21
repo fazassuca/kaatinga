@@ -1,0 +1,33 @@
+name: Atualizar playlist
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # todo dia às 03h17 (horário de Brasília)
+  workflow_dispatch:        # permite rodar na mão pela aba Actions
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Ler a playlist no Spotify
+        run: node scripts/atualizar-playlist.mjs
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
+      - name: Salvar se mudou
+        run: |
+          if [ -n "$(git status --porcelain faixas.json)" ]; then
+            git config user.name "github-actions"
+            git config user.email "github-actions@users.noreply.github.com"
+            git add faixas.json
+            git commit -m "Atualiza a playlist a partir do Spotify"
+            git push
+          fi
